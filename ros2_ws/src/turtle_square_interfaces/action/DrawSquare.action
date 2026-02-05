@@ -1,0 +1,9 @@
+# Goal : paramètres pour dessiner le carré
+float32 side_length
+float32 speed
+---
+# Result : état final
+bool success
+---
+# Feedback : progression
+float32 remaining_distance
