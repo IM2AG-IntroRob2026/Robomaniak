@@ -91,10 +91,10 @@ cd ros2_ws
 colcon build --packages-select turtle_fsm_controller
 source install/setup.bash
 ros2 launch turtle_fsm_controller turtle_fsm.launch.py \
-  red_boost_duration:=0.4 \
-  red_event_cooldown:=0.5 \
-  red_reverse_duration:=1.3 \
-  red_turn_duration:=1.4 \
+  red_boost_duration:=0.35 \
+  red_event_cooldown:=0.6 \
+  red_reverse_duration:=0.5 \
+  red_turn_duration:=1.1 \
   boundary_margin:=0.6 \
   boundary_heading_tolerance:=0.5
 ```
@@ -122,7 +122,7 @@ source install/setup.bash
 ros2 service call /spawn turtlesim/srv/Spawn "{x: 1.0, y: 1.0, theta: 0.0, name: turtle2}"
 
 # Stylo rouge epais
-ros2 service call /turtle2/set_pen turtlesim/srv/SetPen "{r: 255, g: 0, b: 0, width: 6, 'off': 0}"
+ros2 service call /turtle2/set_pen turtlesim/srv/SetPen "{r: 255, g: 0, b: 0, width: 15, 'off': 0}"
 
 # Tracer un rectangle (murs rouges)
 ros2 service call /turtle2/teleport_absolute turtlesim/srv/TeleportAbsolute "{x: 10.5, y: 1.0, theta: 0.0}"

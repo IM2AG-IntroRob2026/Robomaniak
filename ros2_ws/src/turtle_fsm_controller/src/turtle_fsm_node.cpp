@@ -75,7 +75,7 @@ TurtleFsmNode::TurtleFsmNode(): Node("turtle_fsm_node")
   // - crée un minuteur timer_
   // - qui appelle control_loop() toutes les 50ms
   // - sur this (le noeud courant)
-  timer_ = create_wall_timer(50ms, std::bind(&TurtleFsmNode::control_loop, this));
+  timer_ = create_wall_timer(10ms, std::bind(&TurtleFsmNode::control_loop, this));
 
   // Etat initial explicite, pour clarifier les logs dès le démarrage.
   state_ = State::WAITING_DATA;

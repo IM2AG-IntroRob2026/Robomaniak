@@ -157,6 +157,7 @@ private:
   double boundary_turn_duration_ = 1.2; // durée de rotation en cas de proximité du bord
   double boundary_escape_duration_ = 0.6; // durée d'avance forcée après rotation de bord
   double boundary_heading_tolerance_ = 0.35; // tolérance d'orientation vers le centre (rad)
+  double escape_speed_factor_ = 1.2; // facteur de vitesse pendant la phase speed (BOUNDARY_ESCAPE)
   double red_reverse_duration_ = 1.0;   // durée de recul en cas de détection de rouge
   double red_turn_duration_ = 1.2;      // durée de rotation en cas de détection de rouge
   double red_boost_duration_ = 0.8;     // durée de boost en cas de détection de rouge

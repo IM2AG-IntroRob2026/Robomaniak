@@ -1,0 +1,10 @@
+float32 margin
+float32 speed
+bool clockwise
+---
+bool success
+float32 perimeter
+string message
+---
+float32 remaining_distance
+uint8 side_index
