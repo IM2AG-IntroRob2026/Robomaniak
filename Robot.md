@@ -37,4 +37,23 @@ https://musescore.com/user/189765/scores/5082403
 http://www.ziggysono.com/pop/convert7.php
 
 ```bash
+ros2 topic pub --once /Robot3/cmd_audio irobot_create_msgs/msg/AudioNoteVector "{append: false, notes: [
+  {frequency: 588, max_runtime: {sec: 0, nanosec: 50000000}},
+  {frequency: 0, max_runtime: {sec: 0, nanosec: 1}},
+  {frequency: 880, max_runtime: {sec: 0, nanosec: 500000000}},
+  {frequency: 0, max_runtime: {sec: 0, nanosec: 1}},
+  {frequency: 880, max_runtime: {sec: 0, nanosec: 500000000}},
+  {frequency: 0, max_runtime: {sec: 0, nanosec: 1}},
+  {frequency: 699, max_runtime: {sec: 0, nanosec: 500000000}},
+  {frequency: 0, max_runtime: {sec: 0, nanosec: 1}},
+  {frequency: 660, max_runtime: {sec: 0, nanosec: 500000000}},
+  {frequency: 0, max_runtime: {sec: 0, nanosec: 1}},
+  {frequency: 660, max_runtime: {sec: 0, nanosec: 500000000}},
+  {frequency: 0, max_runtime: {sec: 0, nanosec: 1}},
+  {frequency: 660, max_runtime: {sec: 0, nanosec: 500000000}},
+  {frequency: 0, max_runtime: {sec: 0, nanosec: 1}},
+  {frequency: 660, max_runtime: {sec: 0, nanosec: 250000000}},
+  {frequency: 0, max_runtime: {sec: 0, nanosec: 1}},
+  {frequency: 699, max_runtime: {sec: 0, nanosec: 250000000}},
+]}"
 ```
