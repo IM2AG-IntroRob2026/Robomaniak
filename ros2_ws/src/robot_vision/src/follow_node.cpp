@@ -30,8 +30,8 @@ public:
         RCLCPP_INFO(this->get_logger(), "FollowNode initialized with strategy '%s', follow_speed=%.2f, follow_distance=%.2f",
             strategy.c_str(), follow_speed, follow_distance);
 
-        human_pub_ = this->create_subscription<std_msgs::msg::Bool>("/detection/human_present", 10);
-        coordinate_pub_ = this->create_subscription<robot_vision::Detection>("/detection/coordinates", 10);
+        human_pub_ = this->create_subscription<std_msgs::msg::Bool>("/detection/human_present", 10, std::bind(&FollowNode::PersonCenter, this, std::placeholders::_1));
+        coordinate_pub_ = this->create_subscription<robot_vision::Detection>("/detection/coordinates", 10, std::bind(&FollowNode::PersonCenter, this, std::placeholders::_1));
         velocity_pub_ = this->create_publisher<geometry_msgs::msg::Twist>("/cmd_vel", 10);
 
     }
