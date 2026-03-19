@@ -110,6 +110,10 @@ private:
         bool_msg.data = human_found;
         human_pub_->publish(bool_msg);
 
+        if (human_found) {
+            coordinate_pub_->publish(detections[0]); // Publie les coordonnées
+        }
+
         if (human_found && debugEnabled()) {
             saveDebugImage(frame, detections);
             RCLCPP_INFO(this->get_logger(), "Debug image saved with %zu detection(s).",
@@ -207,6 +211,9 @@ private:
     rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr image_sub_;
     rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr human_pub_;
     rclcpp::Publisher<LightringLeds>::SharedPtr led_pub_;
+    rclcpp::Publisher<robot_vision::Detection>::SharedPtr coordinate_pub_;
+
+
 
     LightringLeds led_human_;
     LightringLeds led_idle_;
