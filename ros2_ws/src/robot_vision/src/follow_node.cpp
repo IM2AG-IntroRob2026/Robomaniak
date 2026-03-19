@@ -30,8 +30,8 @@ public:
         RCLCPP_INFO(this->get_logger(), "FollowNode initialized with strategy '%s', follow_speed=%.2f, follow_distance=%.2f",
             strategy.c_str(), follow_speed, follow_distance);
 
-        human_pub_ = this->create_publisher<std_msgs::msg::Bool>("/detection/human_present", 10);
-        coordinate_pub_ = this->create_publisher<robot_vision::Detection>("/detection/coordinates", 10);
+        human_pub_ = this->create_subscription<std_msgs::msg::Bool>("/detection/human_present", 10);
+        coordinate_pub_ = this->create_subscription<robot_vision::Detection>("/detection/coordinates", 10);
         velocity_pub_ = this->create_publisher<geometry_msgs::msg::Twist>("/cmd_vel", 10);
 
     }
@@ -61,5 +61,19 @@ private:
             velocity_pub_->publish(cmd);
         }
     }
+};
+
+int main(int argc, char* argv[])
+{
+    rclcpp::init(argc, argv);
+    try {
+        rclcpp::spin(std::make_shared<FollowNode>());
+    } catch (const std::exception& e) {
+        RCLCPP_FATAL(rclcpp::get_logger("follow_node"), "Fatal error: %s", e.what());
+        rclcpp::shutdown();
+        return 1;
+    }
+    rclcpp::shutdown();
+    return 0;
 }
 
