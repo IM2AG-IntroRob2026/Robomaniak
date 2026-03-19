@@ -61,6 +61,5 @@ private:
             velocity_pub_->publish(cmd);
         }
     }
-
 }
 

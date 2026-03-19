@@ -213,8 +213,6 @@ private:
     rclcpp::Publisher<LightringLeds>::SharedPtr led_pub_;
     rclcpp::Publisher<robot_vision::Detection>::SharedPtr coordinate_pub_;
 
-
-
     LightringLeds led_human_;
     LightringLeds led_idle_;
     bool last_human_state_{false};
