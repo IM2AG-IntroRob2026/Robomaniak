@@ -20,7 +20,8 @@ inline constexpr int   YOLO_NUM_CLASSES      = 80;
 inline constexpr int   YOLO_NUM_ANCHORS      = 8400; // for 640x640
 inline constexpr int   YOLO_CLASS_PERSON     = 0;
 inline constexpr float YOLO_DEFAULT_CONF     = 0.50f;
-inline constexpr uint8_t LETTERBOX_FILL = 114;
+inline constexpr float YOLO_DEFAULT_NMS_IOU  = 0.45f;
+inline constexpr uint8_t LETTERBOX_FILL      = 114;
 
 struct Detection
 {
@@ -54,9 +55,10 @@ public:
      * @param model_path Path to the ONNX model file (e.g., yolov8s.onnx).
      * @param use_gpu Whether to attempt using GPU acceleration (CUDA/ROCm).
      * @param conf_thresh Minimum confidence threshold for keeping detections (default: 0.50).
+	 * @param nms_iou IoU threshold for Non-Maximum Suppression (default: 0.45).
      */
-    explicit YoloDetector(const std::filesystem::path& model_path, bool  use_gpu = true, float conf_thresh = YOLO_DEFAULT_CONF)
-        : conf_thresh_(conf_thresh), ort_env_(ORT_LOGGING_LEVEL_WARNING, "yolo_detector")
+    explicit YoloDetector(const std::filesystem::path& model_path, bool use_gpu = true, float conf_thresh = YOLO_DEFAULT_CONF, float nms_iou = YOLO_DEFAULT_NMS_IOU)
+        : conf_thresh_(conf_thresh), nms_iou_(nms_iou), ort_env_(ORT_LOGGING_LEVEL_WARNING, "yolo_detector")
     {
         if (!std::filesystem::exists(model_path)) {
             throw std::runtime_error("Model ONNX not found : " + model_path.string());
@@ -122,7 +124,6 @@ public:
     }
 
 private:
-    /// Letterbox + BGR→RGB + normalisation [0,1] + HWC→CHW
     /**
      * Run the preprocessing steps required by YOLOv8:
      * 1. Compute the scaling factor to fit the input image into a 640x640 box while preserving aspect ratio.
@@ -226,7 +227,7 @@ private:
      */
     [[nodiscard]] std::vector<Detection> postprocess(const std::vector<float>& output, const LetterboxParams&   lb) const
     {
-        std::vector<Detection> detections;
+        std::vector<Detection> candidates;
 
         for (int i = 0; i < YOLO_NUM_ANCHORS; ++i) {
             const float conf = output[(4 + YOLO_CLASS_PERSON) * YOLO_NUM_ANCHORS + i];
@@ -237,7 +238,7 @@ private:
             const float w_lb  = output[2 * YOLO_NUM_ANCHORS + i];
             const float h_lb  = output[3 * YOLO_NUM_ANCHORS + i];
 
-            detections.push_back({
+            candidates.push_back({
                 .cx         = (cx_lb - lb.pad_x) / lb.scale,
                 .cy         = (cy_lb - lb.pad_y) / lb.scale,
                 .w          = w_lb / lb.scale,
@@ -247,10 +248,71 @@ private:
             });
         }
 
-        return detections;
+        return applyNMS(candidates);
+    }
+
+	/**
+	 * Compute the Intersection over Union (IoU) between two detections.
+     * The function calculates the coordinates of the intersection rectangle between the two bounding boxes,
+     * computes the area of the intersection, and then divides it by the area of the union of the two boxes.
+     * The IoU value ranges from 0 to 1, where 0 means no overlap and 1 means perfect overlap.
+     * This metric is used during Non-Maximum Suppression (NMS) to determine whether two detections are sufficiently overlapping to be considered duplicates.
+     *
+     * @param a The first Detection object.
+     * @param b The second Detection object.
+     * @return A float value representing the IoU between the two detections.
+     */
+    [[nodiscard]] static float iou(const Detection& a, const Detection& b) noexcept
+    {
+        const float ax1 = a.cx - a.w / 2.0f,  ay1 = a.cy - a.h / 2.0f;
+        const float ax2 = a.cx + a.w / 2.0f,  ay2 = a.cy + a.h / 2.0f;
+        const float bx1 = b.cx - b.w / 2.0f,  by1 = b.cy - b.h / 2.0f;
+        const float bx2 = b.cx + b.w / 2.0f,  by2 = b.cy + b.h / 2.0f;
+
+        const float ix1 = std::max(ax1, bx1),  iy1 = std::max(ay1, by1);
+        const float ix2 = std::min(ax2, bx2),  iy2 = std::min(ay2, by2);
+        const float inter = std::max(0.0f, ix2 - ix1) * std::max(0.0f, iy2 - iy1);
+
+        if (inter == 0.0f) return 0.0f;
+
+        const float area_a = a.w * a.h;
+        const float area_b = b.w * b.h;
+        return inter / (area_a + area_b - inter);
+    }
+
+    /**
+     * Apply Non-Maximum Suppression (NMS) to a list of candidate detections to filter out duplicates.
+     * The function first sorts the detections by confidence score in descending order,
+     * then iteratively selects the highest-confidence detection and suppresses any subsequent detections that have an IoU greater than the specified threshold with the selected detection.
+     * The result is a vector of Detection objects that are considered valid and non-overlapping according to the NMS criteria.
+     *
+     * @param dets A vector of Detection objects representing candidate detections before NMS.
+     * @return A vector of Detection objects that have been filtered by NMS, containing only the most confident detections without significant overlap.
+     */
+    [[nodiscard]] std::vector<Detection> applyNMS(std::vector<Detection> dets) const
+    {
+        std::sort(dets.begin(), dets.end(), [](const Detection& a, const Detection& b) { return a.confidence > b.confidence; });
+
+        std::vector<bool> suppressed(dets.size(), false);
+        std::vector<Detection> result;
+
+        for (std::size_t i = 0; i < dets.size(); ++i) {
+            if (suppressed[i]) continue;
+
+            result.push_back(dets[i]);
+
+            for (std::size_t j = i + 1; j < dets.size(); ++j) {
+                if (!suppressed[j] && iou(dets[i], dets[j]) > nms_iou_) {
+                    suppressed[j] = true;
+                }
+            }
+        }
+
+        return result;
     }
 
     float conf_thresh_{YOLO_DEFAULT_CONF};
+    float nms_iou_{YOLO_DEFAULT_NMS_IOU};
     GpuProvider gpu_provider_{GpuProvider::None};
     Ort::Env ort_env_;
     std::unique_ptr<Ort::Session> session_;
