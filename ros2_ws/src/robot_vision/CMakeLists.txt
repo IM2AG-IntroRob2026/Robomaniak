@@ -86,7 +86,10 @@ target_link_libraries(video_node
 ament_target_dependencies(video_node ${ROS_DEPS})
 
 
-add_executable(detection_node src/detection_node.cpp)
+add_executable(detection_node
+        src/detection_node.cpp
+        src/yolo_detector.cpp
+)
 
 target_include_directories(detection_node PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

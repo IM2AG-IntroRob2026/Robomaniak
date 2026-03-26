@@ -1,5 +1,3 @@
-#pragma once
-
 #include <array>
 #include <filesystem>
 #include <memory>
@@ -15,7 +13,7 @@
 namespace robot_vision
 {
 
-explicit YoloDetector::YoloDetector(const std::filesystem::path& model_path, bool use_gpu = true, float conf_thresh = YOLO_DEFAULT_CONF, float nms_iou = YOLO_DEFAULT_NMS_IOU)
+YoloDetector::YoloDetector(const std::filesystem::path& model_path, bool use_gpu, float conf_thresh, float nms_iou)
     : conf_thresh_(conf_thresh), nms_iou_(nms_iou), ort_env_(ORT_LOGGING_LEVEL_WARNING, "yolo_detector")
 {
     if (!std::filesystem::exists(model_path)) {

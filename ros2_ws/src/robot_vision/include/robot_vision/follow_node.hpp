@@ -86,16 +86,19 @@ private:
 
     /**
      * @brief On calcule la vitesse angulaire à appliquer pour faire tourner le robot vers la cible.
+     * @param target La detection cible à suivre.
+     * @param now Le timestamp actuel pour le calcul de la dérivée.
      * @return La vitesse angulaire à appliquer pour faire tourner le robot vers la cible.
      */
-    double turnTowardsTarget();
+    double turnTowardsTarget(const Detection2D& target, const rclcpp::Time& now);
 
     /**
      * @brief Calcule la vitesse linéaire à appliquer pour faire avancer le robot vers la cible.
      * Le robot avance tant que la taille de la bbox de la cible est inférieure à un certain ratio de l'image.
+     * @param target La detection cible à suivre.
      * @return La vitesse linéaire à appliquer pour avancer vers la cible.
      */
-    double moveTowardsTarget();
+    double moveTowardsTarget(const Detection2D& target);
 
     /**
      * @brief Determines the target index to track in current detections.

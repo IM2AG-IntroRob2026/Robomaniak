@@ -93,28 +93,28 @@ void FollowNode::onDetections(const Detection2DArray::ConstSharedPtr& msg)
     {
         const double cx = target.bbox.center.position.x;
 
-    const double image_center = image_width_ / 2.0;
-    const double error = (cx - image_center) / image_center; // Betwen -1 (left edge) and 1 (right edge)
+        const double image_center = image_width_ / 2.0;
+        const double error = (cx - image_center) / image_center; // Betwen -1 (left edge) and 1 (right edge)
 
-    if (std::abs(error) < dead_zone_) {
-        stopRobot();
-        prev_error_ = 0.0;
-        prev_time_ = now;
-        return 0.0;
-    }
+        if (std::abs(error) < dead_zone_) {
+            stopRobot();
+            prev_error_ = 0.0;
+            prev_time_ = now;
+            return 0.0;
+        }
 
-    double dt = 0.0;
-    if (prev_time_.nanoseconds() > 0) {
-        dt = (now - prev_time_).seconds();
-    }
+        double dt = 0.0;
+        if (prev_time_.nanoseconds() > 0) {
+            dt = (now - prev_time_).seconds();
+        }
 
-    const double derivative = (dt > 1e-6 && dt < 1.0) ? (error - prev_error_) / dt : 0.0;
+        const double derivative = (dt > 1e-6 && dt < 1.0) ? (error - prev_error_) / dt : 0.0;
 
-    double angular_z = -(kp_ * error + kd_ * derivative);
-    angular_z = std::clamp(angular_z, -max_angular_speed_, max_angular_speed_);
+        double angular_z = -(kp_ * error + kd_ * derivative);
+        angular_z = std::clamp(angular_z, -max_angular_speed_, max_angular_speed_);
 
-    prev_error_ = error;
-    prev_time_  = now;
+        prev_error_ = error;
+        prev_time_  = now;
 
         RCLCPP_DEBUG(this->get_logger(),
             "error=%.3f  derivative=%.3f  omega=%.3f rad/s",
@@ -132,11 +132,11 @@ void FollowNode::onDetections(const Detection2DArray::ConstSharedPtr& msg)
         // On calcule la taille de l'aire de la bbox
         const double area_bbox = w * h;
 
-    // On calcule la taille de l'aire de l'image
-    const double area_image = image_width_ * image_height_;
+        // On calcule la taille de l'aire de l'image
+        const double area_image = image_width_ * image_height_;
 
-    // On fait le rapport entre les deux pour savoir si le robot doit avancer (suivi)
-    const double ratio = area_bbox / area_image * 100.0;
+        // On fait le rapport entre les deux pour savoir si le robot doit avancer (suivi)
+        const double ratio = area_bbox / area_image * 100.0;
 
         // On veut que le robot avance jusqu'à ce que le ratio atteigne max_ratio_
         if (ratio < max_ratio_) {
