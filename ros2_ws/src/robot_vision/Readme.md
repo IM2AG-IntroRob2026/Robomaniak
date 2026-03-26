@@ -53,3 +53,9 @@ ros2 run robot_vision follow_node --ros-args -p strategy:="most_centered" -p ima
     -p kp:=1.2 -p kd:=0.15 -p max_angular_speed:=1.0 -p dead_zone:=0.05 -p lock_max_dist_px:=150
     -p lock_lost_frames:=10 --remap /follow/cmd_vel:=/Robot3/cmd_vel
 ```
+
+## BT Manager
+
+```bash
+ros2 run robot_vision bt_manager_node --ros-args -p bt_tick_hz:=50.0 -p trigger_key:=" "
+```
