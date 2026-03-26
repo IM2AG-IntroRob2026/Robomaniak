@@ -53,10 +53,13 @@ public:
     {
         this->declare_parameter<std::string>("strategy", "most_centered");
         this->declare_parameter<int>("image_width", 1920);
+        this->declare_parameter<int>("image_height", 1080);
         this->declare_parameter<double>("kp", 1.2);
         this->declare_parameter<double>("kd", 0.15);
+        this->declare_parameter<double>("max_linear_speed", 1.0);
         this->declare_parameter<double>("max_angular_speed", 1.0);
         this->declare_parameter<double>("dead_zone", 0.05);
+        this->declare_parameter<double>("max_ratio", 40.0);
         this->declare_parameter<double>("lock_max_dist_px", 150.0);
         this->declare_parameter<int>("lock_lost_frames", 10);
 
@@ -68,10 +71,13 @@ public:
         }
 
         image_width_       = this->get_parameter("image_width").as_int();
+        image_height_      = this->get_parameter("image_height").as_int();
         kp_                = this->get_parameter("kp").as_double();
         kd_                = this->get_parameter("kd").as_double();
+        max_linear_speed_  = this->get_parameter("max_linear_speed").as_double();
         max_angular_speed_ = this->get_parameter("max_angular_speed").as_double();
         dead_zone_         = this->get_parameter("dead_zone").as_double();
+        max_ratio_        = this->get_parameter("max_ratio").as_double();
         lock_max_dist_px_  = this->get_parameter("lock_max_dist_px").as_double();
         lock_lost_frames_  = this->get_parameter("lock_lost_frames").as_int();
 
@@ -130,8 +136,25 @@ private:
         prev_error_ = error;
         prev_time_  = now;
 
+        double linear_x = 0.0;
+                
+        // On calcule la taille de l'aire de la bbox
+        const double area_bbox = target.bbox.w * target.bbox.h;
+
+        // On calcule la taille de l'aire de l'image
+        const double area_image = image_width_ * image_height_;
+
+        // On fait le rapport entre les deux pour savoir si le robot doit avancer (suivi)
+        const double ratio = area_bbox / area_image * 100.0;
+
+        // On veut que le robot avance jusqu'à ce que le ratio atteigne max_ratio_
+        if (ratio < max_ratio_) {
+            linear_x = max_linear_speed_ * (1.0 - ratio / max_ratio_); // Vitesse proportionnelle à la distance (plus le ratio est petit, plus le robot avance vite).
+        }
+
         Twist twist;
-        twist.linear.x  = 0.0;
+
+        twist.linear.x  = linear_x;
         twist.angular.z = angular_z;
         cmd_vel_pub_->publish(twist);
 
@@ -276,10 +299,13 @@ private:
 
     TrackingStrategy strategy_{TrackingStrategy::MOST_CENTERED};
     int    image_width_       {1280};
+    int    image_height_      {720};
     double kp_                {1.2};
     double kd_                {0.15};
+    double max_linear_speed_  {2.0};
     double max_angular_speed_ {1.0};
     double dead_zone_         {0.05};
+    double max_ratio_         {40.0};
     double lock_max_dist_px_  {150.0};
     int    lock_lost_frames_  {10};
 
