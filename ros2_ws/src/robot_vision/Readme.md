@@ -50,7 +50,7 @@ ros2 run robot_vision detection_node --ros-args -p
 
 ```bash
 ros2 run robot_vision follow_node --ros-args -p strategy:="most_centered" -p image_width:=1920
-    -p kp:=1.2 -p kd:=0.15 -p max_angular_speed:=1.0 -p dead_zone:=0.05 -p lock_max_dist_px:=150
+    -p kp:=1.2 -p kd:=0.15 -p max_angular_speed:=1.0 -p dead_zone:=0.05 -p lock_max_dist_px:=150.0
     -p lock_lost_frames:=10 --remap /follow/cmd_vel:=/Robot3/cmd_vel
 ```
 
