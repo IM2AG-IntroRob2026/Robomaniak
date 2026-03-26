@@ -87,7 +87,7 @@ private:
 
         pub_->publish(*img_msg);
 
-        RCLCPP_INFO(this->get_logger(), "Published frame at %s", img_msg->header.stamp.sec == 0 ? "invalid timestamp" : std::to_string(img_msg->header.stamp.sec).c_str());
+        // RCLCPP_INFO(this->get_logger(), "Published frame at %s", img_msg->header.stamp.sec == 0 ? "invalid timestamp" : std::to_string(img_msg->header.stamp.sec).c_str());
     }
 
     std::string stream_url_;
