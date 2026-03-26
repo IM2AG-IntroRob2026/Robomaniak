@@ -15,9 +15,11 @@ find_package(ament_cmake        REQUIRED)
 find_package(rclcpp             REQUIRED)
 find_package(sensor_msgs        REQUIRED)
 find_package(std_msgs           REQUIRED)
+find_package(geometry_msgs      REQUIRED)
 find_package(vision_msgs        REQUIRED)
 find_package(cv_bridge          REQUIRED)
 find_package(irobot_create_msgs REQUIRED)
+find_package(behaviortree_cpp   REQUIRED)
 
 find_package(OpenCV REQUIRED COMPONENTS core imgproc videoio)
 
@@ -65,9 +67,11 @@ set(ROS_DEPS
         rclcpp
         sensor_msgs
         std_msgs
+        geometry_msgs
         vision_msgs
         cv_bridge
         irobot_create_msgs
+        behaviortree_cpp
 )
 
 
@@ -94,9 +98,27 @@ target_link_libraries(detection_node
 ament_target_dependencies(detection_node ${ROS_DEPS})
 
 
+add_executable(follow_node src/follow_node.cpp)
+
+target_include_directories(follow_node PRIVATE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+)
+ament_target_dependencies(follow_node ${ROS_DEPS})
+
+
+add_executable(bt_manager_node src/bt_manager_node.cpp)
+
+target_include_directories(bt_manager_node PRIVATE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+)
+ament_target_dependencies(bt_manager_node ${ROS_DEPS})
+
+
 install(TARGETS
         video_node
         detection_node
+        follow_node
+        bt_manager_node
         DESTINATION lib/${PROJECT_NAME}
 )
 

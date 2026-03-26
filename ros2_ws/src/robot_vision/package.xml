@@ -20,9 +20,11 @@
     <depend>rclcpp</depend>
     <depend>sensor_msgs</depend>
     <depend>std_msgs</depend>
+    <depend>geometry_msgs</depend>
     <depend>vision_msgs</depend>
     <depend>cv_bridge</depend>
     <depend>irobot_create_msgs</depend>
+    <depend>behaviortree_cpp</depend>
 
     <!-- Dépendances système -->
     <depend>libopencv-dev</depend>
