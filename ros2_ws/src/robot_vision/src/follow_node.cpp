@@ -77,7 +77,7 @@ public:
         max_linear_speed_  = this->get_parameter("max_linear_speed").as_double();
         max_angular_speed_ = this->get_parameter("max_angular_speed").as_double();
         dead_zone_         = this->get_parameter("dead_zone").as_double();
-        max_ratio_        = this->get_parameter("max_ratio").as_double();
+        max_ratio_         = this->get_parameter("max_ratio").as_double();
         lock_max_dist_px_  = this->get_parameter("lock_max_dist_px").as_double();
         lock_lost_frames_  = this->get_parameter("lock_lost_frames").as_int();
 
@@ -112,6 +112,9 @@ private:
 
         const auto& target = dets[*target_idx];
         const double cx = target.bbox.center.position.x;
+        const double cy = target.bbox.center.position.y;
+        const double w = target.bbox.size_x;
+        const double h = target.bbox.size_y;
 
         const double image_center = image_width_ / 2.0;
         const double error = (cx - image_center) / image_center; // Betwen -1 (left edge) and 1 (right edge)
@@ -139,7 +142,7 @@ private:
         double linear_x = 0.0;
                 
         // On calcule la taille de l'aire de la bbox
-        const double area_bbox = target.bbox.w * target.bbox.h;
+        const double area_bbox = w * h;
 
         // On calcule la taille de l'aire de l'image
         const double area_image = image_width_ * image_height_;
@@ -253,7 +256,9 @@ private:
         if (dets.empty()) { return std::nullopt; }
 
         switch (strategy_) {
-            case TrackingStrategy::FIRST: return std::size_t{0};
+            case TrackingStrategy::FIRST: {
+                    return std::size_t{0};
+                }
 
             case TrackingStrategy::MOST_CENTERED: {
                 const double center = image_width_ / 2.0;
