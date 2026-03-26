@@ -110,11 +110,25 @@ private:
             return;
         }
 
+        // On oriente le robot pour mettre la cible au centre de l'image
+        double angular_z = turnTowardsTarget();
+        // On fait avancer le robot tant que la cible n'est pas assez grande dans l'image (suivi)
+        double linear_x = moveTowardsTarget();
+                
+        Twist twist;
+        twist.linear.x  = linear_x;
+        twist.angular.z = angular_z;
+        cmd_vel_pub_->publish(twist);
+
+        RCLCPP_DEBUG(this->get_logger(),
+            "error=%.3f  derivative=%.3f  omega=%.3f rad/s",
+            error, derivative, angular_z);
+    }
+
+    double turnTowardsTarget() {
         const auto& target = dets[*target_idx];
         const double cx = target.bbox.center.position.x;
         const double cy = target.bbox.center.position.y;
-        const double w = target.bbox.size_x;
-        const double h = target.bbox.size_y;
 
         const double image_center = image_width_ / 2.0;
         const double error = (cx - image_center) / image_center; // Betwen -1 (left edge) and 1 (right edge)
@@ -123,7 +137,7 @@ private:
             stopRobot();
             prev_error_ = 0.0;
             prev_time_ = now;
-            return;
+            return 0.0;
         }
 
         double dt = 0.0;
@@ -139,7 +153,13 @@ private:
         prev_error_ = error;
         prev_time_  = now;
 
+        return angular_z;
+    }
+
+    double moveTowardsTarget() {
         double linear_x = 0.0;
+        const double w = target.bbox.size_x;
+        const double h = target.bbox.size_y;
                 
         // On calcule la taille de l'aire de la bbox
         const double area_bbox = w * h;
@@ -155,15 +175,7 @@ private:
             linear_x = max_linear_speed_ * (1.0 - ratio / max_ratio_); // Vitesse proportionnelle à la distance (plus le ratio est petit, plus le robot avance vite).
         }
 
-        Twist twist;
-
-        twist.linear.x  = linear_x;
-        twist.angular.z = angular_z;
-        cmd_vel_pub_->publish(twist);
-
-        RCLCPP_DEBUG(this->get_logger(),
-            "error=%.3f  derivative=%.3f  omega=%.3f rad/s",
-            error, derivative, angular_z);
+        return linear_x;
     }
 
     /**
