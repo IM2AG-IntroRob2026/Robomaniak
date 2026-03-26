@@ -122,11 +122,11 @@ Le système doit permettre à un robot mobile de :
 ### 4.5 Mode Suivi (FOLLOW)
 
 | ID    | Exigence                                                                                                       | Priorité | Réalisé |
-| ----- | -------------------------------------------------------------------------------------------------------------- | -------- | ------- |
-| F-S01 | Lors de la détection d'un humain (ou de l'individu cible), le robot doit passer automatiquement en mode SUIVI. | Haute    |         |
-| F-S02 | Le robot doit maintenir une distance raisonnable avec la cible tout en la suivant. `[distance TBD]`            | Haute    |         |
+| ----- | -------------------------------------------------------------------------------------------------------------- | -------- |---------|
+| F-S01 | Lors de la détection d'un humain (ou de l'individu cible), le robot doit passer automatiquement en mode SUIVI. | Haute    | x       |
+| F-S02 | Le robot doit maintenir une distance raisonnable avec la cible tout en la suivant. `[distance TBD]`            | Haute    | -       |
 | F-S03 | Le robot doit jouer une mélodie une unique fois à l'entrée dans le mode SUIVI.                                 | Haute    |         |
-| F-S04 | La lumière du robot doit adopter un état visuel spécifique pendant toute la durée du mode SUIVI.               | Haute    |         |
+| F-S04 | La lumière du robot doit adopter un état visuel spécifique pendant toute la durée du mode SUIVI.               | Haute    | x       |
 | F-S05 | Si la cible est perdue de vue, le robot repasse en mode PATROUILLE.                                            | Haute    |         |
 | F-S06 | Le robot doit continuer à éviter les obstacles et les chutes en mode SUIVI.                                    | Moyenne  |         |
 
