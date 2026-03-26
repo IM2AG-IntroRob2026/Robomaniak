@@ -110,25 +110,22 @@ private:
             return;
         }
 
+        const auto& target = dets[*target_idx];
+
         // On oriente le robot pour mettre la cible au centre de l'image
-        double angular_z = turnTowardsTarget();
+        double angular_z = turnTowardsTarget(target, now);
         // On fait avancer le robot tant que la cible n'est pas assez grande dans l'image (suivi)
-        double linear_x = moveTowardsTarget();
+        double linear_x = moveTowardsTarget(target);
                 
         Twist twist;
         twist.linear.x  = linear_x;
         twist.angular.z = angular_z;
         cmd_vel_pub_->publish(twist);
-
-        RCLCPP_DEBUG(this->get_logger(),
-            "error=%.3f  derivative=%.3f  omega=%.3f rad/s",
-            error, derivative, angular_z);
     }
 
-    double turnTowardsTarget() {
-        const auto& target = dets[*target_idx];
+    double turnTowardsTarget(const Detection2D& target, const rclcpp::Time& now)
+    {
         const double cx = target.bbox.center.position.x;
-        const double cy = target.bbox.center.position.y;
 
         const double image_center = image_width_ / 2.0;
         const double error = (cx - image_center) / image_center; // Betwen -1 (left edge) and 1 (right edge)
@@ -153,10 +150,15 @@ private:
         prev_error_ = error;
         prev_time_  = now;
 
+        RCLCPP_DEBUG(this->get_logger(),
+            "error=%.3f  derivative=%.3f  omega=%.3f rad/s",
+            error, derivative, angular_z);
+
         return angular_z;
     }
 
-    double moveTowardsTarget() {
+    double moveTowardsTarget(const Detection2D& target)
+    {
         double linear_x = 0.0;
         const double w = target.bbox.size_x;
         const double h = target.bbox.size_y;
@@ -174,6 +176,8 @@ private:
         if (ratio < max_ratio_) {
             linear_x = max_linear_speed_ * (1.0 - ratio / max_ratio_); // Vitesse proportionnelle à la distance (plus le ratio est petit, plus le robot avance vite).
         }
+
+        RCLCPP_DEBUG(this->get_logger(), "ratio=%.2f%%  linear_x=%.2f m/s", ratio, linear_x);
 
         return linear_x;
     }
