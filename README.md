@@ -4,19 +4,22 @@ Ce projet contient:
 
 - un serveur d'action ROS 2 qui fait dessiner un carre a `turtlesim`
 - un controleur FSM ROS 2 avec transitions basees sur la couleur rouge
+- un serveur d'action ROS 2 pour le suivi de contour avec reprise manuelle au clavier
 
 ## Arborescence utile
 
 - `ros2_ws/src/turtle_square_interfaces`: definition de l'action `DrawSquare`
 - `ros2_ws/src/turtle_square_controller`: noeud C++ `turtle_square_server`
 - `ros2_ws/src/turtle_fsm_controller`: noeud C++ `turtle_fsm_node` + launch file
+- `ros2_ws/src/turtle_boundaries_interfaces`: definition de l'action `DrawBoundaries`
+- `ros2_ws/src/turtle_drawing_boundaries`: noeuds `turtle_boundaries_node` et `turtle_boundaries_keyboard`
 
 ## 1) Build du workspace
 
 ```bash
 source /opt/ros/jazzy/setup.bash
 cd ros2_ws
-colcon build --packages-select turtle_square_interfaces turtle_square_controller turtle_fsm_controller
+colcon build --packages-select turtle_square_interfaces turtle_square_controller turtle_fsm_controller turtle_boundaries_interfaces turtle_drawing_boundaries
 ```
 
 ## 2) Lancer les noeuds
@@ -167,20 +170,72 @@ Preset "mur rouge strict" (evite de traverser le trait rouge):
 ros2 launch turtle_fsm_controller turtle_fsm.launch.py red_boost_duration:=0.4 red_event_cooldown:=0.5 red_reverse_duration:=1.3 red_turn_duration:=1.4 boundary_heading_tolerance:=0.5
 ```
 
-## 9) Pour lancer le Assignement 2 (la tortue fait le contour de la fenêtre)
-Dans le terminal 1 :
+## 9) Assignment 2 - suivi de contour (DrawBoundaries)
+
+### 9.1 Mode standard (sans clavier)
+
+Terminal 1:
+
 ```bash
 source /opt/ros/jazzy/setup.bash
-cd /home/justine/Documents/M1_INFO/S2/Robotic/Robomaniak/ros2_ws
+cd ros2_ws
 colcon build --packages-select turtle_boundaries_interfaces turtle_drawing_boundaries
 source install/setup.bash
-ros2 launch turtle_drawing_boundaries draw_boundaries.launch.py lost_wall_grace_s:=0.45
+ros2 launch turtle_drawing_boundaries draw_boundaries.launch.py \
+  lost_wall_grace_s:=0.55 \
+  resume_reacquire_timeout_s:=14.0 \
+  resume_reacquire_radius:=0.35
 ```
 
-Dans le terminal 2 :
-```
+Terminal 2:
+
+```bash
 source /opt/ros/jazzy/setup.bash
-cd /home/justine/Documents/M1_INFO/S2/Robotic/Robomaniak/ros2_ws
+cd ros2_ws
 source install/setup.bash
 ros2 action send_goal /draw_boundaries turtle_boundaries_interfaces/action/DrawBoundaries "{margin: 0.5, speed: 1.0, clockwise: true}" --feedback
 ```
+
+### 9.2 Mode avec interruptions clavier (espace + direction)
+(ouvre automatiquement une fenetre clavier):
+
+```bash
+source /opt/ros/jazzy/setup.bash
+cd ros2_ws
+colcon build --packages-select turtle_boundaries_interfaces turtle_drawing_boundaries
+source install/setup.bash
+ros2 launch turtle_drawing_boundaries draw_boundaries_with_keyboard.launch.py \
+  lost_wall_grace_s:=0.55 \
+  resume_reacquire_timeout_s:=14.0 \
+  resume_reacquire_radius:=0.35
+```
+
+Puis dans un autre terminal, envoi du goal:
+
+```bash
+source /opt/ros/jazzy/setup.bash
+cd ros2_ws
+source install/setup.bash
+ros2 action send_goal /draw_boundaries turtle_boundaries_interfaces/action/DrawBoundaries "{margin: 0.5, speed: 1.0, clockwise: true}" --feedback
+```
+
+### 9.3 Touches clavier
+
+- `Espace`: pause/reprise du suivi automatique
+- `Fleches` ou `ZQSD/WASD`: deplacement manuel
+- `x` ou `0`: stop manuel
+
+### 9.4 Reprise automatique apres le mode manuel
+
+Quand on re-appuie sur `Espace`:
+
+- la tortue tente de revenir vers le point ou le contour a ete quitte,
+- si elle ne progresse pas assez, elle passe en recherche globale de mur (au lieu de tourner en rond),
+- des qu'un mur est retrouve, le trace automatique reprend.
+
+### 9.5 Parametres utiles (draw_boundaries)
+
+- `lost_wall_grace_s`: delai avant mode "mur perdu" agressif
+- `manual_cmd_timeout_s`: validite max d'une commande clavier
+- `resume_reacquire_timeout_s`: delai max avant passage en recherche globale
+- `resume_reacquire_radius`: rayon de retour vers le point de decrochage

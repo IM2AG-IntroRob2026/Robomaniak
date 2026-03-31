@@ -1,6 +1,7 @@
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
+from launch.actions import DeclareLaunchArgument, ExecuteProcess
+from launch.conditions import IfCondition
+from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch_ros.actions import Node
 
 
@@ -12,6 +13,29 @@ def generate_launch_description() -> LaunchDescription:
     manual_cmd_timeout_s = LaunchConfiguration('manual_cmd_timeout_s')
     resume_reacquire_timeout_s = LaunchConfiguration('resume_reacquire_timeout_s')
     resume_reacquire_radius = LaunchConfiguration('resume_reacquire_radius')
+    start_keyboard = LaunchConfiguration('start_keyboard')
+    keyboard_in_new_terminal = LaunchConfiguration('keyboard_in_new_terminal')
+    keyboard_linear_speed = LaunchConfiguration('keyboard_linear_speed')
+    keyboard_angular_speed = LaunchConfiguration('keyboard_angular_speed')
+
+    start_keyboard_in_terminal = IfCondition(
+        PythonExpression([
+            "'",
+            start_keyboard,
+            "' == 'true' and '",
+            keyboard_in_new_terminal,
+            "' == 'true'",
+        ])
+    )
+    start_keyboard_embedded = IfCondition(
+        PythonExpression([
+            "'",
+            start_keyboard,
+            "' == 'true' and '",
+            keyboard_in_new_terminal,
+            "' == 'false'",
+        ])
+    )
 
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -49,6 +73,26 @@ def generate_launch_description() -> LaunchDescription:
             default_value='0.22',
             description='Rayon de retour vers le point de decrochage manuel',
         ),
+        DeclareLaunchArgument(
+            'start_keyboard',
+            default_value='true',
+            description='Demarre le noeud clavier',
+        ),
+        DeclareLaunchArgument(
+            'keyboard_in_new_terminal',
+            default_value='true',
+            description='Demarre le noeud clavier dans un gnome-terminal separe',
+        ),
+        DeclareLaunchArgument(
+            'keyboard_linear_speed',
+            default_value='1.2',
+            description='Vitesse lineaire en mode manuel clavier',
+        ),
+        DeclareLaunchArgument(
+            'keyboard_angular_speed',
+            default_value='2.2',
+            description='Vitesse angulaire en mode manuel clavier',
+        ),
         Node(
             package='turtlesim',
             executable='turtlesim_node',
@@ -71,5 +115,27 @@ def generate_launch_description() -> LaunchDescription:
                 'resume_reacquire_timeout_s': resume_reacquire_timeout_s,
                 'resume_reacquire_radius': resume_reacquire_radius,
             }],
+        ),
+        ExecuteProcess(
+            cmd=[
+                'gnome-terminal',
+                '--',
+                'bash',
+                '-lc',
+                'ros2 run turtle_drawing_boundaries turtle_boundaries_keyboard; exec bash',
+            ],
+            output='screen',
+            condition=start_keyboard_in_terminal,
+        ),
+        Node(
+            package='turtle_drawing_boundaries',
+            executable='turtle_boundaries_keyboard',
+            name='turtle_boundaries_keyboard',
+            output='screen',
+            parameters=[{
+                'manual_linear_speed': keyboard_linear_speed,
+                'manual_angular_speed': keyboard_angular_speed,
+            }],
+            condition=start_keyboard_embedded,
         ),
     ])

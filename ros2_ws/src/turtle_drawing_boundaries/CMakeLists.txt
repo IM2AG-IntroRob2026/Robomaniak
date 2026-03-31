@@ -9,6 +9,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
 find_package(turtlesim REQUIRED)
 find_package(turtle_boundaries_interfaces REQUIRED)
 
@@ -17,14 +18,23 @@ ament_target_dependencies(turtle_boundaries_node
   rclcpp
   rclcpp_action
   geometry_msgs
+  std_msgs
   turtlesim
   turtle_boundaries_interfaces
 )
 
 target_include_directories(turtle_boundaries_node PRIVATE src)
 
+add_executable(turtle_boundaries_keyboard src/turtle_boundaries_keyboard.cpp)
+ament_target_dependencies(turtle_boundaries_keyboard
+  rclcpp
+  geometry_msgs
+  std_msgs
+)
+
 install(TARGETS
   turtle_boundaries_node
+  turtle_boundaries_keyboard
   DESTINATION lib/${PROJECT_NAME}
 )
 

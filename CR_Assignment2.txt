@@ -1,0 +1,271 @@
+Contexte
+- Le serveur d'action DrawBoundaries suivait deja un contour (bord de fenetre).
+- L'objectif etait d'ajouter un mode interactif:
+  - appui sur Espace => interruption/pause du suivi automatique,
+  - deplacement manuel au clavier,
+  - nouvel appui sur Espace => reprise automatique du trace.
+- Probleme observe pendant l'integration:
+  - apres de grands deplacements manuels, la tortue pouvait tourner en rond au lieu de retrouver le mur.
+- Correction finale:
+  - ajout d'un mode de reacquisition en 2 etapes (retour local, puis recherche globale si besoin).
+
+========================================
+0) Comment la tortue fait le contour de la fenetre (mode auto)
+========================================
+
+Cette section decrit la logique automatique de DrawBoundaries, independamment du clavier.
+
+0.1 Phase de recherche initiale du mur
+- Au debut, la tortue avance avec stylo coupe.
+- Le \"mur\" est detecte par 2 mecanismes:
+  - proximite d'un bord du domaine turtlesim,
+  - ou detection d'une zone rouge (mur dessine).
+- Tant que le mur n'est pas trouve:
+  - si proche d'un bord: elle tourne pour rester dans la zone,
+  - sinon: elle avance en ligne droite.
+- Cette phase s'arrete des qu'un contact mur est detecte (avec marge stricte), puis le stylo est active.
+
+0.2 Suivi du contour via la tangente du bord
+- En mode suivi, le code recalcule a chaque cycle:
+  - la proximite d'un bord (near_boundary),
+  - la detection rouge (red_wall).
+- Si la tortue est proche d'un bord, elle suit la tangente de ce bord:
+  - le cap cible est donne par boundary_tangent_heading(clockwise),
+  - cette fonction choisit la direction ideale selon:
+    - le bord touche (gauche, droite, haut, bas),
+    - les coins (cas explicites pour franchir proprement un angle).
+- Ensuite, le controle fait:
+  - erreur angulaire = normalize_angle(cap_cible - cap_actuel),
+  - commande angulaire = clamp(gain * erreur, min, max),
+  - vitesse lineaire modulee selon l'erreur:
+    - si l'erreur est grande: rotation quasi sur place,
+    - si l'erreur est faible: avance plus rapide.
+- Resultat: la tortue s'aligne sur la tangente du contour et longe le bord sans \"rentrer\" dans le mur.
+
+0.3 Cas mur rouge (objet) et ajustement d'angle
+- Si le mur detecte est rouge (et pas un bord fenetre), le suivi utilise:
+  - une avance reguliere,
+  - un biais angulaire leger (sens horaire/anti-horaire selon le goal).
+- Ce biais maintient le contact avec le contour rouge sans oscillation forte.
+
+0.4 Perte de mur et recherche
+- Si aucun mur n'est detecte temporairement:
+  - une fenetre de grace (lost_wall_grace_s) laisse encore avancer un peu,
+  - avec une rotation douce, pour reconnecter naturellement le contour.
+- Si la perte dure:
+  - passage en recherche plus aggressive (rotation plus forte) pour reacquerir un mur.
+- Cette combinaison \"grace + recherche\" evite les petits cercles dans les coins
+  et aide la tortue a franchir les transitions entre bords.
+
+0.5 Fermeture de boucle (fin du contour)
+- Le systeme memorise la pose de debut de trace.
+- Il n'autorise pas la fin tout de suite: la tortue doit d'abord quitter la zone de depart.
+- Ensuite, la boucle est declaree fermee si:
+  - retour proche du point de depart,
+  - distance minimale deja tracee (min_loop_distance),
+  - et confirmation par detection de sa propre trace (ou proximite stricte).
+- Quand ces conditions sont vraies:
+  - stop,
+  - action reussie avec perimetre mesure.
+
+========================================
+1) Fonctionnement du mode interactif
+========================================
+
+1.1 Noeud clavier dedie
+- Un nouveau noeud ROS2 a ete ajoute: turtle_boundaries_keyboard.
+- Fichier: ros2_ws/src/turtle_drawing_boundaries/src/turtle_boundaries_keyboard.cpp
+- Ce noeud lit le clavier en mode terminal "raw", via:
+  - termios pour configurer le terminal,
+  - select/read pour lire les touches sans bloquer.
+
+1.2 Touches gerees
+- Espace: bascule pause/reprise automatique.
+- Fleches ou ZQSD/WASD:
+  - avance, recule, rotation gauche, rotation droite.
+- x ou 0: stop manuel.
+
+1.3 Topics utilises pour l'interaction
+- /turtle_boundaries/pause_toggle (std_msgs/Empty)
+  - publie a chaque appui Espace.
+- /turtle_boundaries/manual_cmd (geometry_msgs/Twist)
+  - publie pour les ordres de deplacement manuel.
+
+1.4 Comportement cote serveur de contour
+- Le noeud turtle_boundaries_node s'abonne aux deux topics precedents.
+- Quand la pause manuelle est active:
+  - l'algorithme de suivi automatique est suspendu,
+  - la vitesse envoyee a la tortue vient de /turtle_boundaries/manual_cmd.
+
+========================================
+2) Comment la tortue retrouve son point de reprise
+========================================
+
+Il y a deux notions importantes:
+- le point de decrochage manuel (ou l'utilisateur prend la main),
+- le point de fermeture de boucle (condition de fin de l'action DrawBoundaries).
+
+2.1 Point de decrochage manuel
+- Au passage en mode manuel (premier Espace), le code memorise la pose courante:
+  - manual_release_pose.
+- Pendant ce mode:
+  - le stylo est coupe (set_pen off=true) pour ne pas tracer pendant les manoeuvres manuelles.
+
+2.2 Reprise automatique apres manuel
+- Au second Espace, le serveur n'essaie pas de reprendre directement le suivi du mur.
+- Il active un mode specifique: reacquire_after_manual.
+- Ce mode fonctionne en etapes:
+
+Etape A - Retour local vers le point de decrochage
+- La tortue se reoriente vers manual_release_pose (pilotage sur erreur d'angle).
+- Elle avance de facon modulee selon l'alignement pour eviter de tourner sur place.
+- Objectif: revenir dans un rayon configurable autour du point de decrochage
+  (resume_reacquire_radius).
+
+Etape B - Recherche locale de mur
+- Une fois proche du point de decrochage, la tortue fait une recherche douce
+  (petite avance + rotation dans le sens choisi).
+- Si un mur est detecte (bord ou rouge), la reprise est validee.
+
+Etape C - Fallback recherche globale (anti tours en rond)
+- Si le retour local n'avance plus assez (pas de progres pendant ~2s)
+  ou depasse un timeout total (resume_reacquire_timeout_s),
+  la tortue passe en recherche globale du mur.
+- Dans ce mode:
+  - au bord: rotation pour se degager/reacquerir,
+  - sinon: avance avec leger biais angulaire.
+- Ce fallback evite les boucles locales infinies.
+
+2.3 Validation de reprise
+- Des qu'un mur est retrouve:
+  - le stylo est rallume (set_pen off=false),
+  - la logique normale de suivi de contour reprend,
+  - le cumul de distance tracee continue proprement.
+
+========================================
+3) Comment la fin de contour est detectee
+========================================
+
+La fin de mission DrawBoundaries ne depend pas du clavier, elle suit la logique existante:
+- memorisation de la pose de debut de trace (trace_start_pose),
+- verification qu'on a bien quitte la zone de depart,
+- puis detection de retour proche de la zone de depart,
+- avec distance minimale deja parcourue (min_loop_distance),
+- et verification de trace (couleur du trait) ou proximite stricte.
+
+En pratique:
+- la tortue ne termine pas trop tot,
+- elle doit avoir reelement boucle le contour.
+
+========================================
+4) Architecture ROS2 finale
+========================================
+
+4.1 Noeuds
+- turtlesim_node
+  - simulateur, topics pose/couleur, service set_pen.
+- turtle_boundaries_node (serveur d'action)
+  - action: /draw_boundaries
+  - publication vitesse: /turtle1/cmd_vel
+  - souscriptions: /turtle1/pose, /turtle1/color_sensor
+  - souscriptions mode interactif: /turtle_boundaries/pause_toggle, /turtle_boundaries/manual_cmd
+  - client service: /turtle1/set_pen
+- turtle_boundaries_keyboard
+  - lecture clavier
+  - publication: /turtle_boundaries/pause_toggle et /turtle_boundaries/manual_cmd
+
+4.2 Interfaces
+- Action DrawBoundaries:
+  - package: turtle_boundaries_interfaces
+- Messages utilises:
+  - geometry_msgs/Twist
+  - std_msgs/Empty
+  - turtlesim/Pose, turtlesim/Color
+- Service utilise:
+  - turtlesim/SetPen
+
+4.3 Lancement
+- Launch standard: draw_boundaries.launch.py
+- Launch avec clavier: draw_boundaries_with_keyboard.launch.py
+  - peut ouvrir automatiquement un gnome-terminal pour le clavier.
+
+========================================
+5) Details d'implementation (fichiers modifies)
+========================================
+
+5.1 turtle_boundaries.hpp
+- Ajout des souscriptions pour pause/commande manuelle.
+- Ajout d'un mutex et d'un etat interne pour le mode manuel.
+- Ajout des parametres:
+  - manual_cmd_timeout_s
+  - resume_reacquire_timeout_s
+  - resume_reacquire_radius
+  - (deja ajoute avant) lost_wall_grace_s
+
+5.2 turtle_boundaries.cpp
+- Ajout des declarations/get_parameter pour les nouveaux parametres.
+- Ajout des callbacks:
+  - pause_toggle_callback
+  - manual_cmd_callback
+  - fonctions utilitaires thread-safe:
+    - is_manual_pause_active
+    - get_manual_cmd
+- Integration du mode manuel dans les deux phases execute():
+  - phase recherche initiale du mur,
+  - phase suivi de contour.
+- Ajout du mode de reacquisition apres reprise:
+  - memoire point de decrochage,
+  - retour local,
+  - fallback recherche globale en cas d'echec/progres insuffisant,
+  - reprise avec stylo ON quand mur retrouve.
+
+5.3 turtle_boundaries_keyboard.cpp (nouveau)
+- Noeud clavier complet:
+  - init terminal raw,
+  - lecture non bloquante,
+  - mapping des touches,
+  - publication pause/commandes.
+
+5.4 CMakeLists.txt et package.xml
+- Ajout de la dependance std_msgs.
+- Ajout de l'executable turtle_boundaries_keyboard.
+- Installation de ce nouvel executable.
+
+5.5 Launch files
+- draw_boundaries.launch.py
+  - expose les nouveaux parametres de reacquisition.
+- draw_boundaries_with_keyboard.launch.py (nouveau)
+  - lance turtlesim + serveur contour,
+  - lance le noeud clavier (dans nouveau terminal ou inline selon options).
+
+5.6 Documentation
+- README mis a jour avec:
+  - commandes de lancement,
+  - mode clavier,
+  - touches,
+  - parametres de reglage,
+  - comportement de reprise auto.
+
+========================================
+6) Parametres importants et role
+========================================
+
+- lost_wall_grace_s
+  - delai de grace quand le mur est perdu avant rotation agressive.
+- manual_cmd_timeout_s
+  - age max d'une commande clavier; au-dela, commande manuelle nulle.
+- resume_reacquire_radius
+  - rayon cible autour du point de decrochage pour valider le retour local.
+- resume_reacquire_timeout_s
+  - temps max avant bascule en recherche globale si retour local inefficace.
+
+========================================
+7) Limites et extensions possibles
+========================================
+
+- Si l'utilisateur deplace tres loin la tortue, la reprise peut etre plus longue
+  (mais ne reste plus bloquee en boucle locale grace au fallback global).
+- On peut encore ameliorer:
+  - ajout d'un feedback action explicite sur l'etat courant (AUTO, MANUAL, REACQUIRE_LOCAL, REACQUIRE_GLOBAL),
+  - ajout d'un topic de debug pour visualiser les transitions,
+  - calibration dynamique des gains selon la vitesse demandee.

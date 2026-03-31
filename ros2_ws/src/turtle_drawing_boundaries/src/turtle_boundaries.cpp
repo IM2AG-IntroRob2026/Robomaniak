@@ -4,6 +4,7 @@
 #include <chrono>
 #include <cmath>
 #include <future>
+#include <limits>
 #include <thread>
 
 using namespace std::chrono_literals;
@@ -27,6 +28,9 @@ TurtleBoundaries::TurtleBoundaries(const rclcpp::NodeOptions & options)
   this->declare_parameter<double>("search_timeout_s", 20.0);
   this->declare_parameter<double>("trace_timeout_s", 240.0);
   this->declare_parameter<double>("lost_wall_grace_s", 0.45);
+  this->declare_parameter<double>("manual_cmd_timeout_s", 0.25);
+  this->declare_parameter<double>("resume_reacquire_timeout_s", 8.0);
+  this->declare_parameter<double>("resume_reacquire_radius", 0.22);
 
   this->declare_parameter<int>("red_min", 180);
   this->declare_parameter<int>("red_max_green", 100);
@@ -44,6 +48,9 @@ TurtleBoundaries::TurtleBoundaries(const rclcpp::NodeOptions & options)
   this->get_parameter("search_timeout_s", search_timeout_s_);
   this->get_parameter("trace_timeout_s", trace_timeout_s_);
   this->get_parameter("lost_wall_grace_s", lost_wall_grace_s_);
+  this->get_parameter("manual_cmd_timeout_s", manual_cmd_timeout_s_);
+  this->get_parameter("resume_reacquire_timeout_s", resume_reacquire_timeout_s_);
+  this->get_parameter("resume_reacquire_radius", resume_reacquire_radius_);
 
   this->get_parameter("red_min", red_min_);
   this->get_parameter("red_max_green", red_max_green_);
@@ -59,6 +66,14 @@ TurtleBoundaries::TurtleBoundaries(const rclcpp::NodeOptions & options)
   color_sub_ = this->create_subscription<turtlesim::msg::Color>(
     "/turtle1/color_sensor", 10,
     std::bind(&TurtleBoundaries::color_callback, this, std::placeholders::_1));
+
+  pause_toggle_sub_ = this->create_subscription<std_msgs::msg::Empty>(
+    "/turtle_boundaries/pause_toggle", 10,
+    std::bind(&TurtleBoundaries::pause_toggle_callback, this, std::placeholders::_1));
+
+  manual_cmd_sub_ = this->create_subscription<geometry_msgs::msg::Twist>(
+    "/turtle_boundaries/manual_cmd", 10,
+    std::bind(&TurtleBoundaries::manual_cmd_callback, this, std::placeholders::_1));
 
   set_pen_client_ = this->create_client<turtlesim::srv::SetPen>("/turtle1/set_pen");
 
@@ -113,6 +128,13 @@ void TurtleBoundaries::execute(const std::shared_ptr<GoalHandle> goal_handle)
     return;
   }
 
+  {
+    std::lock_guard<std::mutex> lock(manual_control_mutex_);
+    manual_pause_active_ = false;
+    manual_cmd_ = geometry_msgs::msg::Twist{};
+    last_manual_cmd_time_ = rclcpp::Time(0, 0, RCL_ROS_TIME);
+  }
+
   const auto goal = goal_handle->get_goal();
   const double follow_speed = goal->speed > 0.0 ? goal->speed : default_speed_;
   const double effective_margin = goal->margin > 0.0 ? goal->margin : default_margin_;
@@ -141,6 +163,17 @@ void TurtleBoundaries::execute(const std::shared_ptr<GoalHandle> goal_handle)
       cancel_result->message = "Action annulee pendant la recherche du mur";
       safe_cancel(goal_handle, cancel_result);
       return;
+    }
+
+    if (is_manual_pause_active()) {
+      double manual_age_s = std::numeric_limits<double>::infinity();
+      auto manual_cmd = get_manual_cmd(&manual_age_s);
+      if (manual_age_s > manual_cmd_timeout_s_) {
+        manual_cmd = geometry_msgs::msg::Twist{};
+      }
+      cmd_vel_pub_->publish(manual_cmd);
+      search_rate.sleep();
+      continue;
     }
 
     // Contact "mur" strict: evite d'activer le stylo trop loin du bord.
@@ -198,6 +231,13 @@ void TurtleBoundaries::execute(const std::shared_ptr<GoalHandle> goal_handle)
   rclcpp::Rate trace_rate(30);
   rclcpp::Time wall_lost_since = trace_start;
   bool wall_recently_seen = true;
+  bool trace_manual_pause = false;
+  bool reacquire_after_manual = false;
+  bool reacquire_global_search = false;
+  turtlesim::msg::Pose manual_release_pose = current_pose_;
+  rclcpp::Time manual_resume_time = trace_start;
+  rclcpp::Time reacquire_last_progress_time = trace_start;
+  double reacquire_best_dist = std::numeric_limits<double>::infinity();
 
   // Phase 2: suivi du contour jusqu'a fermeture de boucle.
   while (rclcpp::ok()) {
@@ -209,6 +249,126 @@ void TurtleBoundaries::execute(const std::shared_ptr<GoalHandle> goal_handle)
       cancel_result->message = "Action annulee pendant le suivi du contour";
       safe_cancel(goal_handle, cancel_result);
       return;
+    }
+
+    if (is_manual_pause_active()) {
+      if (!trace_manual_pause) {
+        manual_release_pose = current_pose_;
+        stop_turtle();
+        if (!set_pen(true)) {
+          result->success = false;
+          result->perimeter = static_cast<float>(traced_distance);
+          result->message = "Pause manuelle impossible: set_pen indisponible";
+          safe_abort(goal_handle, result);
+          return;
+        }
+        trace_manual_pause = true;
+      }
+
+      double manual_age_s = std::numeric_limits<double>::infinity();
+      auto manual_cmd = get_manual_cmd(&manual_age_s);
+      if (manual_age_s > manual_cmd_timeout_s_) {
+        manual_cmd = geometry_msgs::msg::Twist{};
+      }
+      cmd_vel_pub_->publish(manual_cmd);
+      trace_rate.sleep();
+      continue;
+    }
+
+    if (trace_manual_pause) {
+      stop_turtle();
+      previous_pose = current_pose_;
+      wall_recently_seen = true;
+      wall_lost_since = this->now();
+      reacquire_after_manual = true;
+      reacquire_global_search = false;
+      manual_resume_time = this->now();
+      reacquire_last_progress_time = manual_resume_time;
+      reacquire_best_dist = distance_between(current_pose_, manual_release_pose);
+      trace_manual_pause = false;
+      trace_rate.sleep();
+      continue;
+    }
+
+    if (reacquire_after_manual) {
+      geometry_msgs::msg::Twist cmd;
+      const bool near_boundary = is_near_domain_boundary(follow_margin);
+      const bool red_wall = is_red_wall_detected();
+      const bool wall_detected = near_boundary || red_wall;
+
+      if (wall_detected) {
+        if (!set_pen(false)) {
+          result->success = false;
+          result->perimeter = static_cast<float>(traced_distance);
+          result->message = "Reprise impossible: set_pen indisponible";
+          safe_abort(goal_handle, result);
+          return;
+        }
+        previous_pose = current_pose_;
+        wall_recently_seen = true;
+        wall_lost_since = this->now();
+        reacquire_after_manual = false;
+        trace_rate.sleep();
+        continue;
+      }
+
+      const double reacquire_elapsed_s = (this->now() - manual_resume_time).seconds();
+      const double dist_to_release = distance_between(current_pose_, manual_release_pose);
+      const double since_progress_s = (this->now() - reacquire_last_progress_time).seconds();
+
+      if ((dist_to_release + 0.02) < reacquire_best_dist) {
+        reacquire_best_dist = dist_to_release;
+        reacquire_last_progress_time = this->now();
+      }
+
+      if (!reacquire_global_search &&
+        (reacquire_elapsed_s >= resume_reacquire_timeout_s_ || since_progress_s >= 2.0))
+      {
+        reacquire_global_search = true;
+      }
+
+      if (reacquire_global_search) {
+        if (is_near_domain_boundary(0.03)) {
+          cmd.linear.x = 0.0;
+          cmd.angular.z = goal->clockwise ? -follow_turn_speed_ : follow_turn_speed_;
+        } else {
+          cmd.linear.x = std::max(0.2, std::min(search_speed_, follow_speed));
+          cmd.angular.z = goal->clockwise ? -0.08 : 0.08;
+        }
+        cmd_vel_pub_->publish(cmd);
+        previous_pose = current_pose_;
+        trace_rate.sleep();
+        continue;
+      }
+
+      if (dist_to_release > resume_reacquire_radius_) {
+        const double target_heading = std::atan2(
+          static_cast<double>(manual_release_pose.y) - static_cast<double>(current_pose_.y),
+          static_cast<double>(manual_release_pose.x) - static_cast<double>(current_pose_.x));
+        const double heading_error = normalize_angle(
+          target_heading - static_cast<double>(current_pose_.theta));
+        const double align = std::max(0.0, std::cos(heading_error));
+
+        cmd.angular.z = std::clamp(2.4 * heading_error, -follow_turn_speed_, follow_turn_speed_);
+        cmd.linear.x = std::min(
+          std::min(0.8, follow_speed * 0.75),
+          std::max(0.18, dist_to_release * 0.9)) * align;
+        if (align < 0.15) {
+          cmd.linear.x = 0.0;
+        }
+
+        cmd_vel_pub_->publish(cmd);
+        previous_pose = current_pose_;
+        trace_rate.sleep();
+        continue;
+      } else {
+        cmd.linear.x = std::min(0.3, follow_speed * 0.3);
+        cmd.angular.z = goal->clockwise ? (-follow_turn_speed_ * 0.8) : (follow_turn_speed_ * 0.8);
+        cmd_vel_pub_->publish(cmd);
+        previous_pose = current_pose_;
+        trace_rate.sleep();
+        continue;
+      }
     }
 
     traced_distance += distance_between(previous_pose, current_pose_);
@@ -326,6 +486,43 @@ void TurtleBoundaries::color_callback(const turtlesim::msg::Color::SharedPtr msg
 {
   current_color_ = *msg;
   color_received_ = true;
+}
+
+void TurtleBoundaries::pause_toggle_callback(const std_msgs::msg::Empty::SharedPtr msg)
+{
+  (void)msg;
+  std::lock_guard<std::mutex> lock(manual_control_mutex_);
+  manual_pause_active_ = !manual_pause_active_;
+  RCLCPP_INFO(
+    this->get_logger(),
+    "Controle manuel %s",
+    manual_pause_active_ ? "active (pause contour)" : "desactive (reprise contour)");
+}
+
+void TurtleBoundaries::manual_cmd_callback(const geometry_msgs::msg::Twist::SharedPtr msg)
+{
+  std::lock_guard<std::mutex> lock(manual_control_mutex_);
+  manual_cmd_ = *msg;
+  last_manual_cmd_time_ = this->now();
+}
+
+bool TurtleBoundaries::is_manual_pause_active() const
+{
+  std::lock_guard<std::mutex> lock(manual_control_mutex_);
+  return manual_pause_active_;
+}
+
+geometry_msgs::msg::Twist TurtleBoundaries::get_manual_cmd(double * age_s) const
+{
+  std::lock_guard<std::mutex> lock(manual_control_mutex_);
+  if (age_s != nullptr) {
+    if (last_manual_cmd_time_.nanoseconds() == 0) {
+      *age_s = std::numeric_limits<double>::infinity();
+    } else {
+      *age_s = (this->now() - last_manual_cmd_time_).seconds();
+    }
+  }
+  return manual_cmd_;
 }
 
 bool TurtleBoundaries::set_pen(bool off, uint8_t width, uint8_t r, uint8_t g, uint8_t b)

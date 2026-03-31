@@ -3,10 +3,12 @@
 #include <cstddef>
 #include <cstdint>
 #include <memory>
+#include <mutex>
 
 #include <geometry_msgs/msg/twist.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <rclcpp_action/rclcpp_action.hpp>
+#include <std_msgs/msg/empty.hpp>
 #include <turtle_boundaries_interfaces/action/draw_boundaries.hpp>
 #include <turtlesim/msg/color.hpp>
 #include <turtlesim/msg/pose.hpp>
@@ -50,6 +52,8 @@ private:
   rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_pub_;
   rclcpp::Subscription<turtlesim::msg::Pose>::SharedPtr pose_sub_;
   rclcpp::Subscription<turtlesim::msg::Color>::SharedPtr color_sub_;
+  rclcpp::Subscription<std_msgs::msg::Empty>::SharedPtr pause_toggle_sub_;
+  rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr manual_cmd_sub_;
   rclcpp::Client<turtlesim::srv::SetPen>::SharedPtr set_pen_client_;
 
   // Etat capteurs
@@ -70,11 +74,19 @@ private:
   double search_timeout_s_{20.0};
   double trace_timeout_s_{120.0};
   double lost_wall_grace_s_{0.45};
+  double manual_cmd_timeout_s_{0.25};
+  double resume_reacquire_timeout_s_{8.0};
+  double resume_reacquire_radius_{0.22};
 
   int red_min_{180};
   int red_max_green_{100};
   int red_max_blue_{100};
   int trace_max_rgb_{60};
+
+  mutable std::mutex manual_control_mutex_;
+  bool manual_pause_active_{false};
+  geometry_msgs::msg::Twist manual_cmd_{};
+  rclcpp::Time last_manual_cmd_time_{0, 0, RCL_ROS_TIME};
 
   // Action callbacks
   rclcpp_action::GoalResponse handle_goal(
@@ -88,6 +100,10 @@ private:
   // Capteurs
   void pose_callback(const turtlesim::msg::Pose::SharedPtr msg);
   void color_callback(const turtlesim::msg::Color::SharedPtr msg);
+  void pause_toggle_callback(const std_msgs::msg::Empty::SharedPtr msg);
+  void manual_cmd_callback(const geometry_msgs::msg::Twist::SharedPtr msg);
+  bool is_manual_pause_active() const;
+  geometry_msgs::msg::Twist get_manual_cmd(double * age_s = nullptr) const;
 
   // Aides pilotage
   bool set_pen(bool off, uint8_t width = 2, uint8_t r = 0, uint8_t g = 0, uint8_t b = 0);
