@@ -26,6 +26,7 @@ TurtleBoundaries::TurtleBoundaries(const rclcpp::NodeOptions & options)
   this->declare_parameter<double>("min_loop_distance", 4.0);
   this->declare_parameter<double>("search_timeout_s", 20.0);
   this->declare_parameter<double>("trace_timeout_s", 240.0);
+  this->declare_parameter<double>("lost_wall_grace_s", 0.45);
 
   this->declare_parameter<int>("red_min", 180);
   this->declare_parameter<int>("red_max_green", 100);
@@ -42,6 +43,7 @@ TurtleBoundaries::TurtleBoundaries(const rclcpp::NodeOptions & options)
   this->get_parameter("min_loop_distance", min_loop_distance_);
   this->get_parameter("search_timeout_s", search_timeout_s_);
   this->get_parameter("trace_timeout_s", trace_timeout_s_);
+  this->get_parameter("lost_wall_grace_s", lost_wall_grace_s_);
 
   this->get_parameter("red_min", red_min_);
   this->get_parameter("red_max_green", red_max_green_);
@@ -194,6 +196,8 @@ void TurtleBoundaries::execute(const std::shared_ptr<GoalHandle> goal_handle)
 
   const rclcpp::Time trace_start = this->now();
   rclcpp::Rate trace_rate(30);
+  rclcpp::Time wall_lost_since = trace_start;
+  bool wall_recently_seen = true;
 
   // Phase 2: suivi du contour jusqu'a fermeture de boucle.
   while (rclcpp::ok()) {
@@ -235,6 +239,16 @@ void TurtleBoundaries::execute(const std::shared_ptr<GoalHandle> goal_handle)
     geometry_msgs::msg::Twist cmd;
     const bool near_boundary = is_near_domain_boundary(follow_margin);
     const bool red_wall = is_red_wall_detected();
+    const bool wall_detected = near_boundary || red_wall;
+
+    if (wall_detected) {
+      wall_recently_seen = true;
+    } else if (wall_recently_seen) {
+      wall_lost_since = this->now();
+      wall_recently_seen = false;
+    }
+    const double wall_lost_duration_s =
+      wall_recently_seen ? 0.0 : (this->now() - wall_lost_since).seconds();
 
     if (near_boundary) {
       // Si on est au bord du domaine, on suit la tangente du bord
@@ -259,6 +273,10 @@ void TurtleBoundaries::execute(const std::shared_ptr<GoalHandle> goal_handle)
       // Mur objet (rouge): biais angulaire leger pour longer le contour.
       cmd.linear.x = follow_speed * 0.8;
       cmd.angular.z = goal->clockwise ? -0.25 : 0.25;
+    } else if (wall_lost_duration_s <= lost_wall_grace_s_) {
+      // Perte breve du mur: avance avant de forcer la rotation de recherche.
+      cmd.linear.x = std::min(0.45, follow_speed * 0.45);
+      cmd.angular.z = goal->clockwise ? -0.18 : 0.18;
     } else {
       // Mur perdu: petite avance + rotation dans le sens choisi pour reacquerir.
       cmd.linear.x = std::min(0.25, follow_speed * 0.25);

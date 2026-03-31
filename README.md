@@ -166,3 +166,21 @@ Preset "mur rouge strict" (evite de traverser le trait rouge):
 ```bash
 ros2 launch turtle_fsm_controller turtle_fsm.launch.py red_boost_duration:=0.4 red_event_cooldown:=0.5 red_reverse_duration:=1.3 red_turn_duration:=1.4 boundary_heading_tolerance:=0.5
 ```
+
+## 9) Pour lancer le Assignement 2 (la tortue fait le contour de la fenêtre)
+Dans le terminal 1 :
+```bash
+source /opt/ros/jazzy/setup.bash
+cd /home/justine/Documents/M1_INFO/S2/Robotic/Robomaniak/ros2_ws
+colcon build --packages-select turtle_boundaries_interfaces turtle_drawing_boundaries
+source install/setup.bash
+ros2 launch turtle_drawing_boundaries draw_boundaries.launch.py lost_wall_grace_s:=0.45
+```
+
+Dans le terminal 2 :
+```
+source /opt/ros/jazzy/setup.bash
+cd /home/justine/Documents/M1_INFO/S2/Robotic/Robomaniak/ros2_ws
+source install/setup.bash
+ros2 action send_goal /draw_boundaries turtle_boundaries_interfaces/action/DrawBoundaries "{margin: 0.5, speed: 1.0, clockwise: true}" --feedback
+```

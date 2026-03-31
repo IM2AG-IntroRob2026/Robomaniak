@@ -8,6 +8,7 @@ def generate_launch_description() -> LaunchDescription:
     default_margin = LaunchConfiguration('default_margin')
     default_speed = LaunchConfiguration('default_speed')
     trace_timeout_s = LaunchConfiguration('trace_timeout_s')
+    lost_wall_grace_s = LaunchConfiguration('lost_wall_grace_s')
 
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -24,6 +25,11 @@ def generate_launch_description() -> LaunchDescription:
             'trace_timeout_s',
             default_value='240.0',
             description='Timeout maximal de suivi du contour',
+        ),
+        DeclareLaunchArgument(
+            'lost_wall_grace_s',
+            default_value='0.45',
+            description='Duree de grace avant de passer en recherche agressive du mur',
         ),
         Node(
             package='turtlesim',
@@ -42,6 +48,7 @@ def generate_launch_description() -> LaunchDescription:
                 'domain_min': 0.0,
                 'domain_max': 11.0,
                 'trace_timeout_s': trace_timeout_s,
+                'lost_wall_grace_s': lost_wall_grace_s,
             }],
         ),
     ])

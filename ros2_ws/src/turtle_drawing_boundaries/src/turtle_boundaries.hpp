@@ -69,6 +69,7 @@ private:
   double min_loop_distance_{4.0};
   double search_timeout_s_{20.0};
   double trace_timeout_s_{120.0};
+  double lost_wall_grace_s_{0.45};
 
   int red_min_{180};
   int red_max_green_{100};
