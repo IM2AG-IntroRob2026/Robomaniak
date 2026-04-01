@@ -3,3 +3,4 @@ build/
 install/
 log/
 src/turtle_fsm_controller/launch/__pycache__/
+doc
