@@ -8,6 +8,9 @@ jobs:
     container:
       image: ghcr.io/im2ag-introrob2026/robomaniak:latest
 
+    permissions:
+      pull-requests: write
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v5
@@ -17,7 +20,41 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -y --rosdistro jazzy
 
-      - name: Build and Test
+      - name: Build Project with Coverage
         run: |
           . /opt/ros/jazzy/setup.sh
-          colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release #-DCMAKE_CXX_FLAGS="-Werror -Wall -Wextra"
+          colcon build \
+            --cmake-args \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_CXX_FLAGS="--coverage" \
+            -DCMAKE_C_FLAGS="--coverage"
+
+      - name: Run tests
+        run: |
+          . /opt/ros/jazzy/setup.sh
+          colcon test
+
+      - name: Install gcovr
+        run: apt-get update && apt-get install -y gcovr
+
+      - name: Generate coverage report
+        run: |
+          . /opt/ros/jazzy/setup.sh
+          gcovr -r . \
+            --html \
+            --html-details \
+            -o coverage/index.html
+
+      - name: Upload coverage report as artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: coverage-report
+          path: 'coverage'
+
+      - name: Comment coverage report on PR
+        if: github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@v3
+        with:
+          header: '### Code Coverage Report'
+          message: |
+            [View the full coverage report](${{ github.server_url }}/${{ github.repository }}/actions/artifacts/${{ github.run_id }})
