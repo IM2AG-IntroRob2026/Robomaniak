@@ -9,6 +9,8 @@ jobs:
       image: ghcr.io/im2ag-introrob2026/robomaniak:latest
 
     permissions:
+      contents: read
+      packages: read
       pull-requests: write
 
     steps:
