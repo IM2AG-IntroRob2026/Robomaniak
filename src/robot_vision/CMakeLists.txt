@@ -74,7 +74,21 @@ set(ROS_DEPS
         behaviortree_cpp
 )
 
+# ----- YOLO Detector Library -----
+add_library(yolo_detector_lib
+        src/yolo_detector.cpp
+)
 
+target_include_directories(yolo_detector_lib PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+)
+target_link_libraries(yolo_detector_lib
+        ${OpenCV_LIBS}
+        onnxruntime::onnxruntime
+)
+ament_target_dependencies(yolo_detector_lib ${ROS_DEPS})
+
+# ----- Video Node -----
 add_executable(video_node src/video_node.cpp)
 
 target_include_directories(video_node PRIVATE
@@ -85,11 +99,8 @@ target_link_libraries(video_node
 )
 ament_target_dependencies(video_node ${ROS_DEPS})
 
-
-add_executable(detection_node
-        src/detection_node.cpp
-        src/yolo_detector.cpp
-)
+# ----- Detection Node -----
+add_executable(detection_node src/detection_node.cpp)
 
 target_include_directories(detection_node PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -97,10 +108,11 @@ target_include_directories(detection_node PRIVATE
 target_link_libraries(detection_node
         ${OpenCV_LIBS}
         onnxruntime::onnxruntime
+        yolo_detector_lib
 )
 ament_target_dependencies(detection_node ${ROS_DEPS})
 
-
+# ----- Follow Node -----
 add_executable(follow_node src/follow_node.cpp)
 
 target_include_directories(follow_node PRIVATE
@@ -108,7 +120,7 @@ target_include_directories(follow_node PRIVATE
 )
 ament_target_dependencies(follow_node ${ROS_DEPS})
 
-
+# ----- BT Manager Node -----
 add_executable(bt_manager_node src/bt_manager_node.cpp)
 
 target_include_directories(bt_manager_node PRIVATE
@@ -136,7 +148,16 @@ install(DIRECTORY models
 
 if(BUILD_TESTING)
     find_package(ament_lint_auto REQUIRED)
+    find_package(ament_cmake_gtest REQUIRED)
+
     ament_lint_auto_find_test_dependencies()
+
+    ament_add_gtest(test_yolo_detector test/test_yolo_detector.cpp)
+    target_link_libraries(test_yolo_detector
+            ${OpenCV_LIBS}
+            onnxruntime::onnxruntime
+            yolo_detector_lib
+    )
 endif()
 
 ament_package()
