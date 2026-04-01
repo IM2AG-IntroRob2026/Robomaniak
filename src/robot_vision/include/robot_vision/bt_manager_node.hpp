@@ -15,6 +15,9 @@
 
 using Twist = geometry_msgs::msg::Twist;
 
+/**
+ * @brief Shared context for the behavior tree nodes, containing shared state and resources.
+ */
 struct BtContext
 {
     std::atomic<bool> follow_mode{false};
@@ -95,10 +98,10 @@ private:
     <root BTCPP_format="4">
     <BehaviorTree ID="MainTree">
         <ReactiveFallback name="root">
-        <Sequence name="follow_branch">
+          <ReactiveSequence name="follow_branch">
             <IsFollowMode name="check_mode"/>
             <FollowAction name="do_follow"/>
-        </Sequence>
+          </ReactiveSequence>
         <IdleAction name="do_idle"/>
         </ReactiveFallback>
     </BehaviorTree>

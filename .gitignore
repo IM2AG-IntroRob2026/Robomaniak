@@ -2,4 +2,4 @@
 build/
 install/
 log/
-ros2_ws/src/turtle_fsm_controller/launch/__pycache__/
+src/turtle_fsm_controller/launch/__pycache__/

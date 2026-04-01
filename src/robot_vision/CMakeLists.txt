@@ -125,11 +125,11 @@ install(TARGETS
         DESTINATION lib/${PROJECT_NAME}
 )
 
-install(DIRECTORY include/
+install(DIRECTORY include
         DESTINATION include
 )
 
-install(DIRECTORY models/
+install(DIRECTORY models
         DESTINATION share/${PROJECT_NAME}/models
 )
 
