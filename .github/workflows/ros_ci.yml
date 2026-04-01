@@ -1,0 +1,22 @@
+name: ROS2 Jazzy CI
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  ros_build_test:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/im2ag-introrob2026/robomaniak:latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Project Dependencies
+        run: |
+          rosdep install --from-paths src --ignore-src -y --rosdistro jazzy
+
+      - name: Build and Test
+        run: |
+          . /opt/ros/jazzy/setup.sh
+          colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release #-DCMAKE_CXX_FLAGS="-Werror -Wall -Wextra"
