@@ -14,6 +14,7 @@ jobs:
 
       - name: Install Project Dependencies
         run: |
+          rosdep update
           rosdep install --from-paths src --ignore-src -y --rosdistro jazzy
 
       - name: Build and Test
