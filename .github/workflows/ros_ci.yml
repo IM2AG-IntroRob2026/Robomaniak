@@ -42,6 +42,7 @@ jobs:
       - name: Generate coverage report
         run: |
           . /opt/ros/jazzy/setup.sh
+          mkdir -p coverage
           gcovr -r . \
             --html \
             --html-details \
