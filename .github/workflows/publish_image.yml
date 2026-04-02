@@ -6,6 +6,7 @@ on:
     paths:
       - 'Dockerfile'
       - '**/package.xml'
+      - '**/publish_image.yml'
   workflow_dispatch:
 
 env:
