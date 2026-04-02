@@ -1,17 +1,16 @@
+#pragma once
+
 #include <atomic>
 #include <memory>
 #include <mutex>
-#include <stdexcept>
 #include <string>
-#include <termios.h>
-#include <thread>
-#include <unistd.h>
 
 #include <behaviortree_cpp/action_node.h>
 #include <behaviortree_cpp/bt_factory.h>
 #include <behaviortree_cpp/condition_node.h>
 #include <geometry_msgs/msg/twist.hpp>
 #include <rclcpp/rclcpp.hpp>
+#include <std_msgs/msg/empty.hpp>
 
 using Twist = geometry_msgs::msg::Twist;
 
@@ -23,8 +22,9 @@ struct BtContext
     std::atomic<bool> follow_mode{false};
 
     std::mutex cmd_mutex;
-    Twist latest_cmd;
-    bool has_cmd{false};
+    Twist follow_cmd;
+    bool  has_follow_cmd{false};
+    Twist teleop_cmd;
 
     rclcpp::Publisher<Twist>::SharedPtr cmd_vel_pub;
 };
@@ -39,7 +39,6 @@ public:
     IsFollowMode(const std::string& name, const BT::NodeConfig& config, std::shared_ptr<BtContext> ctx);
 
     static BT::PortsList providedPorts();
-
     BT::NodeStatus tick() override;
 };
 
@@ -59,7 +58,7 @@ public:
     void onHalted() override;
 };
 
-class IdleAction : public BT::StatefulActionNode
+class TeleopAction : public BT::StatefulActionNode
 {
 private:
     // Attributs
@@ -67,7 +66,7 @@ private:
 
 public:
     // Constructor
-    IdleAction(const std::string& name, const BT::NodeConfig& config, std::shared_ptr<BtContext> ctx);
+    TeleopAction(const std::string& name, const BT::NodeConfig& config, std::shared_ptr<BtContext> ctx);
 
     // Methods
     static BT::PortsList providedPorts();
@@ -81,30 +80,26 @@ class BtManagerNode : public rclcpp::Node
 private:
     // Attributs
     std::shared_ptr<BtContext> ctx_;
-    std::string trigger_key_{" "};
 
     BT::BehaviorTreeFactory factory_;
     BT::Tree tree_;
 
     rclcpp::Subscription<Twist>::SharedPtr follow_sub_;
+    rclcpp::Subscription<Twist>::SharedPtr teleop_sub_;
+    rclcpp::Subscription<std_msgs::msg::Empty>::SharedPtr switch_sub_;
     rclcpp::TimerBase::SharedPtr bt_timer_;
 
-    std::thread keyboard_thread_;
-    std::atomic<bool> running_{true};
-
-    struct termios saved_termios_{};
-    bool terminal_configured_{false};
     static constexpr const char* TREE_XML = R"(
     <root BTCPP_format="4">
-    <BehaviorTree ID="MainTree">
+      <BehaviorTree ID="MainTree">
         <ReactiveFallback name="root">
           <ReactiveSequence name="follow_branch">
             <IsFollowMode name="check_mode"/>
-            <FollowAction name="do_follow"/>
+            <FollowAction  name="do_follow"/>
           </ReactiveSequence>
-        <IdleAction name="do_idle"/>
+          <TeleopAction name="do_teleop"/>
         </ReactiveFallback>
-    </BehaviorTree>
+      </BehaviorTree>
     </root>
     )";
 
@@ -117,7 +112,4 @@ private:
     // Methods
     void buildTree();
     void tickBt();
-    void keyboardLoop();
-    void setupRawTerminal();
-    void restoreTerminal();
 };
