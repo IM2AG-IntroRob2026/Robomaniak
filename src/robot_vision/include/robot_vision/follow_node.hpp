@@ -9,12 +9,16 @@
 #include <string>
 
 #include <geometry_msgs/msg/twist.hpp>
+#include <irobot_create_msgs/msg/hazard_detection_vector.hpp>
+#include <irobot_create_msgs/msg/ir_intensity_vector.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <vision_msgs/msg/detection2_d_array.hpp>
 
 using Detection2DArray = vision_msgs::msg::Detection2DArray;
 using Detection2D = vision_msgs::msg::Detection2D;
 using Twist = geometry_msgs::msg::Twist;
+using HazardDetectionVec = irobot_create_msgs::msg::HazardDetectionVector;
+using IrIntensityVec = irobot_create_msgs::msg::IrIntensityVector;
 using namespace std::chrono_literals;
 
 enum class TrackingStrategy
@@ -32,6 +36,16 @@ enum class TrackingStrategy
  */
 [[nodiscard]] TrackingStrategy strategyFromString(const std::string& s);
 
+enum class SafetyStatus
+{
+    CLEAR,       ///< No hazard detected, safe to move.
+    IR_SLOW,     ///< IR intensity above slow threshold, reduce speed but keep moving
+    IR_STOP,     ///< IR intensity above stop threshold, immediate halt
+    BUMP_RECOVER ///< Bumper touched, little backward movement to recover, then stop
+};
+
+[[nodiscard]] SafetyStatus safetyStatusFromString(const std::string& s);
+
 /**
  * @brief ROS2 target tracking node based on 2D detections.
  * The node:
@@ -46,26 +60,47 @@ class FollowNode : public rclcpp::Node
 private: 
     // Attributs
     TrackingStrategy strategy_{TrackingStrategy::MOST_CENTERED};
-    int    image_width_       {1280};
-    int    image_height_      {720};
-    double kp_                {1.2};
-    double kd_                {0.15};
-    double max_linear_speed_  {2.0};
-    double max_angular_speed_ {1.0};
-    double dead_zone_         {0.05};
-    double max_ratio_         {40.0};
-    double lock_max_dist_px_  {150.0};
-    int    lock_lost_frames_  {10};
+    int    image_width_                {1280};
+    int    image_height_               {720};
 
-    double        prev_error_{0.0};
-    rclcpp::Time  prev_time_ {0};
+    double kp_angular_                  {1.2};
+    double kd_angular_                  {0.15};
+    double max_angular_speed_           {1.0};
+    double angular_dead_zone_           {0.05};
+
+    double kp_linear_                   {0.003};
+    double kd_linear_                   {0.0003};
+    double max_linear_speed_            {0.3};
+    double linear_dead_zone_            {20.0};
+    double target_bbox_height_          {300.0};
+    bool   allow_reverse_               {false};
+
+    double ir_warn_threshold_           {100.0};
+    double ir_stop_threshold_           {500.0};
+
+    bool   reverse_on_bump_             {false};
+    double bump_reverse_speed_          {0.1};
+    double bump_reverse_dur_            {0.6};
+
+    double lock_max_dist_px_            {150.0};
+    int    lock_lost_frames_            {10};
+
+    double       prev_angular_error_    {0.0};
+    double       prev_linear_error_     {0.0};
+    rclcpp::Time prev_time_             {0};
 
     bool   locked_      {false};
     double locked_cx_   {0.0};
     double locked_cy_   {0.0};
     int    frames_lost_ {0};
 
+    SafetyStatus safety_status_    {SafetyStatus::CLEAR};
+    double       ir_safety_factor_ {1.0};
+    rclcpp::Time bump_recover_end_ {0};
+
     rclcpp::Subscription<Detection2DArray>::SharedPtr detections_sub_;
+    rclcpp::Subscription<IrIntensityVec>::SharedPtr ir_sub_;
+    rclcpp::Subscription<HazardDetectionVec>::SharedPtr hazard_sub_;
     rclcpp::Publisher<Twist>::SharedPtr cmd_vel_pub_;
 
 public:
@@ -74,6 +109,9 @@ public:
 
 private:
     // Methods
+    void onIr(const IrIntensityVec::ConstSharedPtr& msg);
+    void onHazard(const HazardDetectionVec::ConstSharedPtr& msg);
+
     /**
      * @brief Main callback for detection processing.
      *
@@ -92,7 +130,7 @@ private:
      * @param now Le timestamp actuel pour le calcul de la dérivée.
      * @return La vitesse angulaire à appliquer pour faire tourner le robot vers la cible.
      */
-    double turnTowardsTarget(const Detection2D& target, const rclcpp::Time& now);
+    double turnTowardsTarget(const Detection2D& target, const double dt, const bool dt_valid);
 
     /**
      * @brief Calcule la vitesse linéaire à appliquer pour faire avancer le robot vers la cible.
@@ -100,7 +138,7 @@ private:
      * @param target La detection cible à suivre.
      * @return La vitesse linéaire à appliquer pour avancer vers la cible.
      */
-    double moveTowardsTarget(const Detection2D& target);
+    double moveTowardsTarget(const Detection2D& target, const double dt, const bool dt_valid);
 
     /**
      * @brief Determines the target index to track in current detections.
