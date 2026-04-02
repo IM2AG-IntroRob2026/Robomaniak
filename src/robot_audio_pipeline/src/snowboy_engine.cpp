@@ -80,9 +80,9 @@ bool SnowboyEngine::initialize(
     return false;
   }
 
-  if (sensitivities.size() != model_paths.size()) {
+  if (sensitivities.empty()) {
     if (error != nullptr) {
-      *error = "Le nombre de sensibilites doit etre egal au nombre de modeles";
+      *error = "Le parametre hotword_sensitivities est vide";
     }
     return false;
   }

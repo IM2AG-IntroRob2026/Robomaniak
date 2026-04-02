@@ -24,31 +24,18 @@ namespace robot_audio_pipeline
 namespace
 {
 std::vector<float> build_sensitivities(
-  const std::vector<double> & raw_values,
-  std::size_t keyword_count)
+  const std::vector<double> & raw_values)
 {
-  if (keyword_count == 0) {
-    return {};
-  }
-
   auto clamp01 = [](double value) -> float {
       return static_cast<float>(std::clamp(value, 0.0, 1.0));
     };
 
   if (raw_values.empty()) {
-    return std::vector<float>(keyword_count, 0.5F);
-  }
-
-  if (raw_values.size() == 1U) {
-    return std::vector<float>(keyword_count, clamp01(raw_values.front()));
-  }
-
-  if (raw_values.size() != keyword_count) {
-    return std::vector<float>(keyword_count, 0.5F);
+    return {0.5F};
   }
 
   std::vector<float> out;
-  out.reserve(keyword_count);
+  out.reserve(raw_values.size());
   for (double value : raw_values) {
     out.push_back(clamp01(value));
   }
@@ -127,13 +114,7 @@ public:
       throw std::runtime_error("hotword_model_paths est vide");
     }
 
-    const auto sensitivities = build_sensitivities(sensitivities_raw, hotword_model_paths.size());
-    if (sensitivities_raw.size() > 1U && sensitivities_raw.size() != hotword_model_paths.size()) {
-      RCLCPP_WARN(
-        this->get_logger(),
-        "hotword_sensitivities size=%zu != hotword_model_paths size=%zu, fallback sur 0.5",
-        sensitivities_raw.size(), hotword_model_paths.size());
-    }
+    const auto sensitivities = build_sensitivities(sensitivities_raw);
 
     keyword_labels_ = build_labels(hotword_model_paths, keyword_labels);
 

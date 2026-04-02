@@ -19,9 +19,9 @@ audio_pipeline_node:
     keyword_labels: ["gauche", "droite", "avance"]
 
     # Sensibilites [0..1].
-    # - soit 1 valeur appliquee a tous les hotwords
-    # - soit 1 valeur par hotword_model_path
-    hotword_sensitivities: [0.5]
+    # Avec ce set de 3 .umdl, Snowboy expose 4 hotwords universels:
+    # il faut donc 4 sensibilites.
+    hotword_sensitivities: [0.5, 0.5, 0.5, 0.5]
 
     # Reglages detection Snowboy.
     audio_gain: 1.0
