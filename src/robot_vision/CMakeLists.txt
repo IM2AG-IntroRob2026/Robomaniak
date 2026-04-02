@@ -20,6 +20,7 @@ find_package(vision_msgs        REQUIRED)
 find_package(cv_bridge          REQUIRED)
 find_package(irobot_create_msgs REQUIRED)
 find_package(behaviortree_cpp   REQUIRED)
+find_package(PkgConfig          REQUIRED)
 
 find_package(OpenCV REQUIRED COMPONENTS core imgproc videoio)
 
@@ -42,6 +43,8 @@ find_library(ONNXRUNTIME_LIBRARY
         /usr/lib/x86_64-linux-gnu
 )
 
+pkg_check_modules(LIBEVDEV REQUIRED libevdev)
+
 if(NOT ONNXRUNTIME_INCLUDE_DIR OR NOT ONNXRUNTIME_LIBRARY)
     message(FATAL_ERROR
             "ONNX Runtime introuvable.\n"
@@ -63,6 +66,7 @@ set_target_properties(onnxruntime::onnxruntime PROPERTIES
         INTERFACE_INCLUDE_DIRECTORIES "${ONNXRUNTIME_INCLUDE_DIR}"
 )
 
+# ----- Dépendances ROS2 communes -----
 set(ROS_DEPS
         rclcpp
         sensor_msgs
@@ -120,6 +124,18 @@ target_include_directories(follow_node PRIVATE
 )
 ament_target_dependencies(follow_node ${ROS_DEPS})
 
+# ---- Teleop Node -----
+add_executable(teleop_node src/teleop_node.cpp)
+
+target_include_directories(teleop_node PRIVATE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        ${LIBEVDEV_INCLUDE_DIRS}
+)
+target_link_libraries(teleop_node
+        ${LIBEVDEV_LIBRARIES}
+)
+ament_target_dependencies(teleop_node ${ROS_DEPS})
+
 # ----- BT Manager Node -----
 add_executable(bt_manager_node src/bt_manager_node.cpp)
 
@@ -128,11 +144,12 @@ target_include_directories(bt_manager_node PRIVATE
 )
 ament_target_dependencies(bt_manager_node ${ROS_DEPS})
 
-
+# ----- Installation -----
 install(TARGETS
         video_node
         detection_node
         follow_node
+        teleop_node
         bt_manager_node
         DESTINATION lib/${PROJECT_NAME}
 )
@@ -145,7 +162,7 @@ install(DIRECTORY models
         DESTINATION share/${PROJECT_NAME}/models
 )
 
-
+# ----- Tests -----
 if(BUILD_TESTING)
     find_package(ament_lint_auto REQUIRED)
     find_package(ament_cmake_gtest REQUIRED)

@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     python3-colcon-common-extensions \
     wget \
     tar \
+    libevdev-dev \
     && rm -rf /var/lib/apt/lists/*
 
 ENV ONNX_VERSION=1.24.4
