@@ -1,0 +1,70 @@
+audio_pipeline_node:
+  ros__parameters:
+    # Chemin du fichier resource Snowboy (ex: common.res).
+    # Peut etre override en launch argument "resource_path".
+    resource_path: ""
+
+    # Liste des modeles Snowboy (.pmdl/.umdl), une entree par commande vocale.
+    # Mapping demande:
+    # - subex.umdl    -> gauche
+    # - jarvis.umdl   -> droite
+    # - computer.umdl -> avance
+    hotword_model_paths:
+      - "/home/justine/Documents/M1_INFO/S2/Robotic/Robomaniak/snowboy/resources/models/subex.umdl"
+      - "/home/justine/Documents/M1_INFO/S2/Robotic/Robomaniak/snowboy/resources/models/jarvis.umdl"
+      - "/home/justine/Documents/M1_INFO/S2/Robotic/Robomaniak/snowboy/resources/models/computer.umdl"
+
+    # Labels publies sur /audio/detected_hotword.
+    # Si vide, le stem du fichier hotword_model_path est utilise.
+    keyword_labels: ["gauche", "droite", "avance"]
+
+    # Sensibilites [0..1].
+    # - soit 1 valeur appliquee a tous les hotwords
+    # - soit 1 valeur par hotword_model_path
+    hotword_sensitivities: [0.5]
+
+    # Reglages detection Snowboy.
+    audio_gain: 1.0
+    apply_frontend: true
+
+    # Duree d'une frame audio envoyee au detecteur (ms).
+    frame_duration_ms: 100
+
+    # Index du peripherique micro PortAudio (-1 = default input device).
+    audio_input_device_index: -1
+
+    # Publication d'un indicateur RMS audio (0..1).
+    publish_audio_rms: true
+
+    # Anti-repetition de detections (ms).
+    detection_cooldown_ms: 800
+
+    # Topics de sortie analyse (sans actions robot dans cette etape).
+    detections_topic: "/audio/detected_hotword"
+    rms_topic: "/audio/rms"
+
+voice_command_node:
+  ros__parameters:
+    # Topic d'entree des hotwords (depuis audio_pipeline_node).
+    detections_topic: "/audio/detected_hotword"
+
+    # Topic de commande vitesse du robot/tortue.
+    cmd_vel_topic: "/audio/cmd_vel"
+
+    # Mots (labels) attendus depuis Snowboy.
+    # Ces labels doivent correspondre a keyword_labels.
+    forward_keyword: "avance"
+    left_keyword: "gauche"
+    right_keyword: "droite"
+
+    # Actions associees:
+    # - avance pendant 3s
+    # - rotation gauche 45 degres
+    # - rotation droite 45 degres
+    forward_duration_s: 3.0
+    linear_speed: 1.5
+    turn_angle_deg: 45.0
+    angular_speed_rad_s: 1.0
+
+    # Frequence de republication cmd_vel pendant l'action.
+    publish_rate_hz: 30.0
