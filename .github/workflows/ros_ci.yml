@@ -17,19 +17,35 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v5
 
+      - name: Cache rosdep
+        uses: actions/cache@v4
+        with:
+          path: ~/.ros/rosdep
+          key: rosdep-${{ runner.os }}-${{ hashFiles('**/package.xml') }}
+          restore-keys: rosdep-
+
       - name: Install Project Dependencies
         run: |
           rosdep update
           rosdep install --from-paths src --ignore-src -y --rosdistro jazzy
 
+      - name: Setup ccache
+        uses: actions/cache@v5
+        with:
+          path: ~/.ccache
+          key: ccache-${{ github.sha }}
+          restore-keys: ccache-
+
       - name: Build Project with Coverage
         run: |
           . /opt/ros/jazzy/setup.sh
+          export CCACHE_DIR=$HOME/.ccache
           colcon build \
             --cmake-args \
             -DCMAKE_BUILD_TYPE=Debug \
             -DCMAKE_CXX_FLAGS="--coverage" \
-            -DCMAKE_C_FLAGS="--coverage"
+            -DCMAKE_C_FLAGS="--coverage" \
+            -DVIDEO_CUSTOM_PATH=/usr/lib/ccache
 
       - name: Run tests
         run: |
