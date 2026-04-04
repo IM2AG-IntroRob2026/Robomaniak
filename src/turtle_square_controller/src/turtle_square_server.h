@@ -31,9 +31,9 @@ private:
     double default_speed_;
 
     // Callbacks
-    rclcpp_action::GoalResponse handle_goal(const rclcpp_action::GoalUUID& uuid, std::shared_ptr<const DrawSquare::Goal> goal);
+    rclcpp_action::GoalResponse handle_goal(const rclcpp_action::GoalUUID& /*uuid*/, std::shared_ptr<const DrawSquare::Goal> goal);
 
-    rclcpp_action::CancelResponse handle_cancel(const std::shared_ptr<GoalHandle> goal_handle);
+    rclcpp_action::CancelResponse handle_cancel(const std::shared_ptr<GoalHandle> /*goal_handle*/);
 
     void handle_accepted(const std::shared_ptr<GoalHandle> goal_handle);
 

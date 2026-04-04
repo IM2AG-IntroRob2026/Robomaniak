@@ -23,13 +23,13 @@ TurtleSquareServer::TurtleSquareServer(const rclcpp::NodeOptions& options)
         std::bind(&TurtleSquareServer::handle_accepted, this, std::placeholders::_1));
 }
 
-rclcpp_action::GoalResponse TurtleSquareServer::handle_goal(const rclcpp_action::GoalUUID& uuid, std::shared_ptr<const DrawSquare::Goal> goal)
+rclcpp_action::GoalResponse TurtleSquareServer::handle_goal(const rclcpp_action::GoalUUID& /*uuid*/, std::shared_ptr<const DrawSquare::Goal> goal)
 {
     RCLCPP_INFO(this->get_logger(), "Received goal request with side_length: %.2f and speed: %.2f", goal->side_length, goal->speed);
     return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
 }
 
-rclcpp_action::CancelResponse TurtleSquareServer::handle_cancel(const std::shared_ptr<GoalHandle> goal_handle)
+rclcpp_action::CancelResponse TurtleSquareServer::handle_cancel(const std::shared_ptr<GoalHandle> /*goal_handle*/)
 {
     RCLCPP_INFO(this->get_logger(), "Received request to cancel goal");
     return rclcpp_action::CancelResponse::ACCEPT;
