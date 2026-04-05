@@ -28,9 +28,8 @@
 
     <!-- Dépendances système -->
     <depend>libopencv-dev</depend>
-
-    <build_depend>libevdev-dev</build_depend>
-    <exec_depend>libevdev-dev</exec_depend>
+    <depend>libevdev-dev</depend>
+    <depend>portaudio19-dev</depend>
 
     <!-- Tests -->
     <test_depend>ament_lint_auto</test_depend>

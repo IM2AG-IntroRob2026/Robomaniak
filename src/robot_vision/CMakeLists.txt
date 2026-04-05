@@ -24,6 +24,19 @@ find_package(PkgConfig          REQUIRED)
 
 find_package(OpenCV REQUIRED COMPONENTS core imgproc videoio)
 
+# ----- libevdev -----
+
+pkg_check_modules(LIBEVDEV REQUIRED libevdev)
+message(STATUS "libevdev include : ${LIBEVDEV_INCLUDE_DIRS}")
+message(STATUS "libevdev lib     : ${LIBEVDEV_LIBRARIES}")
+
+# ----- PortAudio -----
+
+pkg_check_modules(PORTAUDIO REQUIRED portaudio-2.0)
+message(STATUS "PortAudio include : ${PORTAUDIO_INCLUDE_DIRS}")
+message(STATUS "PortAudio lib     : ${PORTAUDIO_LIBRARIES}")
+
+# ----- ONNX Runtime -----
 find_path(ONNXRUNTIME_INCLUDE_DIR
         NAMES onnxruntime_cxx_api.h
         PATHS
@@ -43,8 +56,6 @@ find_library(ONNXRUNTIME_LIBRARY
         /usr/lib/x86_64-linux-gnu
 )
 
-pkg_check_modules(LIBEVDEV REQUIRED libevdev)
-
 if(NOT ONNXRUNTIME_INCLUDE_DIR OR NOT ONNXRUNTIME_LIBRARY)
     message(FATAL_ERROR
             "ONNX Runtime introuvable.\n"
@@ -56,7 +67,6 @@ if(NOT ONNXRUNTIME_INCLUDE_DIR OR NOT ONNXRUNTIME_LIBRARY)
             "  sudo ldconfig\n"
     )
 endif()
-
 message(STATUS "ONNX Runtime headers : ${ONNXRUNTIME_INCLUDE_DIR}")
 message(STATUS "ONNX Runtime lib     : ${ONNXRUNTIME_LIBRARY}")
 
@@ -64,6 +74,41 @@ add_library(onnxruntime::onnxruntime UNKNOWN IMPORTED)
 set_target_properties(onnxruntime::onnxruntime PROPERTIES
         IMPORTED_LOCATION             "${ONNXRUNTIME_LIBRARY}"
         INTERFACE_INCLUDE_DIRECTORIES "${ONNXRUNTIME_INCLUDE_DIR}"
+)
+
+# ----- Sherpa-ONNX -----
+find_path(SHERPA_ONNX_INCLUDE_DIR
+        NAMES sherpa-onnx/c-api/c-api.h
+        PATHS
+        /usr/local/include
+        /usr/include
+)
+
+find_library(SHERPA_ONNX_LIBRARY
+        NAMES sherpa-onnx-c-api
+        PATHS
+        /usr/local/lib
+        /usr/local/lib64
+        /usr/lib
+        /usr/lib64
+        /usr/lib/x86_64-linux-gnu
+)
+
+if(NOT SHERPA_ONNX_INCLUDE_DIR OR NOT SHERPA_ONNX_LIBRARY)
+    message(FATAL_ERROR
+            "Sherpa-ONNX introuvable.\n"
+            "Télécharger depuis https://github.com/k2-fsa/sherpa-onnx/releases\n"
+            "  sudo cp -r sherpa-onnx-*/include/* /usr/local/include/\n"
+            "  sudo cp -r sherpa-onnx-*/lib/*     /usr/local/lib/\n"
+            "  sudo ldconfig\n")
+endif()
+message(STATUS "Sherpa-ONNX include : ${SHERPA_ONNX_INCLUDE_DIR}")
+message(STATUS "Sherpa-ONNX lib     : ${SHERPA_ONNX_LIBRARY}")
+
+add_library(sherpa_onnx::c_api UNKNOWN IMPORTED)
+set_target_properties(sherpa_onnx::c_api PROPERTIES
+        IMPORTED_LOCATION             "${SHERPA_ONNX_LIBRARY}"
+        INTERFACE_INCLUDE_DIRECTORIES "${SHERPA_ONNX_INCLUDE_DIR}"
 )
 
 # ----- Dépendances ROS2 communes -----
@@ -79,69 +124,47 @@ set(ROS_DEPS
 )
 
 # ----- YOLO Detector Library -----
-add_library(yolo_detector_lib
-        src/yolo_detector.cpp
-)
-
-target_include_directories(yolo_detector_lib PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-)
-target_link_libraries(yolo_detector_lib
-        ${OpenCV_LIBS}
-        onnxruntime::onnxruntime
-)
+add_library(yolo_detector_lib src/yolo_detector.cpp)
+target_include_directories(yolo_detector_lib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+target_link_libraries(yolo_detector_lib ${OpenCV_LIBS} onnxruntime::onnxruntime )
 ament_target_dependencies(yolo_detector_lib ${ROS_DEPS})
 
 # ----- Video Node -----
 add_executable(video_node src/video_node.cpp)
-
-target_include_directories(video_node PRIVATE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-)
-target_link_libraries(video_node
-        ${OpenCV_LIBS}
-)
+target_include_directories(video_node PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+target_link_libraries(video_node ${OpenCV_LIBS})
 ament_target_dependencies(video_node ${ROS_DEPS})
 
 # ----- Detection Node -----
 add_executable(detection_node src/detection_node.cpp)
-
-target_include_directories(detection_node PRIVATE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-)
-target_link_libraries(detection_node
-        ${OpenCV_LIBS}
-        onnxruntime::onnxruntime
-        yolo_detector_lib
-)
+target_include_directories(detection_node PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+target_link_libraries(detection_node ${OpenCV_LIBS} onnxruntime::onnxruntime yolo_detector_lib)
 ament_target_dependencies(detection_node ${ROS_DEPS})
 
 # ----- Follow Node -----
 add_executable(follow_node src/follow_node.cpp)
-
-target_include_directories(follow_node PRIVATE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-)
+target_include_directories(follow_node PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 ament_target_dependencies(follow_node ${ROS_DEPS})
 
 # ---- Teleop Node -----
 add_executable(teleop_node src/teleop_node.cpp)
-
 target_include_directories(teleop_node PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        ${LIBEVDEV_INCLUDE_DIRS}
-)
-target_link_libraries(teleop_node
-        ${LIBEVDEV_LIBRARIES}
-)
+        ${LIBEVDEV_INCLUDE_DIRS})
+target_link_libraries(teleop_node ${LIBEVDEV_LIBRARIES})
 ament_target_dependencies(teleop_node ${ROS_DEPS})
+
+# ----- listen_node -----
+add_executable(listen_node src/listen_node.cpp)
+target_include_directories(listen_node PRIVATE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        ${PORTAUDIO_INCLUDE_DIRS})
+target_link_libraries(listen_node ${PORTAUDIO_LIBRARIES} sherpa_onnx::c_api)
+ament_target_dependencies(listen_node ${ROS_DEPS})
 
 # ----- BT Manager Node -----
 add_executable(bt_manager_node src/bt_manager_node.cpp)
-
-target_include_directories(bt_manager_node PRIVATE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-)
+target_include_directories(bt_manager_node PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 ament_target_dependencies(bt_manager_node ${ROS_DEPS})
 
 # ----- Installation -----
@@ -150,17 +173,13 @@ install(TARGETS
         detection_node
         follow_node
         teleop_node
+        listen_node
         bt_manager_node
         DESTINATION lib/${PROJECT_NAME}
 )
 
-install(DIRECTORY include
-        DESTINATION include
-)
-
-install(DIRECTORY models
-        DESTINATION share/${PROJECT_NAME}/models
-)
+install(DIRECTORY include/ DESTINATION include)
+install(DIRECTORY models/  DESTINATION share/${PROJECT_NAME}/models)
 
 # ----- Tests -----
 if(BUILD_TESTING)
