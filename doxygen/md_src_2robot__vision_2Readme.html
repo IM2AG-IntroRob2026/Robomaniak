@@ -111,6 +111,14 @@ Suivi de cible</h1>
 BT Manager</h1>
 <div class="fragment"><div class="line">ros2 run robot_vision bt_manager_node --ros-args -p \</div>
 <div class="line">  bt_tick_hz:=50.0 -p trigger_key:=&quot;s&quot; --remap /cmd_vel:=/Robot3/cmd_vel</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md12"></a>
+Listen node</h1>
+<div class="fragment"><div class="line">MODEL_DIR=\$(ros2 pkg prefix robot_vision)/share/robot_vision/models &amp;&amp; \</div>
+<div class="line">     ros2 run robot_vision listen_node --ros-args \</div>
+<div class="line">       -p encoder_path:=\&quot;\${MODEL_DIR}/kws_encoder.onnx\&quot; \</div>
+<div class="line">       -p decoder_path:=\&quot;\${MODEL_DIR}/kws_decoder.onnx\&quot; \</div>
+<div class="line">       -p joiner_path:=\&quot;\${MODEL_DIR}/kws_joiner.onnx\&quot; \</div>
+<div class="line">       -p tokens_path:=\&quot;\${MODEL_DIR}/kws_tokens.txt\&quot;</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
