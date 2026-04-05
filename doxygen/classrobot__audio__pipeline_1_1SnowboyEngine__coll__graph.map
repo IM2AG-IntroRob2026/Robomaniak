@@ -1,0 +1,9 @@
+<map id="robot_audio_pipeline::SnowboyEngine" name="robot_audio_pipeline::SnowboyEngine">
+<area shape="rect" id="Node000001" title=" " alt="" coords="43,313,202,353"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,196,240,251"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,265,125,313,120,313,120,265"/>
+<area shape="rect" id="Node000003" href="$structrobot__audio__pipeline_1_1SnowboyEngine_1_1Impl.html" title=" " alt="" coords="37,93,208,133"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="125,147,125,196,120,196,120,147"/>
+<area shape="rect" id="Node000004" href="$structrb__snowboy__handle.html" title=" " alt="" coords="47,5,198,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="125,44,125,93,120,93,120,44"/>
+</map>

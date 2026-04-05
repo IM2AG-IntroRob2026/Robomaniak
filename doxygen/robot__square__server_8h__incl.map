@@ -1,0 +1,17 @@
+<map id="src/robot_square_controller/src/robot_square_server.h" name="src/robot_square_controller/src/robot_square_server.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="587,5,785,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,101,137,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="587,38,384,61,149,96,128,100,127,95,148,91,383,55,586,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="161,93,312,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="587,47,326,96,325,91,586,42"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="337,101,550,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="634,48,490,99,488,94,632,43"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="575,101,797,126"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="689,46,689,87,683,87,683,46"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="821,101,905,126"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="726,43,829,92,826,97,724,48"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="930,93,1125,133"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="762,43,940,87,939,93,760,48"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="1149,93,1330,133"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="786,38,1135,90,1135,96,785,43"/>
+</map>

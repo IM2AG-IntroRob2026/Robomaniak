@@ -1,0 +1,13 @@
+<map id="BtManagerNode" name="BtManagerNode">
+<area shape="rect" id="Node000001" title=" " alt="" coords="15,269,141,295"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,181,108,207"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="65,219,78,268,72,269,60,221"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="132,181,347,207"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="207,216,101,271,99,267,204,211"/>
+<area shape="rect" id="Node000004" href="$structBtContext.html" title="Shared context for the behavior tree nodes, containing shared state and resources." alt="" coords="196,93,283,119"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="242,133,242,181,237,181,237,133"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="56,5,255,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="178,39,230,91,226,95,174,43"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="279,5,371,31"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="305,43,253,95,249,91,301,39"/>
+</map>

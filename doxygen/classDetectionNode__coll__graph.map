@@ -1,0 +1,11 @@
+<map id="DetectionNode" name="DetectionNode">
+<area shape="rect" id="Node000001" title=" " alt="" coords="19,299,137,324"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,203,108,229"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="65,241,78,298,73,299,60,242"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="133,196,306,236"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="181,246,97,301,94,296,178,241"/>
+<area shape="rect" id="Node000004" href="$classrobot__vision_1_1YoloDetector.html" title=" " alt="" coords="123,108,315,133"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="222,147,222,196,217,196,217,147"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="142,5,297,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="222,59,222,108,217,108,217,59"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="VideoNode" name="VideoNode">
+<area shape="rect" id="Node000001" title=" " alt="" coords="50,183,143,208"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,95,108,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="70,131,94,181,89,183,65,134"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="132,95,219,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="158,132,110,184,106,180,154,128"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="106,5,245,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="178,59,178,94,173,94,173,59"/>
+</map>
