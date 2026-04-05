@@ -59,3 +59,14 @@ ros2 run robot_vision follow_node --ros-args -p strategy:="most_centered" \
 ros2 run robot_vision bt_manager_node --ros-args -p \
   bt_tick_hz:=50.0 -p trigger_key:="s" --remap /cmd_vel:=/Robot3/cmd_vel
 ```
+
+## Listen node
+
+```bash
+MODEL_DIR=\$(ros2 pkg prefix robot_vision)/share/robot_vision/models && \
+     ros2 run robot_vision listen_node --ros-args \
+       -p encoder_path:=\"\${MODEL_DIR}/kws_encoder.onnx\" \
+       -p decoder_path:=\"\${MODEL_DIR}/kws_decoder.onnx\" \
+       -p joiner_path:=\"\${MODEL_DIR}/kws_joiner.onnx\" \
+       -p tokens_path:=\"\${MODEL_DIR}/kws_tokens.txt\"
+```
