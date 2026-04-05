@@ -5,10 +5,15 @@ RUN find src -type f ! -name "package.xml" -delete
 
 FROM alpine AS downloader
 ENV ONNX_VERSION=1.24.4
+ENV SHERPA_ONNX_VERSION=1.12.35
 RUN apk add --no-cache wget tar
 WORKDIR /deps
 RUN wget https://github.com/microsoft/onnxruntime/releases/download/v${ONNX_VERSION}/onnxruntime-linux-x64-${ONNX_VERSION}.tgz \
-    && tar -xzf onnxruntime-linux-x64-${ONNX_VERSION}.tgz
+    && tar -xzf onnxruntime-linux-x64-${ONNX_VERSION}.tgz \
+    && rm onnxruntime-linux-x64-${ONNX_VERSION}.tgz \
+    && wget https://github.com/k2-fsa/sherpa-onnx/releases/download/v${SHERPA_ONNX_VERSION}/sherpa-onnx-v${SHERPA_ONNX_VERSION}-linux-x64-shared-no-tts.tar.bz2 \
+    && tar -xjf sherpa-onnx-v${SHERPA_ONNX_VERSION}-linux-x64-shared-no-tts.tar.bz2 \
+    && rm sherpa-onnx-v${SHERPA_ONNX_VERSION}-linux-x64-shared-no-tts.tar.bz2
 
 FROM ros:jazzy-ros-base
 
@@ -16,10 +21,15 @@ RUN apt-get update && apt-get install -y \
     ccache \
     python3-colcon-common-extensions \
     libevdev-dev \
+    portaudio19-dev \
+    libportaudio2 \
     && rm -rf /var/lib/apt/lists/*
 
+RUN mkdir -p /usr/local/lib/sherpa-onnx/c-api
 COPY --from=downloader /deps/onnxruntime-linux-x64-1.24.4/include/* /usr/local/include/
 COPY --from=downloader /deps/onnxruntime-linux-x64-1.24.4/lib/* /usr/local/lib/
+COPY --from=downloader /deps/sherpa-onnx-v1.12.35-linux-x64-shared-no-tts/include/sherpa-onnx/c-api/* /usr/local/include/sherpa-onnx/c-api/
+COPY --from=downloader /deps/sherpa-onnx-v1.12.35-linux-x64-shared-no-tts/lib/* /usr/local/lib/
 RUN ldconfig
 
 WORKDIR /ros2_ws
@@ -30,3 +40,5 @@ RUN apt-get update && \
     rosdep update && \
     rosdep install --from-paths src --ignore-src -y --rosdistro jazzy && \
     rm -rf /var/lib/apt/lists/*
+
+RUN . /opt/ros/jazzy/setup.sh
