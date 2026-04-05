@@ -29,31 +29,37 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -y --rosdistro jazzy
 
+      - name: Ensure ccache directory exists
+        run: mkdir -p ~/.ccache
+
       - name: Setup ccache
         uses: actions/cache@v5
         with:
           path: ~/.ccache
-          key: ccache-${{ github.sha }}
-          restore-keys: ccache-
+          key: ccache-${{ runner.os }}-${{ hashFiles('**/CMakeLists.txt') }}
+          restore-keys: |
+            ccache-${{ runner.os }}-
 
       - name: Build Project with Coverage
         run: |
           . /opt/ros/jazzy/setup.sh
           export CCACHE_DIR=$HOME/.ccache
+          export PATH="/usr/lib/ccache:$PATH"
           colcon build \
             --cmake-args \
             -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_C_COMPILER_LAUNCHER=ccache \
+            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
             -DCMAKE_CXX_FLAGS="--coverage" \
-            -DCMAKE_C_FLAGS="--coverage" \
-            -DVIDEO_CUSTOM_PATH=/usr/lib/ccache
+            -DCMAKE_C_FLAGS="--coverage"
 
       - name: Run tests
         run: |
           . /opt/ros/jazzy/setup.sh
           colcon test
 
-      - name: Install gcovr
-        run: apt-get update && apt-get install -y gcovr
+      - name: Install coverage and documentation tools
+        run: apt-get update && apt-get install -y gcovr doxygen graphviz
 
       - name: Generate coverage report
         run: |
