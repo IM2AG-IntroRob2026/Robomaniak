@@ -77,3 +77,31 @@ jobs:
           header: '### Code Coverage Report'
           message: |
             [View the full coverage report](${{ github.server_url }}/${{ github.repository }}/actions/artifacts/${{ github.run_id }})
+
+      - name: Build documentation
+        run: |
+          . /opt/ros/jazzy/setup.sh
+          mkdir -p doc
+          doxygen Doxyfile
+
+      - name: Extract metrics
+        run: |
+          mkdir -p public
+          cat > public/metrics.json <<EOF
+          {
+            "timestamp": $(date +%s)
+          }
+          EOF
+
+      - name: Prepare content
+        run: |
+          cp -r gh-pages/* public/
+          cp -r coverage public/coverage/
+          cp -r doc/html public/doxygen/
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          keep_files: true
