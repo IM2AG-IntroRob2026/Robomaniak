@@ -27,7 +27,7 @@
     </tr>
     <tr>
       <th scope="row">Date:</th>
-      <td>2026-04-05 13:53:04</td>
+      <td>2026-04-16 08:57:05</td>
     </tr>
   </table>
 </div>
@@ -42,19 +42,19 @@
     <tr>
       <th scope="row">Lines:</th>
       <td>0</td>
-      <td>278</td>
+      <td>289</td>
       <td class="coverage-none">0.0%</td>
     </tr>
     <tr>
       <th scope="row">Functions:</th>
       <td>0</td>
-      <td>14</td>
+      <td>15</td>
       <td class="coverage-none">0.0%</td>
     </tr>
     <tr>
       <th scope="row">Branches:</th>
       <td>0</td>
-      <td>1276</td>
+      <td>1378</td>
       <td class="coverage-none">0.0%</td>
     </tr>
   </table>
@@ -75,18 +75,19 @@
     </tr>
     <tr><td><a href="#l21">ListenNode::ListenNode() (line 21)</a></td><td>not called</td><td>0.0%</td></tr>
     <tr><td><a href="#l151">ListenNode::buildKeywordsBuf[abi:cxx11]() const (line 151)</a></td><td>not called</td><td>0.0%</td></tr>
-    <tr><td><a href="#l367">ListenNode::handleKeyword(std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; const&amp;) (line 367)</a></td><td>not called</td><td>0.0%</td></tr>
+    <tr><td><a href="#l385">ListenNode::handleKeyword(std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; const&amp;) (line 385)</a></td><td>not called</td><td>0.0%</td></tr>
+    <tr><td><a href="#l388">ListenNode::handleKeyword(std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; const&amp;)::{lambda(unsigned char)#1}::operator()(unsigned char) const (line 388)</a></td><td>not called</td><td>0.0%</td></tr>
     <tr><td><a href="#l225">ListenNode::initPortAudio() (line 225)</a></td><td>not called</td><td>0.0%</td></tr>
     <tr><td><a href="#l161">ListenNode::initSherpa() (line 161)</a></td><td>not called</td><td>0.0%</td></tr>
     <tr><td><a href="#l80">ListenNode::loadVocabulary() (line 80)</a></td><td>not called</td><td>0.0%</td></tr>
-    <tr><td><a href="#l389">ListenNode::onPublishTimer() (line 389)</a></td><td>not called</td><td>0.0%</td></tr>
+    <tr><td><a href="#l409">ListenNode::onPublishTimer() (line 409)</a></td><td>not called</td><td>0.0%</td></tr>
     <tr><td><a href="#l293">ListenNode::paCallback(void const*, void*, unsigned long, PaStreamCallbackTimeInfo const*, unsigned long, void*) (line 293)</a></td><td>not called</td><td>0.0%</td></tr>
     <tr><td><a href="#l313">ListenNode::processLoop() (line 313)</a></td><td>not called</td><td>0.0%</td></tr>
     <tr><td><a href="#l283">ListenNode::shutdownPortAudio() (line 283)</a></td><td>not called</td><td>0.0%</td></tr>
     <tr><td><a href="#l219">ListenNode::shutdownSherpa() (line 219)</a></td><td>not called</td><td>0.0%</td></tr>
     <tr><td><a href="#l99">ListenNode::wordToTokens(std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; const&amp;, std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; const&amp;) const (line 99)</a></td><td>not called</td><td>0.0%</td></tr>
     <tr><td><a href="#l72">ListenNode::~ListenNode() (line 72)</a></td><td>not called</td><td>0.0%</td></tr>
-    <tr><td><a href="#l409">main (line 409)</a></td><td>not called</td><td>0.0%</td></tr>
+    <tr><td><a href="#l429">main (line 429)</a></td><td>not called</td><td>0.0%</td></tr>
   </table>
 </details>
 
@@ -302,14 +303,14 @@
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">    </span><span class="n">declare_parameter</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w">     </span><span class="p">(</span><span class="s">&quot;keyword_score&quot;</span><span class="p">,</span><span class="w">      </span><span class="mf">1.5</span><span class="p">);</span></td>
+      <td class="src uncoveredLine"><span class="w">    </span><span class="n">declare_parameter</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w">     </span><span class="p">(</span><span class="s">&quot;keyword_score&quot;</span><span class="p">,</span><span class="w">      </span><span class="mf">2.5</span><span class="p">);</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l30" href="#l30">30</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">    </span><span class="n">declare_parameter</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w">     </span><span class="p">(</span><span class="s">&quot;score_threshold&quot;</span><span class="p">,</span><span class="w">    </span><span class="mf">0.25</span><span class="p">);</span></td>
+      <td class="src uncoveredLine"><span class="w">    </span><span class="n">declare_parameter</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w">     </span><span class="p">(</span><span class="s">&quot;score_threshold&quot;</span><span class="p">,</span><span class="w">    </span><span class="mf">0.01</span><span class="p">);</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l31" href="#l31">31</a></td>
@@ -2458,35 +2459,35 @@
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="n">SherpaOnnxOnlineStreamAcceptWaveform</span><span class="p">(</span><span class="n">stream_</span><span class="p">,</span><span class="w"> </span><span class="n">pa_sample_rate_</span><span class="p">,</span><span class="w"> </span><span class="n">chunk</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">chunk</span><span class="p">.</span><span class="n">size</span><span class="p">()));</span></td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">max_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l338" href="#l338">338</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">chunk</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">max_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">max_val</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">f</span><span class="p">));</span><span class="w"> </span><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l339" href="#l339">339</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">reinit_stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span></td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">max_val</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.1f</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l340" href="#l340">340</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">SherpaOnnxIsKeywordStreamReady</span><span class="p">(</span><span class="n">spotter_</span><span class="p">,</span><span class="w"> </span><span class="n">stream_</span><span class="p">))</span><span class="w"> </span><span class="p">{</span></td>
+      <td class="src uncoveredLine"><span class="w">            </span><span class="n">RCLCPP_DEBUG</span><span class="p">(</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Audio level: %f&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">max_val</span><span class="p">);</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l341" href="#l341">341</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">            </span><span class="n">SherpaOnnxDecodeKeywordStream</span><span class="p">(</span><span class="n">spotter_</span><span class="p">,</span><span class="w"> </span><span class="n">stream_</span><span class="p">);</span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l342" href="#l342">342</a></td>
@@ -2500,287 +2501,287 @@
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">SherpaOnnxKeywordResult</span><span class="o">*</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SherpaOnnxGetKeywordResult</span><span class="p">(</span><span class="n">spotter_</span><span class="p">,</span><span class="w"> </span><span class="n">stream_</span><span class="p">);</span></td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="n">SherpaOnnxOnlineStreamAcceptWaveform</span><span class="p">(</span><span class="n">stream_</span><span class="p">,</span><span class="w"> </span><span class="n">pa_sample_rate_</span><span class="p">,</span><span class="w"> </span><span class="n">chunk</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">chunk</span><span class="p">.</span><span class="n">size</span><span class="p">()));</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l344" href="#l344">344</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></td>
+      <td class="linecount "></td>
+      <td class="src "></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l345" href="#l345">345</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">                </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">kw</span><span class="p">(</span><span class="n">result</span><span class="o">-&gt;</span><span class="n">keyword</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">result</span><span class="o">-&gt;</span><span class="n">keyword</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">);</span></td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">reinit_stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l346" href="#l346">346</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">                </span><span class="n">SherpaOnnxDestroyKeywordResult</span><span class="p">(</span><span class="n">result</span><span class="p">);</span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">total_decode_steps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l347" href="#l347">347</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">kw</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span></td>
+      <td class="linecount "></td>
+      <td class="src "></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l348" href="#l348">348</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">                    </span><span class="n">handleKeyword</span><span class="p">(</span><span class="n">kw</span><span class="p">);</span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">chunk_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l349" href="#l349">349</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">                    </span><span class="n">reinit_stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">++</span><span class="n">chunk_count</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l350" href="#l350">350</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">                    </span><span class="k">break</span><span class="p">;</span></td>
+      <td class="src uncoveredLine"><span class="w">            </span><span class="n">RCLCPP_DEBUG</span><span class="p">(</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Chunks: %d, decode_steps: %d, buffer: %zu&quot;</span><span class="p">,</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l351" href="#l351">351</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">                </span><span class="p">}</span></td>
+      <td class="src "><span class="w">                </span><span class="n">chunk_count</span><span class="p">,</span><span class="w"> </span><span class="n">total_decode_steps</span><span class="p">,</span><span class="w"> </span><span class="n">audio_buffer_</span><span class="p">.</span><span class="n">size</span><span class="p">());</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l352" href="#l352">352</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">            </span><span class="p">}</span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l353" href="#l353">353</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">        </span><span class="p">}</span></td>
+      <td class="src "></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l354" href="#l354">354</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">SherpaOnnxIsKeywordStreamReady</span><span class="p">(</span><span class="n">spotter_</span><span class="p">,</span><span class="w"> </span><span class="n">stream_</span><span class="p">))</span><span class="w"> </span><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l355" href="#l355">355</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">reinit_stream</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></td>
+      <td class="src uncoveredLine"><span class="w">            </span><span class="o">++</span><span class="n">total_decode_steps</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l356" href="#l356">356</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">            </span><span class="n">SherpaOnnxDestroyOnlineStream</span><span class="p">(</span><span class="n">stream_</span><span class="p">);</span></td>
+      <td class="src uncoveredLine"><span class="w">            </span><span class="n">SherpaOnnxDecodeKeywordStream</span><span class="p">(</span><span class="n">spotter_</span><span class="p">,</span><span class="w"> </span><span class="n">stream_</span><span class="p">);</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l357" href="#l357">357</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">            </span><span class="n">stream_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SherpaOnnxCreateKeywordStream</span><span class="p">(</span><span class="n">spotter_</span><span class="p">);</span></td>
+      <td class="linecount "></td>
+      <td class="src "></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l358" href="#l358">358</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">stream_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></td>
+      <td class="src uncoveredLine"><span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">SherpaOnnxKeywordResult</span><span class="o">*</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SherpaOnnxGetKeywordResult</span><span class="p">(</span><span class="n">spotter_</span><span class="p">,</span><span class="w"> </span><span class="n">stream_</span><span class="p">);</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l359" href="#l359">359</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">                </span><span class="n">RCLCPP_ERROR</span><span class="p">(</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Failed to reinitialize Sherpa-ONNX stream after keyword detection.&quot;</span><span class="p">);</span></td>
+      <td class="src uncoveredLine"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l360" href="#l360">360</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">                </span><span class="n">running_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span></td>
+      <td class="src uncoveredLine"><span class="w">                </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">kw</span><span class="p">(</span><span class="n">result</span><span class="o">-&gt;</span><span class="n">keyword</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">result</span><span class="o">-&gt;</span><span class="n">keyword</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">);</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l361" href="#l361">361</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">                </span><span class="k">return</span><span class="p">;</span></td>
+      <td class="src uncoveredLine"><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">kw</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l362" href="#l362">362</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">            </span><span class="p">}</span></td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">                    </span><span class="n">RCLCPP_DEBUG</span><span class="p">(</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Raw keyword result: &#39;%s&#39;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">kw</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l363" href="#l363">363</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">        </span><span class="p">}</span></td>
+      <td class="src "><span class="w">                </span><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l364" href="#l364">364</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">    </span><span class="p">}</span></td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">                </span><span class="n">SherpaOnnxDestroyKeywordResult</span><span class="p">(</span><span class="n">result</span><span class="p">);</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l365" href="#l365">365</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="p">}</span></td>
+      <td class="src uncoveredLine"><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">kw</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l366" href="#l366">366</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">                    </span><span class="n">handleKeyword</span><span class="p">(</span><span class="n">kw</span><span class="p">);</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l367" href="#l367">367</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="kt">void</span><span class="w"> </span><span class="n">ListenNode</span><span class="o">::</span><span class="n">handleKeyword</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">keyword</span><span class="p">)</span></td>
+      <td class="src uncoveredLine"><span class="w">                    </span><span class="n">reinit_stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l368" href="#l368">368</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="p">{</span></td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">                    </span><span class="k">break</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l369" href="#l369">369</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">    </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Keyword detected: &#39;%s&#39;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">keyword</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">                </span><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l370" href="#l370">370</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">            </span><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l371" href="#l371">371</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">    </span><span class="n">PendingPublish</span><span class="w"> </span><span class="n">pending</span><span class="p">;</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l372" href="#l372">372</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">keyword</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">wake_word_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l373" href="#l373">373</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="n">pending</span><span class="p">.</span><span class="n">kind</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PendingPublish</span><span class="o">::</span><span class="n">Kind</span><span class="o">::</span><span class="n">ModeSwitch</span><span class="p">;</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l374" href="#l374">374</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l375" href="#l375">375</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="n">pending</span><span class="p">.</span><span class="n">kind</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PendingPublish</span><span class="o">::</span><span class="n">Kind</span><span class="o">::</span><span class="n">Command</span><span class="p">;</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l376" href="#l376">376</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">keyword</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">kw_forward_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">pending</span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;forward&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">}</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l377" href="#l377">377</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">keyword</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">kw_left_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">pending</span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;left&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">}</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l378" href="#l378">378</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">keyword</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">kw_right_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">pending</span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;right&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">}</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l379" href="#l379">379</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="p">{</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l380" href="#l380">380</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">            </span><span class="n">RCLCPP_WARN</span><span class="p">(</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Unrecognized keyword &#39;%s&#39; detected. Ignoring.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">keyword</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l381" href="#l381">381</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">            </span><span class="k">return</span><span class="p">;</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l382" href="#l382">382</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
       <td class="src "><span class="w">        </span><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l383" href="#l383">383</a></td>
+      <td class="lineno"><a id="l372" href="#l372">372</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l373" href="#l373">373</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">reinit_stream</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l374" href="#l374">374</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">            </span><span class="n">SherpaOnnxDestroyOnlineStream</span><span class="p">(</span><span class="n">stream_</span><span class="p">);</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l375" href="#l375">375</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">            </span><span class="n">stream_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SherpaOnnxCreateKeywordStream</span><span class="p">(</span><span class="n">spotter_</span><span class="p">);</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l376" href="#l376">376</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">stream_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l377" href="#l377">377</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">                </span><span class="n">RCLCPP_ERROR</span><span class="p">(</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Failed to reinitialize Sherpa-ONNX stream after keyword detection.&quot;</span><span class="p">);</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l378" href="#l378">378</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">                </span><span class="n">running_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l379" href="#l379">379</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">                </span><span class="k">return</span><span class="p">;</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l380" href="#l380">380</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">            </span><span class="p">}</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l381" href="#l381">381</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="p">}</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l382" href="#l382">382</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
       <td class="src "><span class="w">    </span><span class="p">}</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l383" href="#l383">383</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l384" href="#l384">384</a></td>
@@ -2794,154 +2795,154 @@
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="w"> </span><span class="n">lock</span><span class="p">(</span><span class="n">publish_mutex_</span><span class="p">);</span></td>
+      <td class="src uncoveredLine"><span class="kt">void</span><span class="w"> </span><span class="n">ListenNode</span><span class="o">::</span><span class="n">handleKeyword</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">keyword</span><span class="p">)</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l386" href="#l386">386</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">    </span><span class="n">publish_queue_</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">pending</span><span class="p">));</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l387" href="#l387">387</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="p">}</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l388" href="#l388">388</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l389" href="#l389">389</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="kt">void</span><span class="w"> </span><span class="n">ListenNode</span><span class="o">::</span><span class="n">onPublishTimer</span><span class="p">()</span></td>
-    </tr>
-    <tr class="source-line">
-      <td class="lineno"><a id="l390" href="#l390">390</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
       <td class="src "><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
+      <td class="lineno"><a id="l387" href="#l387">387</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">kw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">keyword</span><span class="p">;</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l388" href="#l388">388</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">kw</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">kw</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">kw</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="p">[](</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="p">){</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">tolower</span><span class="p">(</span><span class="n">c</span><span class="p">);</span><span class="w"> </span><span class="p">});</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l389" href="#l389">389</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">    </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Keyword detected: &#39;%s&#39;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">kw</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l390" href="#l390">390</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "></td>
+    </tr>
+    <tr class="source-line">
       <td class="lineno"><a id="l391" href="#l391">391</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">PendingPublish</span><span class="o">&gt;</span><span class="w"> </span><span class="n">to_publish</span><span class="p">;</span></td>
+      <td class="src uncoveredLine"><span class="w">    </span><span class="n">PendingPublish</span><span class="w"> </span><span class="n">pending</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l392" href="#l392">392</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">    </span><span class="p">{</span></td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">kw</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">wake_word_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l393" href="#l393">393</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="w"> </span><span class="nf">lock</span><span class="p">(</span><span class="n">publish_mutex_</span><span class="p">);</span></td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="n">pending</span><span class="p">.</span><span class="n">kind</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PendingPublish</span><span class="o">::</span><span class="n">Kind</span><span class="o">::</span><span class="n">ModeSwitch</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l394" href="#l394">394</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="n">to_publish</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">publish_queue_</span><span class="p">);</span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l395" href="#l395">395</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">    </span><span class="p">}</span></td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="n">pending</span><span class="p">.</span><span class="n">kind</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PendingPublish</span><span class="o">::</span><span class="n">Kind</span><span class="o">::</span><span class="n">Command</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l396" href="#l396">396</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">to_publish</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">kw</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">kw_forward_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">pending</span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;forward&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l397" href="#l397">397</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">kind</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">PendingPublish</span><span class="o">::</span><span class="n">Kind</span><span class="o">::</span><span class="n">ModeSwitch</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">kw</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">kw_left_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">pending</span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;left&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l398" href="#l398">398</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">            </span><span class="n">switch_pub_</span><span class="o">-&gt;</span><span class="n">publish</span><span class="p">(</span><span class="n">std_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">Empty</span><span class="p">{});</span></td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">kw</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">kw_right_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">pending</span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;right&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l399" href="#l399">399</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">            </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Mode switch command published.&quot;</span><span class="p">);</span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l400" href="#l400">400</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span></td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">            </span><span class="n">RCLCPP_WARN</span><span class="p">(</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Unrecognized keyword &#39;%s&#39; detected. Ignoring.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">kw</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l401" href="#l401">401</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">            </span><span class="n">std_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">String</span><span class="w"> </span><span class="n">msg</span><span class="p">;</span></td>
+      <td class="src uncoveredLine"><span class="w">            </span><span class="k">return</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l402" href="#l402">402</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">            </span><span class="n">msg</span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">data</span><span class="p">;</span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l403" href="#l403">403</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">            </span><span class="n">command_pub_</span><span class="o">-&gt;</span><span class="n">publish</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">    </span><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l404" href="#l404">404</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">            </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Command &#39;%s&#39; published.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span></td>
+      <td class="linecount "></td>
+      <td class="src "></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l405" href="#l405">405</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="p">}</span></td>
+      <td class="src uncoveredLine"><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="w"> </span><span class="n">lock</span><span class="p">(</span><span class="n">publish_mutex_</span><span class="p">);</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l406" href="#l406">406</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">    </span><span class="p">}</span></td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">    </span><span class="n">publish_queue_</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">pending</span><span class="p">));</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l407" href="#l407">407</a></td>
@@ -2962,7 +2963,7 @@
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span></td>
+      <td class="src uncoveredLine"><span class="kt">void</span><span class="w"> </span><span class="n">ListenNode</span><span class="o">::</span><span class="n">onPublishTimer</span><span class="p">()</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l410" href="#l410">410</a></td>
@@ -2976,80 +2977,220 @@
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">    </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">init</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span></td>
+      <td class="src uncoveredLine"><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">PendingPublish</span><span class="o">&gt;</span><span class="w"> </span><span class="n">to_publish</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l412" href="#l412">412</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span></td>
+      <td class="src "><span class="w">    </span><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l413" href="#l413">413</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">spin</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">ListenNode</span><span class="o">&gt;</span><span class="p">());</span></td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="w"> </span><span class="nf">lock</span><span class="p">(</span><span class="n">publish_mutex_</span><span class="p">);</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l414" href="#l414">414</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">exception</span><span class="o">&amp;</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="n">to_publish</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">publish_queue_</span><span class="p">);</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l415" href="#l415">415</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="n">RCLCPP_FATAL</span><span class="p">(</span><span class="n">rclcpp</span><span class="o">::</span><span class="n">get_logger</span><span class="p">(</span><span class="s">&quot;listen_node&quot;</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;Fatal error in ListenNode: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">());</span></td>
+      <td class="src uncoveredLine"><span class="w">    </span><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l416" href="#l416">416</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">shutdown</span><span class="p">();</span></td>
+      <td class="src uncoveredLine"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">to_publish</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l417" href="#l417">417</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span></td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">kind</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">PendingPublish</span><span class="o">::</span><span class="n">Kind</span><span class="o">::</span><span class="n">ModeSwitch</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l418" href="#l418">418</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">    </span><span class="p">}</span></td>
+      <td class="src uncoveredLine"><span class="w">            </span><span class="n">switch_pub_</span><span class="o">-&gt;</span><span class="n">publish</span><span class="p">(</span><span class="n">std_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">Empty</span><span class="p">{});</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l419" href="#l419">419</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
-      <td class="src uncoveredLine"><span class="w">    </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">shutdown</span><span class="p">();</span></td>
+      <td class="src uncoveredLine"><span class="w">            </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Mode switch command published.&quot;</span><span class="p">);</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l420" href="#l420">420</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l421" href="#l421">421</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">            </span><span class="n">std_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">String</span><span class="w"> </span><span class="n">msg</span><span class="p">;</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l422" href="#l422">422</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">            </span><span class="n">msg</span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">data</span><span class="p">;</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l423" href="#l423">423</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">            </span><span class="n">command_pub_</span><span class="o">-&gt;</span><span class="n">publish</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l424" href="#l424">424</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">            </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Command &#39;%s&#39; published.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l425" href="#l425">425</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="p">}</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l426" href="#l426">426</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">    </span><span class="p">}</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l427" href="#l427">427</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="p">}</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l428" href="#l428">428</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l429" href="#l429">429</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l430" href="#l430">430</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="p">{</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l431" href="#l431">431</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">    </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">init</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l432" href="#l432">432</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l433" href="#l433">433</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">spin</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">ListenNode</span><span class="o">&gt;</span><span class="p">());</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l434" href="#l434">434</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">exception</span><span class="o">&amp;</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l435" href="#l435">435</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="n">RCLCPP_FATAL</span><span class="p">(</span><span class="n">rclcpp</span><span class="o">::</span><span class="n">get_logger</span><span class="p">(</span><span class="s">&quot;listen_node&quot;</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;Fatal error in ListenNode: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">());</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l436" href="#l436">436</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">shutdown</span><span class="p">();</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l437" href="#l437">437</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l438" href="#l438">438</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">    </span><span class="p">}</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l439" href="#l439">439</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount uncoveredLine">&cross;</td>
+      <td class="src uncoveredLine"><span class="w">    </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">shutdown</span><span class="p">();</span></td>
+    </tr>
+    <tr class="source-line">
+      <td class="lineno"><a id="l440" href="#l440">440</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount uncoveredLine">&cross;</td>
       <td class="src uncoveredLine"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l421" href="#l421">421</a></td>
+      <td class="lineno"><a id="l441" href="#l441">441</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
       <td class="src "><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
-      <td class="lineno"><a id="l422" href="#l422">422</a></td>
+      <td class="lineno"><a id="l442" href="#l442">442</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>

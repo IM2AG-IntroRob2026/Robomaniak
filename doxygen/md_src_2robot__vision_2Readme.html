@@ -99,26 +99,25 @@ Flux vidéo</h1>
 </div><!-- fragment --><div class="fragment"><div class="line">ros2 run rqt_image_view rqt_image_view /camera/image_raw</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md9"></a>
 Détection</h1>
-<div class="fragment"><div class="line">ros2 run robot_vision detection_node --ros-args -p \</div>
-<div class="line">  model_path:=&quot;$(ros2 pkg prefix robot_vision)/share/robot_vision/models/yolov8s.onnx&quot; \</div>
-<div class="line">  -p confidence_threshold:=0.5 -p use_gpu:=false -p debug_output_dir:=&quot;/tmp/robot_debug&quot; \</div>
-<div class="line">  -p debug_max_saves:=100 --remap cmd_lightring:=/Robot3/cmd_lightring</div>
+<div class="fragment"><div class="line">`ros2 run robot_vision detection_node --ros-args -p model_path:=&quot;$(ros2 pkg prefix robot_vision)/share/robot_vision/models/models/yolov8s.onnx&quot; -p confidence_threshold:=0.5 -p use_gpu:=false --remap cmd_lightring:=/Robot3/cmd_lightring</div>
+<div class="line">````</div>
+<div class="line"> </div>
+<div class="line">## Suivi de cible</div>
+</div><!-- fragment --><p> bash </p><div class="fragment"><div class="line"> 2 run robot_vision follow_node --ros-args -p strategy:=&quot;most_centered&quot; -p angular_dead_zone:=0.2 -p allow_reverse:=false -p target_bbox_height:=1000.0 -p lock_lost_frames:=10 -p linear_dead_zone:=50.0 -p allow_reverse:=true --remap /ir_intensity:=/Robot3/ir_intensity --remap /hazard_detection:=/Robot3/hazard_detection</div>
+<div class="line">``````</div>
+<div class="line"> </div>
+<div class="line">## BT Manager</div>
+</div><!-- fragment --><p> bash `ros2 run <a class="el" href="namespacerobot__vision.html">robot_vision</a> bt_manager_node &ndash;ros-args -p bt_tick_hz:=50.0 &ndash;remap /cmd_vel:=/Robot3/cmd_vel </p><div class="fragment"><div class="line">```bash</div>
+<div class="line">`ros2 run robot_vision teleop_node</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md10"></a>
-Suivi de cible</h1>
-<div class="fragment"><div class="line">ros2 run robot_vision follow_node --ros-args -p strategy:=&quot;most_centered&quot; \</div>
-<div class="line">  -p dead_zone:=0.2 -p max_ratio:=35.0 -p lock_max_dist_px:=150.0 -p lock_lost_frames:=10</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md11"></a>
-BT Manager</h1>
-<div class="fragment"><div class="line">ros2 run robot_vision bt_manager_node --ros-args -p \</div>
-<div class="line">  bt_tick_hz:=50.0 -p trigger_key:=&quot;s&quot; --remap /cmd_vel:=/Robot3/cmd_vel</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md12"></a>
 Listen node</h1>
-<div class="fragment"><div class="line">MODEL_DIR=\$(ros2 pkg prefix robot_vision)/share/robot_vision/models &amp;&amp; \</div>
+<div class="fragment"><div class="line">MODEL_DIR=$(ros2 pkg prefix robot_vision)/share/robot_vision/models &amp;&amp; \</div>
 <div class="line">     ros2 run robot_vision listen_node --ros-args \</div>
-<div class="line">       -p encoder_path:=\&quot;\${MODEL_DIR}/kws_encoder.onnx\&quot; \</div>
-<div class="line">       -p decoder_path:=\&quot;\${MODEL_DIR}/kws_decoder.onnx\&quot; \</div>
-<div class="line">       -p joiner_path:=\&quot;\${MODEL_DIR}/kws_joiner.onnx\&quot; \</div>
-<div class="line">       -p tokens_path:=\&quot;\${MODEL_DIR}/kws_tokens.txt\&quot;</div>
+<div class="line">       -p encoder_path:=\&quot;${MODEL_DIR}/kws_encoder.onnx\&quot; \</div>
+<div class="line">       -p decoder_path:=\&quot;${MODEL_DIR}/kws_decoder.onnx\&quot; \</div>
+<div class="line">       -p joiner_path:=\&quot;${MODEL_DIR}/kws_joiner.onnx\&quot; \</div>
+<div class="line">       -p tokens_path:=\&quot;${MODEL_DIR}/kws_tokens.txt\&quot; \</div>
+<div class="line">       --log-level listen_node:=debug</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
