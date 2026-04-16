@@ -26,8 +26,8 @@ ListenNode::ListenNode() : Node("listen_node")
     declare_parameter<std::string>("decoder_path",       "");
     declare_parameter<std::string>("joiner_path",        "");
     declare_parameter<std::string>("tokens_path",        "");
-    declare_parameter<double>     ("keyword_score",      1.5);
-    declare_parameter<double>     ("score_threshold",    0.25);
+    declare_parameter<double>     ("keyword_score",      2.5);
+    declare_parameter<double>     ("score_threshold",    0.01);
     declare_parameter<std::string>("wake_word",          "computer");
     declare_parameter<std::string>("kw_forward",         "forward");
     declare_parameter<std::string>("kw_left",            "left");
@@ -334,15 +334,33 @@ void ListenNode::processLoop()
             continue;
         }
 
+        float max_val = 0.0f;
+        for (float f : chunk) { max_val = std::max(max_val, std::abs(f)); }
+        if (max_val > 0.1f) {
+            RCLCPP_DEBUG(get_logger(), "Audio level: %f", max_val);
+        }
+
         SherpaOnnxOnlineStreamAcceptWaveform(stream_, pa_sample_rate_, chunk.data(), static_cast<int>(chunk.size()));
 
         bool reinit_stream = false;
+        static int total_decode_steps = 0;
+
+        static int chunk_count = 0;
+        if (++chunk_count % 100 == 0) {
+            RCLCPP_DEBUG(get_logger(), "Chunks: %d, decode_steps: %d, buffer: %zu",
+                chunk_count, total_decode_steps, audio_buffer_.size());
+        }
+
         while (SherpaOnnxIsKeywordStreamReady(spotter_, stream_)) {
+            ++total_decode_steps;
             SherpaOnnxDecodeKeywordStream(spotter_, stream_);
 
             const SherpaOnnxKeywordResult* result = SherpaOnnxGetKeywordResult(spotter_, stream_);
             if (result) {
                 const std::string kw(result->keyword ? result->keyword : "");
+                if (!kw.empty()) {
+                    RCLCPP_DEBUG(get_logger(), "Raw keyword result: '%s'", kw.c_str());
+                }
                 SherpaOnnxDestroyKeywordResult(result);
                 if (!kw.empty()) {
                     handleKeyword(kw);
@@ -366,18 +384,20 @@ void ListenNode::processLoop()
 
 void ListenNode::handleKeyword(const std::string& keyword)
 {
-    RCLCPP_INFO(get_logger(), "Keyword detected: '%s'", keyword.c_str());
+    std::string kw = keyword;
+    std::transform(kw.begin(), kw.end(), kw.begin(), [](unsigned char c){ return std::tolower(c); });
+    RCLCPP_INFO(get_logger(), "Keyword detected: '%s'", kw.c_str());
 
     PendingPublish pending;
-    if (keyword == wake_word_) {
+    if (kw == wake_word_) {
         pending.kind = PendingPublish::Kind::ModeSwitch;
     } else {
         pending.kind = PendingPublish::Kind::Command;
-        if (keyword == kw_forward_) { pending.data = "forward"; }
-        else if (keyword == kw_left_) { pending.data = "left"; }
-        else if (keyword == kw_right_) { pending.data = "right"; }
+        if (kw == kw_forward_) { pending.data = "forward"; }
+        else if (kw == kw_left_) { pending.data = "left"; }
+        else if (kw == kw_right_) { pending.data = "right"; }
         else {
-            RCLCPP_WARN(get_logger(), "Unrecognized keyword '%s' detected. Ignoring.", keyword.c_str());
+            RCLCPP_WARN(get_logger(), "Unrecognized keyword '%s' detected. Ignoring.", kw.c_str());
             return;
         }
     }

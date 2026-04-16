@@ -31,8 +31,8 @@ private:
     std::string decoder_path_;
     std::string joiner_path_;
     std::string tokens_path_;
-    float       keyword_score_   {1.5f};
-    float       score_threshold_ {0.25f};
+    float       keyword_score_   {2.5f};
+    float       score_threshold_ {0.01f};
 
     std::string wake_word_  {"computer"};
     std::string kw_forward_ {"forward"};
