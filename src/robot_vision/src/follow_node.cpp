@@ -55,8 +55,8 @@ FollowNode::FollowNode() : Node("follow_node")
 
     this->declare_parameter<bool>  ("allow_reverse",     false);
 
-    this->declare_parameter<double>("ir_warn_threshold", 100.0);
-    this->declare_parameter<double>("ir_stop_threshold", 500.0);
+    this->declare_parameter<double>("ir_warn_threshold", 25.0);
+    this->declare_parameter<double>("ir_stop_threshold", 30.0);
 
     this->declare_parameter<bool>  ("reverse_on_bump",   false);
     this->declare_parameter<double>("bump_reverse_speed", 0.1);
@@ -98,8 +98,10 @@ FollowNode::FollowNode() : Node("follow_node")
     lock_lost_frames_   = this->get_parameter("lock_lost_frames").as_int();
 
     detections_sub_ = this->create_subscription<Detection2DArray>("/detection/detections", 10, std::bind(&FollowNode::onDetections, this, std::placeholders::_1));
-    ir_sub_ = this->create_subscription<IrIntensityVec>("/ir_intensity", 10, std::bind(&FollowNode::onIr, this, std::placeholders::_1));
-    hazard_sub_ = this->create_subscription<HazardDetectionVec>("/hazard_detection", 10, std::bind(&FollowNode::onHazard, this, std::placeholders::_1));
+
+    const rclcpp::QoS sensor_qos = rclcpp::QoS(rclcpp::KeepLast(1)).best_effort().durability_volatile();
+    ir_sub_     = this->create_subscription<IrIntensityVec>    ("/ir_intensity",     sensor_qos, std::bind(&FollowNode::onIr,     this, std::placeholders::_1));
+    hazard_sub_ = this->create_subscription<HazardDetectionVec>("/hazard_detection", sensor_qos, std::bind(&FollowNode::onHazard, this, std::placeholders::_1));
     cmd_vel_pub_ = this->create_publisher<Twist>("/follow/cmd_vel", 10);
 
     RCLCPP_INFO(this->get_logger(),

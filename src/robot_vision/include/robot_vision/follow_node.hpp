@@ -80,7 +80,7 @@ private:
 
     bool   reverse_on_bump_             {false};
     double bump_reverse_speed_          {0.1};
-    double bump_reverse_dur_            {0.6};
+    double bump_reverse_dur_            {3.0};
 
     double lock_max_dist_px_            {150.0};
     int    lock_lost_frames_            {10};
