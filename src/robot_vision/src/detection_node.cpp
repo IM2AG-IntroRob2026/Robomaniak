@@ -76,7 +76,7 @@ DetectionNode::DetectionNode() : Node("detection_node")
     image_sub_ = this->create_subscription<sensor_msgs::msg::Image>(
         "/camera/image_raw", 10, std::bind(&DetectionNode::onImage, this, std::placeholders::_1));
 
-    led_human_ = makeLightring(255,   0,   0);  // red
+    led_human_ = makeLightring(  0, 255,   0);  // green
     led_idle_  = makeLightring(  0,   0, 255);  // blue
     publishLed(led_idle_);
 
