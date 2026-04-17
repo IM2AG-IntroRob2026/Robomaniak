@@ -73,8 +73,8 @@ $(function() {
   <div class="headertitle"><div class="title">Projet Robot Patrouille / Suivi — iRobot Create 3 + ROS2</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md11"></a> </p><hr  />
-<h1><a class="anchor" id="autotoc_md13"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md12"></a> </p><hr  />
+<h1><a class="anchor" id="autotoc_md14"></a>
 Table des matières</h1>
 <ol type="1">
 <li><a href="https://claude.ai/chat/9d0c2ffc-1be0-45a7-854e-210ba68cda9d#1-introduction">Introduction</a></li>
@@ -86,9 +86,9 @@ Table des matières</h1>
 <li><a href="https://claude.ai/chat/9d0c2ffc-1be0-45a7-854e-210ba68cda9d#7-interfaces">Interfaces</a></li>
 </ol>
 <hr  />
-<h1><a class="anchor" id="autotoc_md15"></a>
+<h1><a class="anchor" id="autotoc_md16"></a>
 1. Introduction</h1>
-<h2><a class="anchor" id="autotoc_md16"></a>
+<h2><a class="anchor" id="autotoc_md17"></a>
 1.1 Périmètre du projet</h2>
 <p>Le système doit permettre à un robot mobile de :</p>
 <ul>
@@ -99,9 +99,9 @@ Table des matières</h1>
 <li>Être repris en contrôle manuel à tout moment, et repassé en mode automatique.</li>
 </ul>
 <hr  />
-<h1><a class="anchor" id="autotoc_md18"></a>
+<h1><a class="anchor" id="autotoc_md19"></a>
 2. Description générale</h1>
-<h2><a class="anchor" id="autotoc_md19"></a>
+<h2><a class="anchor" id="autotoc_md20"></a>
 2.1 Matériel</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -115,7 +115,7 @@ Table des matières</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Smartphone   </td><td class="markdownTableBodyNone">Caméra, stream MJPEG via réseau WiFi   </td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md20"></a>
+<h2><a class="anchor" id="autotoc_md21"></a>
 2.2 Logiciel de base</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -127,16 +127,16 @@ Table des matières</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Langage   </td><td class="markdownTableBodyNone">C++ ou Python   </td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md21"></a>
+<h2><a class="anchor" id="autotoc_md22"></a>
 2.3 Hypothèses et contraintes initiales</h2>
 <ul>
 <li>Le robot évolue dans un environnement intérieur plat.</li>
 <li>La connexion entre le PC et le robot se fait via WiFi.</li>
 </ul>
 <hr  />
-<h1><a class="anchor" id="autotoc_md23"></a>
+<h1><a class="anchor" id="autotoc_md24"></a>
 3. Architecture système</h1>
-<h2><a class="anchor" id="autotoc_md24"></a>
+<h2><a class="anchor" id="autotoc_md25"></a>
 3.1 Modes de fonctionnement</h2>
 <div class="fragment"><div class="line">       ┌───────────────────────────────────────────┐</div>
 <div class="line">       │                                           │</div>
@@ -156,9 +156,9 @@ Table des matières</h1>
 <div class="line">                      │    commande &quot;auto&quot;         │</div>
 <div class="line">                      └────────────────────────────┘</div>
 </div><!-- fragment --><hr  />
-<h1><a class="anchor" id="autotoc_md26"></a>
+<h1><a class="anchor" id="autotoc_md27"></a>
 4. Exigences fonctionnelles</h1>
-<h2><a class="anchor" id="autotoc_md27"></a>
+<h2><a class="anchor" id="autotoc_md28"></a>
 4.1 Mode Téléopération (TELEOP)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -174,7 +174,7 @@ Table des matières</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">F-T05   </td><td class="markdownTableBodyNone">La manette doit permettre de contrôler vitesse linéaire et angulaire du robot.   </td><td class="markdownTableBodyNone">Basse   </td><td class="markdownTableBodyNone"></td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md28"></a>
+<h2><a class="anchor" id="autotoc_md29"></a>
 4.2 Mode Patrouille (PATROL)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -190,7 +190,7 @@ Table des matières</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">F-P05   </td><td class="markdownTableBodyNone">Le robot doit être capable de cartographier la pièce (SLAM).   </td><td class="markdownTableBodyNone">Basse   </td><td class="markdownTableBodyNone"></td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md29"></a>
+<h2><a class="anchor" id="autotoc_md30"></a>
 4.3 Détection humaine</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -202,7 +202,7 @@ Table des matières</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">F-D03   </td><td class="markdownTableBodyNone">L'inférence doit être accélérée par GPU.   </td><td class="markdownTableBodyNone">Moyenne   </td><td class="markdownTableBodyNone"></td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md30"></a>
+<h2><a class="anchor" id="autotoc_md31"></a>
 4.4 Reconnaissance de personne spécifique</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -216,7 +216,7 @@ Table des matières</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">F-R04   </td><td class="markdownTableBodyNone">Si la similarité dépasse un seuil configurable, l'individu est considéré comme reconnu.   </td><td class="markdownTableBodyNone">Moyenne   </td><td class="markdownTableBodyNone"></td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md31"></a>
+<h2><a class="anchor" id="autotoc_md32"></a>
 4.5 Mode Suivi (FOLLOW)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -235,7 +235,7 @@ Table des matières</h1>
 <td class="markdownTableBodyNone">F-S06   </td><td class="markdownTableBodyNone">Le robot doit continuer à éviter les obstacles et les chutes en mode SUIVI.   </td><td class="markdownTableBodyNone">Moyenne   </td><td class="markdownTableBodyNone"></td></tr>
 </table>
 <hr  />
-<h1><a class="anchor" id="autotoc_md33"></a>
+<h1><a class="anchor" id="autotoc_md34"></a>
 5. Exigences non fonctionnelles</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -252,9 +252,9 @@ Table des matières</h1>
 <td class="markdownTableBodyNone">NF-05   </td><td class="markdownTableBodyNone">Un README décrivant le lancement du système doit être fourni.   </td><td class="markdownTableBodyNone"></td></tr>
 </table>
 <hr  />
-<h1><a class="anchor" id="autotoc_md35"></a>
+<h1><a class="anchor" id="autotoc_md36"></a>
 6. Composants logiciels et bibliothèques</h1>
-<h2><a class="anchor" id="autotoc_md36"></a>
+<h2><a class="anchor" id="autotoc_md37"></a>
 6.1 Robot et navigation</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -268,7 +268,7 @@ Table des matières</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">iRobot Create 3 pkgs   </td><td class="markdownTableBodyNone">Topics et actions natifs du robot   </td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md37"></a>
+<h2><a class="anchor" id="autotoc_md38"></a>
 6.2 Vision et inférence</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -278,7 +278,7 @@ Table des matières</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>ONNX Runtime</b>   </td><td class="markdownTableBodyNone">Inférence YOLO + modèle d'embedding (accélération GPU ROCm)   </td><td class="markdownTableBodyNone"></td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md38"></a>
+<h2><a class="anchor" id="autotoc_md39"></a>
 6.3 Machine d'états</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -286,7 +286,7 @@ Table des matières</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>BehaviorTree.CPP v4</b>   </td><td class="markdownTableBodyNone">Orchestration des modes PATROL / FOLLOW / TELEOP   </td><td class="markdownTableBodyNone"></td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md39"></a>
+<h2><a class="anchor" id="autotoc_md40"></a>
 6.4 Téléopération</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -297,16 +297,16 @@ Table des matières</h1>
 <td class="markdownTableBodyNone"><b>SDL2</b> ou <b>linux/joystick.h</b>   </td><td class="markdownTableBodyNone">Lecture manette gamepad <code>[TBD]</code>   </td><td class="markdownTableBodyNone"></td></tr>
 </table>
 <hr  />
-<h1><a class="anchor" id="autotoc_md41"></a>
+<h1><a class="anchor" id="autotoc_md42"></a>
 7. Interfaces</h1>
-<h2><a class="anchor" id="autotoc_md42"></a>
+<h2><a class="anchor" id="autotoc_md43"></a>
 7.1 Flux vidéo smartphone</h2>
 <ul>
 <li>L'application <b>IP Webcam</b> (Android) expose un flux MJPEG via HTTP sur le réseau local.</li>
 <li>Un nœud ROS2 (<code>video_node</code>) capture ce flux via <code>cv::VideoCapture</code> et publie sur le topic <code>/camera/image_raw</code> (<code>sensor_msgs/Image</code>).</li>
 <li>Le buffer est limité au minimum (<code>CAP_PROP_BUFFERSIZE = 1</code>) et plusieurs <code>grab()</code> sont appelés avant <code>retrieve()</code> pour garantir la frame la plus récente.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md43"></a>
+<h2><a class="anchor" id="autotoc_md44"></a>
 7.2 Capteurs du robot</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -320,7 +320,7 @@ Table des matières</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Odométrie   </td><td class="markdownTableBodyNone"><code>/odom</code>   </td><td class="markdownTableBodyNone">Navigation, suivi de trajectoire   </td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md44"></a>
+<h2><a class="anchor" id="autotoc_md45"></a>
 7.3 Commandes vers le robot</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -332,7 +332,7 @@ Table des matières</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><code>/led_color</code>   </td><td class="markdownTableBodyNone"><code>irobot_create_msgs</code>   </td><td class="markdownTableBodyNone">Contrôle des LEDs   </td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md45"></a>
+<h2><a class="anchor" id="autotoc_md46"></a>
 7.4 Interfaces opérateur</h2>
 <ul>
 <li><b>Clavier</b> : contrôle direct via <code>teleop_twist_keyboard</code> ou nœud custom.</li>

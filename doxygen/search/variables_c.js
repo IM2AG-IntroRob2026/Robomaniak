@@ -12,5 +12,6 @@ var searchData=
   ['max_5fangular_5fspeed_5f_9',['max_angular_speed_',['../classFollowNode.html#a8fd3a695852c803e03614bda676f848b',1,'FollowNode']]],
   ['max_5flinear_5fspeed_5f_10',['max_linear_speed_',['../classFollowNode.html#a5ebc340da6a088e6ac091e3602235bd5',1,'FollowNode']]],
   ['min_5floop_5fdistance_5f_11',['min_loop_distance_',['../classTurtleBoundaries.html#a104404200db7c9377eb44fc6663a6085',1,'TurtleBoundaries']]],
-  ['mode_12',['mode',['../structBtContext.html#aa1ba0f65ff538d4d59c298604466e757',1,'BtContext']]]
+  ['mode_12',['mode',['../structBtContext.html#aa1ba0f65ff538d4d59c298604466e757',1,'BtContext']]],
+  ['mode_5fbefore_5fdock_13',['mode_before_dock',['../structBtContext.html#acd9ccece2a1988cee89b7db5bb0b6c28',1,'BtContext']]]
 ];

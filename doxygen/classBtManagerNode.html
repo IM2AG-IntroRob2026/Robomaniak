@@ -72,7 +72,9 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-types">Private Types</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classBtManagerNode-members.html">List of all members</a>  </div>
@@ -96,17 +98,19 @@ Collaboration diagram for BtManagerNode:</div>
 <div class="dyncontent">
 <div class="center"><img src="classBtManagerNode__coll__graph.png" border="0" usemap="#aBtManagerNode_coll__map" alt="Collaboration graph"/></div>
 <map name="aBtManagerNode_coll__map" id="aBtManagerNode_coll__map">
-<area shape="rect" title=" " alt="" coords="15,269,141,295"/>
-<area shape="rect" title=" " alt="" coords="5,181,108,207"/>
-<area shape="poly" title=" " alt="" coords="65,219,78,268,72,269,60,221"/>
-<area shape="rect" title=" " alt="" coords="132,181,347,207"/>
-<area shape="poly" title=" " alt="" coords="207,216,101,271,99,267,204,211"/>
-<area shape="rect" href="structBtContext.html" title="Shared context for the behavior tree nodes, containing shared state and resources." alt="" coords="196,93,283,119"/>
-<area shape="poly" title=" " alt="" coords="242,133,242,181,237,181,237,133"/>
-<area shape="rect" title=" " alt="" coords="56,5,255,31"/>
-<area shape="poly" title=" " alt="" coords="178,39,230,91,226,95,174,43"/>
-<area shape="rect" title=" " alt="" coords="279,5,371,31"/>
-<area shape="poly" title=" " alt="" coords="305,43,253,95,249,91,301,39"/>
+<area shape="rect" title=" " alt="" coords="49,269,176,295"/>
+<area shape="rect" title=" " alt="" coords="40,181,143,207"/>
+<area shape="poly" title=" " alt="" coords="100,219,112,268,107,269,95,221"/>
+<area shape="rect" title=" " alt="" coords="167,181,381,207"/>
+<area shape="poly" title=" " alt="" coords="241,216,136,271,133,267,239,211"/>
+<area shape="rect" href="structBtContext.html" title="Shared context for the behavior tree nodes, containing shared state and resources." alt="" coords="231,93,317,119"/>
+<area shape="poly" title=" " alt="" coords="277,133,277,181,271,181,271,133"/>
+<area shape="rect" title=" " alt="" coords="5,5,204,31"/>
+<area shape="poly" title=" " alt="" coords="141,34,252,91,250,95,138,39"/>
+<area shape="rect" title=" " alt="" coords="228,5,320,31"/>
+<area shape="poly" title=" " alt="" coords="277,45,277,93,271,93,271,45"/>
+<area shape="rect" title=" " alt="" coords="344,5,497,31"/>
+<area shape="poly" title=" " alt="" coords="401,42,362,72,310,96,308,91,359,67,398,38"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -117,6 +121,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a47674531dd2ce9d46cac0ecd0cdb30d7" id="r_a47674531dd2ce9d46cac0ecd0cdb30d7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a47674531dd2ce9d46cac0ecd0cdb30d7">~BtManagerNode</a> () override</td></tr>
 <tr class="separator:a47674531dd2ce9d46cac0ecd0cdb30d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-types" name="pri-types"></a>
+Private Types</h2></td></tr>
+<tr class="memitem:a0114acb9601d4adacc8ae8d15099f212" id="r_a0114acb9601d4adacc8ae8d15099f212"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a0114acb9601d4adacc8ae8d15099f212">DockAction</a> = irobot_create_msgs::action::Dock</td></tr>
+<tr class="separator:a0114acb9601d4adacc8ae8d15099f212"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a929f3c5e2b9cc246613f27f99e3d6821" id="r_a929f3c5e2b9cc246613f27f99e3d6821"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a929f3c5e2b9cc246613f27f99e3d6821">UndockAction</a> = irobot_create_msgs::action::Undock</td></tr>
+<tr class="separator:a929f3c5e2b9cc246613f27f99e3d6821"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0a1a8a6838651fad5afe62b9d3cfc62" id="r_aa0a1a8a6838651fad5afe62b9d3cfc62"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#aa0a1a8a6838651fad5afe62b9d3cfc62">LightringLeds</a> = irobot_create_msgs::msg::LightringLeds</td></tr>
+<tr class="separator:aa0a1a8a6838651fad5afe62b9d3cfc62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a830b77fda67870db3d0a206558d96b63" id="r_a830b77fda67870db3d0a206558d96b63"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a830b77fda67870db3d0a206558d96b63">LedColor</a> = irobot_create_msgs::msg::LedColor</td></tr>
+<tr class="separator:a830b77fda67870db3d0a206558d96b63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:ac5815df215cf4c36f7ddf5444e5e05ca" id="r_ac5815df215cf4c36f7ddf5444e5e05ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#ac5815df215cf4c36f7ddf5444e5e05ca">buildTree</a> ()</td></tr>
@@ -125,6 +140,17 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:a27c9c03905652c71fcabc169d887962e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86e00d2f0db8fd5816a4bc6ca54edf0d" id="r_a86e00d2f0db8fd5816a4bc6ca54edf0d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a86e00d2f0db8fd5816a4bc6ca54edf0d">cycleMode</a> ()</td></tr>
 <tr class="separator:a86e00d2f0db8fd5816a4bc6ca54edf0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad10d3b878fb44990ca56149ba8c7cb57" id="r_ad10d3b878fb44990ca56149ba8c7cb57"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#ad10d3b878fb44990ca56149ba8c7cb57">onDockRequest</a> ()</td></tr>
+<tr class="separator:ad10d3b878fb44990ca56149ba8c7cb57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fb69f54e53e1d17105fe2aa7c5aec17" id="r_a1fb69f54e53e1d17105fe2aa7c5aec17"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a1fb69f54e53e1d17105fe2aa7c5aec17">onUndockRequest</a> ()</td></tr>
+<tr class="separator:a1fb69f54e53e1d17105fe2aa7c5aec17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32754fd063df6f4b7688f68adda2226d" id="r_a32754fd063df6f4b7688f68adda2226d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a32754fd063df6f4b7688f68adda2226d">publishLed</a> (const <a class="el" href="classBtManagerNode.html#aa0a1a8a6838651fad5afe62b9d3cfc62">LightringLeds</a> &amp;msg)</td></tr>
+<tr class="separator:a32754fd063df6f4b7688f68adda2226d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:a264d54b3e08eb1c5ce387b4e7ba29f4a" id="r_a264d54b3e08eb1c5ce387b4e7ba29f4a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classBtManagerNode.html#aa0a1a8a6838651fad5afe62b9d3cfc62">LightringLeds</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a264d54b3e08eb1c5ce387b4e7ba29f4a">makeLightring</a> (uint8_t r, uint8_t g, uint8_t b)</td></tr>
+<tr class="separator:a264d54b3e08eb1c5ce387b4e7ba29f4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -146,12 +172,111 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a184cfe02fbb27ed8d573bd54b365c952"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c514468eb0e056ec0e6dc2d99fc5567" id="r_a0c514468eb0e056ec0e6dc2d99fc5567"><td class="memItemLeft" align="right" valign="top">rclcpp::TimerBase::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a0c514468eb0e056ec0e6dc2d99fc5567">bt_timer_</a></td></tr>
 <tr class="separator:a0c514468eb0e056ec0e6dc2d99fc5567"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a305421f3f9a67cfa81ceddf26d1f728e" id="r_a305421f3f9a67cfa81ceddf26d1f728e"><td class="memItemLeft" align="right" valign="top">rclcpp_action::Client&lt; <a class="el" href="classBtManagerNode.html#a0114acb9601d4adacc8ae8d15099f212">DockAction</a> &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a305421f3f9a67cfa81ceddf26d1f728e">dock_client_</a></td></tr>
+<tr class="separator:a305421f3f9a67cfa81ceddf26d1f728e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbbb004c0a5d98888a82efba9535e7ed" id="r_abbbb004c0a5d98888a82efba9535e7ed"><td class="memItemLeft" align="right" valign="top">rclcpp_action::Client&lt; <a class="el" href="classBtManagerNode.html#a929f3c5e2b9cc246613f27f99e3d6821">UndockAction</a> &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#abbbb004c0a5d98888a82efba9535e7ed">undock_client_</a></td></tr>
+<tr class="separator:abbbb004c0a5d98888a82efba9535e7ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedca5c5aeeb1e8dd2bb509160d7e4f47" id="r_aedca5c5aeeb1e8dd2bb509160d7e4f47"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; std_msgs::msg::Empty &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#aedca5c5aeeb1e8dd2bb509160d7e4f47">dock_sub_</a></td></tr>
+<tr class="separator:aedca5c5aeeb1e8dd2bb509160d7e4f47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab182989135aa0754fdc9e3c99fd26789" id="r_ab182989135aa0754fdc9e3c99fd26789"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; std_msgs::msg::Empty &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#ab182989135aa0754fdc9e3c99fd26789">undock_sub_</a></td></tr>
+<tr class="separator:ab182989135aa0754fdc9e3c99fd26789"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad45098e5d289fb30d396a8256be2ef00" id="r_ad45098e5d289fb30d396a8256be2ef00"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; <a class="el" href="classBtManagerNode.html#aa0a1a8a6838651fad5afe62b9d3cfc62">LightringLeds</a> &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#ad45098e5d289fb30d396a8256be2ef00">led_pub_</a></td></tr>
+<tr class="separator:ad45098e5d289fb30d396a8256be2ef00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
 <tr class="memitem:a9b5dc8cd7ff996ef02cf7c9be8ac58e4" id="r_a9b5dc8cd7ff996ef02cf7c9be8ac58e4"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a9b5dc8cd7ff996ef02cf7c9be8ac58e4">TREE_XML</a></td></tr>
 <tr class="separator:a9b5dc8cd7ff996ef02cf7c9be8ac58e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a0114acb9601d4adacc8ae8d15099f212" name="a0114acb9601d4adacc8ae8d15099f212"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0114acb9601d4adacc8ae8d15099f212">&#9670;&#160;</a></span>DockAction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classBtManagerNode.html#a0114acb9601d4adacc8ae8d15099f212">BtManagerNode::DockAction</a> =  irobot_create_msgs::action::Dock</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a830b77fda67870db3d0a206558d96b63" name="a830b77fda67870db3d0a206558d96b63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a830b77fda67870db3d0a206558d96b63">&#9670;&#160;</a></span>LedColor</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classBtManagerNode.html#a830b77fda67870db3d0a206558d96b63">BtManagerNode::LedColor</a> =  irobot_create_msgs::msg::LedColor</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa0a1a8a6838651fad5afe62b9d3cfc62" name="aa0a1a8a6838651fad5afe62b9d3cfc62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0a1a8a6838651fad5afe62b9d3cfc62">&#9670;&#160;</a></span>LightringLeds</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classBtManagerNode.html#aa0a1a8a6838651fad5afe62b9d3cfc62">BtManagerNode::LightringLeds</a> =  irobot_create_msgs::msg::LightringLeds</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a929f3c5e2b9cc246613f27f99e3d6821" name="a929f3c5e2b9cc246613f27f99e3d6821"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a929f3c5e2b9cc246613f27f99e3d6821">&#9670;&#160;</a></span>UndockAction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classBtManagerNode.html#a929f3c5e2b9cc246613f27f99e3d6821">BtManagerNode::UndockAction</a> =  irobot_create_msgs::action::Undock</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a03c6e6cea2e119f2eccf904566100c0d" name="a03c6e6cea2e119f2eccf904566100c0d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a03c6e6cea2e119f2eccf904566100c0d">&#9670;&#160;</a></span>BtManagerNode()</h2>
@@ -234,6 +359,124 @@ Static Private Attributes</h2></td></tr>
           <td class="memname">void BtManagerNode::cycleMode </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a264d54b3e08eb1c5ce387b4e7ba29f4a" name="a264d54b3e08eb1c5ce387b4e7ba29f4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a264d54b3e08eb1c5ce387b4e7ba29f4a">&#9670;&#160;</a></span>makeLightring()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">irobot_create_msgs::msg::LightringLeds BtManagerNode::makeLightring </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>g</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad10d3b878fb44990ca56149ba8c7cb57" name="ad10d3b878fb44990ca56149ba8c7cb57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad10d3b878fb44990ca56149ba8c7cb57">&#9670;&#160;</a></span>onDockRequest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::onDockRequest </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1fb69f54e53e1d17105fe2aa7c5aec17" name="a1fb69f54e53e1d17105fe2aa7c5aec17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fb69f54e53e1d17105fe2aa7c5aec17">&#9670;&#160;</a></span>onUndockRequest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::onUndockRequest </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a32754fd063df6f4b7688f68adda2226d" name="a32754fd063df6f4b7688f68adda2226d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32754fd063df6f4b7688f68adda2226d">&#9670;&#160;</a></span>publishLed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::publishLed </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classBtManagerNode.html#aa0a1a8a6838651fad5afe62b9d3cfc62">LightringLeds</a> &amp;&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -338,6 +581,50 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a305421f3f9a67cfa81ceddf26d1f728e" name="a305421f3f9a67cfa81ceddf26d1f728e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a305421f3f9a67cfa81ceddf26d1f728e">&#9670;&#160;</a></span>dock_client_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp_action::Client&lt;<a class="el" href="classBtManagerNode.html#a0114acb9601d4adacc8ae8d15099f212">DockAction</a>&gt;::SharedPtr BtManagerNode::dock_client_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aedca5c5aeeb1e8dd2bb509160d7e4f47" name="aedca5c5aeeb1e8dd2bb509160d7e4f47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedca5c5aeeb1e8dd2bb509160d7e4f47">&#9670;&#160;</a></span>dock_sub_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Subscription&lt;std_msgs::msg::Empty&gt;::SharedPtr BtManagerNode::dock_sub_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a24ce7787d7dfbb881de765d00053591e" name="a24ce7787d7dfbb881de765d00053591e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a24ce7787d7dfbb881de765d00053591e">&#9670;&#160;</a></span>factory_</h2>
 
@@ -371,6 +658,28 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">rclcpp::Subscription&lt;<a class="el" href="bt__manager__node_8hpp.html#a2f304fa38449e26b09c0640b96772341">Twist</a>&gt;::SharedPtr BtManagerNode::follow_sub_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad45098e5d289fb30d396a8256be2ef00" name="ad45098e5d289fb30d396a8256be2ef00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad45098e5d289fb30d396a8256be2ef00">&#9670;&#160;</a></span>led_pub_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Publisher&lt;<a class="el" href="classBtManagerNode.html#aa0a1a8a6838651fad5afe62b9d3cfc62">LightringLeds</a>&gt;::SharedPtr BtManagerNode::led_pub_</td>
         </tr>
       </table>
   </td>
@@ -507,6 +816,50 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><span class="stringliteral">    &lt;/root&gt;</span></div>
 <div class="line"><span class="stringliteral">    )&quot;</span></div>
 </div><!-- fragment -->
+</div>
+</div>
+<a id="abbbb004c0a5d98888a82efba9535e7ed" name="abbbb004c0a5d98888a82efba9535e7ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbbb004c0a5d98888a82efba9535e7ed">&#9670;&#160;</a></span>undock_client_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp_action::Client&lt;<a class="el" href="classBtManagerNode.html#a929f3c5e2b9cc246613f27f99e3d6821">UndockAction</a>&gt;::SharedPtr BtManagerNode::undock_client_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab182989135aa0754fdc9e3c99fd26789" name="ab182989135aa0754fdc9e3c99fd26789"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab182989135aa0754fdc9e3c99fd26789">&#9670;&#160;</a></span>undock_sub_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Subscription&lt;std_msgs::msg::Empty&gt;::SharedPtr BtManagerNode::undock_sub_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>

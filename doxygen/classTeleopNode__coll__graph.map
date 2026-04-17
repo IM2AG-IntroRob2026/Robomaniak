@@ -1,13 +1,13 @@
 <map id="TeleopNode" name="TeleopNode">
-<area shape="rect" id="Node000001" title=" " alt="" coords="286,108,385,133"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="286,152,385,177"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,5,108,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,34,143,58,202,81,286,106,285,111,200,87,141,63,90,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,39,124,83,154,106,186,126,236,144,286,155,285,160,235,150,184,130,151,111,121,87,74,43"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="132,5,224,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="196,40,215,62,238,82,263,95,290,105,288,110,261,100,235,86,211,66,192,44"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="188,43,207,85,221,107,238,126,261,141,287,151,285,156,259,146,235,130,217,110,202,88,183,45"/>
 <area shape="rect" id="Node000004" href="$structTeleopNode_1_1InputState.html" title=" " alt="" coords="249,5,422,31"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="338,45,338,108,333,108,333,45"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="338,45,338,152,333,152,333,45"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="447,5,600,31"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="494,40,410,86,361,110,359,106,407,82,491,35"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="506,43,464,86,410,130,366,154,363,150,407,126,461,82,502,39"/>
 <area shape="rect" id="Node000006" title=" " alt="" coords="624,5,716,31"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="648,42,615,66,575,86,526,102,475,112,385,121,385,116,474,107,524,97,573,82,612,61,645,37"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="666,45,646,89,630,112,610,130,569,146,510,156,385,165,385,159,509,150,568,141,607,126,626,108,642,87,661,43"/>
 </map>

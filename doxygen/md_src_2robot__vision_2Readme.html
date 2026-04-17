@@ -99,17 +99,17 @@ Flux vidéo</h1>
 </div><!-- fragment --><div class="fragment"><div class="line">ros2 run rqt_image_view rqt_image_view /camera/image_raw</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md9"></a>
 Détection</h1>
-<div class="fragment"><div class="line">`ros2 run robot_vision detection_node --ros-args -p model_path:=&quot;$(ros2 pkg prefix robot_vision)/share/robot_vision/models/models/yolov8s.onnx&quot; -p confidence_threshold:=0.5 -p use_gpu:=false --remap cmd_lightring:=/Robot3/cmd_lightring</div>
+<div class="fragment"><div class="line">ros2 run robot_vision detection_node --ros-args -p model_path:=&quot;$(ros2 pkg prefix robot_vision)/share/robot_vision/models/models/yolov8s.onnx&quot; -p confidence_threshold:=0.5 -p use_gpu:=false</div>
 <div class="line">````</div>
 <div class="line"> </div>
 <div class="line">## Suivi de cible</div>
-</div><!-- fragment --><p> bash </p><div class="fragment"><div class="line"> 2 run robot_vision follow_node --ros-args -p strategy:=&quot;most_centered&quot; -p angular_dead_zone:=0.2 -p allow_reverse:=false -p target_bbox_height:=1000.0 -p lock_lost_frames:=10 -p linear_dead_zone:=50.0 -p allow_reverse:=true --remap /ir_intensity:=/Robot3/ir_intensity --remap /hazard_detection:=/Robot3/hazard_detection</div>
-<div class="line">``````</div>
-<div class="line"> </div>
-<div class="line">## BT Manager</div>
-</div><!-- fragment --><p> bash `ros2 run <a class="el" href="namespacerobot__vision.html">robot_vision</a> bt_manager_node &ndash;ros-args -p bt_tick_hz:=50.0 &ndash;remap /cmd_vel:=/Robot3/cmd_vel </p><div class="fragment"><div class="line">```bash</div>
-<div class="line">`ros2 run robot_vision teleop_node</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md10"></a>
+</div><!-- fragment --><p> bash ros2 run <a class="el" href="namespacerobot__vision.html">robot_vision</a> follow_node &ndash;ros-args -p strategy:="most_centered" -p angular_dead_zone:=0.2 -p allow_reverse:=false -p target_bbox_height:=1000.0 -p lock_lost_frames:=10 -p linear_dead_zone:=50.0 -p allow_reverse:=true &ndash;remap /ir_intensity:=/Robot3/ir_intensity &ndash;remap /hazard_detection:=/Robot3/hazard_detection ``````</p>
+<h1><a class="anchor" id="autotoc_md10"></a>
+BT Manager</h1>
+<div class="fragment"><div class="line">ros2 run robot_vision bt_manager_node --ros-args -p bt_tick_hz:=50.0 --remap /cmd_vel:=/Robot3/cmd_vel --remap cmd_lightring:=/Robot3/cmd_lightringv</div>
+<div class="line">````</div>
+</div><!-- fragment --><p> bash ros2 run <a class="el" href="namespacerobot__vision.html">robot_vision</a> teleop_node ````</p>
+<h1><a class="anchor" id="autotoc_md11"></a>
 Listen node</h1>
 <div class="fragment"><div class="line">MODEL_DIR=$(ros2 pkg prefix robot_vision)/share/robot_vision/models &amp;&amp; \</div>
 <div class="line">     ros2 run robot_vision listen_node --ros-args \</div>

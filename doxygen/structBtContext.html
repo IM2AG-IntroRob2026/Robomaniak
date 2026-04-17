@@ -86,11 +86,13 @@ Collaboration diagram for BtContext:</div>
 <div class="dyncontent">
 <div class="center"><img src="structBtContext__coll__graph.png" border="0" usemap="#aBtContext_coll__map" alt="Collaboration graph"/></div>
 <map name="aBtContext_coll__map" id="aBtContext_coll__map">
-<area shape="rect" title="Shared context for the behavior tree nodes, containing shared state and resources." alt="" coords="145,93,232,119"/>
+<area shape="rect" title="Shared context for the behavior tree nodes, containing shared state and resources." alt="" coords="231,93,317,119"/>
 <area shape="rect" title=" " alt="" coords="5,5,204,31"/>
-<area shape="poly" title=" " alt="" coords="128,39,179,91,175,95,124,43"/>
+<area shape="poly" title=" " alt="" coords="141,34,252,91,250,95,138,39"/>
 <area shape="rect" title=" " alt="" coords="228,5,320,31"/>
-<area shape="poly" title=" " alt="" coords="255,43,202,95,199,91,251,39"/>
+<area shape="poly" title=" " alt="" coords="277,45,277,93,271,93,271,45"/>
+<area shape="rect" title=" " alt="" coords="344,5,497,31"/>
+<area shape="poly" title=" " alt="" coords="401,42,362,72,310,96,308,91,359,67,398,38"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -108,6 +110,10 @@ Public Attributes</h2></td></tr>
 <tr class="separator:aa07f7c2deeca050cea2a5bdbcaa398ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a846a66f55695e3e8ee41d474fd74fd5b" id="r_a846a66f55695e3e8ee41d474fd74fd5b"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#a846a66f55695e3e8ee41d474fd74fd5b">pending_listen_cmd</a></td></tr>
 <tr class="separator:a846a66f55695e3e8ee41d474fd74fd5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6135c265461c6d6247684b3f03fb75dd" id="r_a6135c265461c6d6247684b3f03fb75dd"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#a6135c265461c6d6247684b3f03fb75dd">docking_active</a> {false}</td></tr>
+<tr class="separator:a6135c265461c6d6247684b3f03fb75dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd9ccece2a1988cee89b7db5bb0b6c28" id="r_acd9ccece2a1988cee89b7db5bb0b6c28"><td class="memItemLeft" align="right" valign="top"><a class="el" href="bt__manager__node_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3">RobotMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#acd9ccece2a1988cee89b7db5bb0b6c28">mode_before_dock</a> {<a class="el" href="bt__manager__node_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3aa10b9d6dc5049f36df3ee7e88697d95a">RobotMode::TELEOP</a>}</td></tr>
+<tr class="separator:acd9ccece2a1988cee89b7db5bb0b6c28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac10ccba81c55d8c71baabbea1e6819ce" id="r_ac10ccba81c55d8c71baabbea1e6819ce"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#ac10ccba81c55d8c71baabbea1e6819ce">impulse_duration_s</a> {1.5}</td></tr>
 <tr class="separator:ac10ccba81c55d8c71baabbea1e6819ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a1486a9bc9569deb77efe8d5ff52abc" id="r_a4a1486a9bc9569deb77efe8d5ff52abc"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#a4a1486a9bc9569deb77efe8d5ff52abc">impulse_linear_speed</a> {0.3}</td></tr>
@@ -142,6 +148,20 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">rclcpp::Publisher&lt;<a class="el" href="bt__manager__node_8hpp.html#a2f304fa38449e26b09c0640b96772341">Twist</a>&gt;::SharedPtr BtContext::cmd_vel_pub</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6135c265461c6d6247684b3f03fb75dd" name="a6135c265461c6d6247684b3f03fb75dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6135c265461c6d6247684b3f03fb75dd">&#9670;&#160;</a></span>docking_active</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::atomic&lt;bool&gt; BtContext::docking_active {false}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -226,6 +246,20 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::atomic&lt;<a class="el" href="bt__manager__node_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3">RobotMode</a>&gt; BtContext::mode {<a class="el" href="bt__manager__node_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3aa10b9d6dc5049f36df3ee7e88697d95a">RobotMode::TELEOP</a>}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acd9ccece2a1988cee89b7db5bb0b6c28" name="acd9ccece2a1988cee89b7db5bb0b6c28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd9ccece2a1988cee89b7db5bb0b6c28">&#9670;&#160;</a></span>mode_before_dock</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="bt__manager__node_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3">RobotMode</a> BtContext::mode_before_dock {<a class="el" href="bt__manager__node_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3aa10b9d6dc5049f36df3ee7e88697d95a">RobotMode::TELEOP</a>}</td>
         </tr>
       </table>
 </div><div class="memdoc">
