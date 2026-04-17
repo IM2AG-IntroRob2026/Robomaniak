@@ -31,10 +31,14 @@ TeleopNode::TeleopNode() : Node("teleop_node")
     declare_parameter<std::string>("key_left",     "q");
     declare_parameter<std::string>("key_right",    "d");
     declare_parameter<std::string>("key_switch",   " ");
+    declare_parameter<std::string>("key_dock",     "i");
+    declare_parameter<std::string>("key_undock",   "o");
 
     declare_parameter<int>("gp_axis_linear",   ABS_Y);
     declare_parameter<int>("gp_axis_angular",  ABS_X);
     declare_parameter<int>("gp_btn_switch",    BTN_SOUTH);
+    declare_parameter<int>("gp_btn_dock",      BTN_EAST);
+    declare_parameter<int>("gp_btn_undock",    BTN_WEST);
 
     linear_speed_   = get_parameter("linear_speed").as_double();
     angular_speed_  = get_parameter("angular_speed").as_double();
@@ -48,22 +52,28 @@ TeleopNode::TeleopNode() : Node("teleop_node")
     key_left_     = parse_key(get_parameter("key_left").as_string());
     key_right_    = parse_key(get_parameter("key_right").as_string());
     key_switch_   = parse_key(get_parameter("key_switch").as_string());
+    key_dock_     = parse_key(get_parameter("key_dock").as_string());
+    key_undock_   = parse_key(get_parameter("key_undock").as_string());
 
     gp_axis_linear_  = get_parameter("gp_axis_linear").as_int();
     gp_axis_angular_ = get_parameter("gp_axis_angular").as_int();
     gp_btn_switch_   = get_parameter("gp_btn_switch").as_int();
+    gp_btn_dock_     = get_parameter("gp_btn_dock").as_int();
+    gp_btn_undock_   = get_parameter("gp_btn_undock").as_int();
 
     cmd_vel_pub_   = create_publisher<geometry_msgs::msg::Twist>("/teleop/cmd_vel", 10);
     switch_pub_    = create_publisher<std_msgs::msg::Empty>("/teleop/mode_switch", 10);
+    dock_pub_      = create_publisher<std_msgs::msg::Empty>("/teleop/dock", 10);
+    undock_pub_    = create_publisher<std_msgs::msg::Empty>("/teleop/undock", 10);
     publish_timer_ = create_wall_timer(50ms, std::bind(&TeleopNode::onPublishTimer, this));
 
     kb_thread_ = std::thread(&TeleopNode::keyboardLoop, this);
     gp_thread_ = std::thread(&TeleopNode::gamepadLoop,  this);
 
     RCLCPP_INFO(get_logger(),
-        "Teleop ready. Keyboard : fwd='%c' bwd='%c' left='%c' right='%c' switch='%s'",
+        "Teleop ready. Keyboard : fwd='%c' bwd='%c' left='%c' right='%c' switch='%s' dock='%c' undock='%c'",
         key_forward_, key_backward_, key_left_, key_right_,
-        key_switch_ == ' ' ? "SPACE" : std::string(1, key_switch_).c_str());
+        key_switch_ == ' ' ? "SPACE" : std::string(1, key_switch_).c_str(), key_dock_, key_undock_);
 }
 
 TeleopNode::~TeleopNode()
@@ -109,6 +119,14 @@ void TeleopNode::keyboardLoop()
 
         if (c == key_switch_) {
             requestSwitch();
+            continue;
+        }
+        if (c == key_dock_) {
+            dock_pending_.store(true);
+            continue;
+        }
+        if (c == key_undock_) {
+            undock_pending_.store(true);
             continue;
         }
 
@@ -223,8 +241,11 @@ void TeleopNode::gamepadLoop()
                     if (code == gp_axis_linear_ || code == gp_axis_angular_) {
                         applyAxis(code, ev.value, gp_state_);
                     }
-                } else if (ev.type == EV_KEY && static_cast<int>(ev.code) == gp_btn_switch_ && ev.value == 1) {
-                    should_switch = true;
+                } else if (ev.type == EV_KEY && ev.value == 1) {
+                    const int code = static_cast<int>(ev.code);
+                    if      (code == gp_btn_switch_)  { should_switch = true; }
+                    else if (code == gp_btn_dock_)    { dock_pending_.store(true); }
+                    else if (code == gp_btn_undock_)  { undock_pending_.store(true); }
                 }
             }
 
@@ -250,6 +271,14 @@ void TeleopNode::onPublishTimer()
     if (switch_pending_.exchange(false)) {
         switch_pub_->publish(std_msgs::msg::Empty{});
         RCLCPP_INFO(get_logger(), "--- Mode switch requested ---");
+    }
+    if (dock_pending_.exchange(false)) {
+        dock_pub_->publish(std_msgs::msg::Empty{});
+        RCLCPP_INFO(get_logger(), "--- Dock requested ---");
+    }
+    if (undock_pending_.exchange(false)) {
+        undock_pub_->publish(std_msgs::msg::Empty{});
+        RCLCPP_INFO(get_logger(), "--- Undock requested ---");
     }
 
     const auto now = std::chrono::steady_clock::now();

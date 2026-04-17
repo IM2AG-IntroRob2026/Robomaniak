@@ -150,6 +150,17 @@ BtManagerNode::BtManagerNode() : Node("bt_manager_node")
 
     ctx_                       = std::make_shared<BtContext>();
     ctx_->cmd_vel_pub          = create_publisher<Twist>("/cmd_vel", 10);
+    led_pub_                   = create_publisher<LightringLeds>("/cmd_lightring", 10);
+
+    dock_client_   = rclcpp_action::create_client<DockAction>  (this, "/dock");
+    undock_client_ = rclcpp_action::create_client<UndockAction>(this, "/undock");
+
+    dock_sub_ = create_subscription<std_msgs::msg::Empty>("/teleop/dock", 10,
+        [this](const std_msgs::msg::Empty::ConstSharedPtr&) { onDockRequest(); });
+
+    undock_sub_ = create_subscription<std_msgs::msg::Empty>("/teleop/undock", 10,
+        [this](const std_msgs::msg::Empty::ConstSharedPtr&) { onUndockRequest(); });
+
     ctx_->impulse_duration_s   = get_parameter("impulse_duration_s").as_double();
     ctx_->impulse_linear_speed = get_parameter("impulse_linear_speed").as_double();
     ctx_->impulse_angular_speed= get_parameter("impulse_angular_speed").as_double();
@@ -186,6 +197,7 @@ BtManagerNode::BtManagerNode() : Node("bt_manager_node")
     listen_switch_sub_ = create_subscription<std_msgs::msg::Empty>(
         "/listen/mode_switch", 10,
         [this](const std_msgs::msg::Empty::ConstSharedPtr&) {
+            if (ctx_->docking_active.load()) { return; }
             const RobotMode prev = ctx_->mode.exchange(RobotMode::LISTEN);
             if (prev != RobotMode::LISTEN) {
                 RCLCPP_INFO(get_logger(),
@@ -209,6 +221,11 @@ BtManagerNode::~BtManagerNode()
 
 void BtManagerNode::cycleMode()
 {
+    if (ctx_->docking_active.load()) {
+        RCLCPP_WARN(get_logger(), "Mode switch ignored: docking in progress.");
+        return;
+    }
+
     RobotMode current = ctx_->mode.load();
     RobotMode next = nextMode(current);
     while (!ctx_->mode.compare_exchange_weak(current, next)) {
@@ -246,6 +263,7 @@ void BtManagerNode::buildTree()
 
 void BtManagerNode::tickBt()
 {
+    if (ctx_->docking_active.load()) { return; }
     tree_.tickOnce();
 }
 
@@ -261,4 +279,89 @@ int main(int argc, char* argv[])
     }
     rclcpp::shutdown();
     return 0;
+}
+
+void BtManagerNode::onDockRequest()
+{
+    if (ctx_->docking_active.load()) {
+        RCLCPP_WARN(get_logger(), "Docking already in progress, ignoring.");
+        return;
+    }
+    if (!dock_client_->action_server_is_ready()) {
+        RCLCPP_ERROR(get_logger(), "Dock action server not ready.");
+        return;
+    }
+
+    ctx_->mode_before_dock = ctx_->mode.load();
+    ctx_->docking_active.store(true);
+    ctx_->cmd_vel_pub->publish(Twist{});  // arrêt immédiat
+    publishLed(makeLightring(255, 200, 0));  // jaune = docking en cours
+    RCLCPP_INFO(get_logger(), "--- Docking... (mode saved: %s) ---",
+        modeToString(ctx_->mode_before_dock));
+
+    auto opts = rclcpp_action::Client<DockAction>::SendGoalOptions{};
+    opts.result_callback = [this](const auto& result) {
+        ctx_->docking_active.store(false);
+        ctx_->mode.store(ctx_->mode_before_dock);
+        if (result.code == rclcpp_action::ResultCode::SUCCEEDED) {
+            RCLCPP_INFO(get_logger(), "--- Dock succeeded. Mode restored: %s ---",
+                modeToString(ctx_->mode_before_dock));
+            publishLed(makeLightring(0, 255, 0));  // vert = succès
+        } else {
+            RCLCPP_ERROR(get_logger(), "--- Dock FAILED. Mode restored: %s ---",
+                modeToString(ctx_->mode_before_dock));
+            publishLed(makeLightring(255, 0, 0));  // rouge = échec
+        }
+    };
+    dock_client_->async_send_goal(DockAction::Goal{}, opts);
+}
+
+void BtManagerNode::onUndockRequest()
+{
+    if (ctx_->docking_active.load()) {
+        RCLCPP_WARN(get_logger(), "Docking already in progress, ignoring.");
+        return;
+    }
+    if (!undock_client_->action_server_is_ready()) {
+        RCLCPP_ERROR(get_logger(), "Undock action server not ready.");
+        return;
+    }
+
+    ctx_->mode_before_dock = ctx_->mode.load();
+    ctx_->docking_active.store(true);
+    ctx_->cmd_vel_pub->publish(Twist{});
+    publishLed(makeLightring(0, 150, 255));  // cyan = undocking en cours
+    RCLCPP_INFO(get_logger(), "--- Undocking... (mode saved: %s) ---",
+        modeToString(ctx_->mode_before_dock));
+
+    auto opts = rclcpp_action::Client<UndockAction>::SendGoalOptions{};
+    opts.result_callback = [this](const auto& result) {
+        ctx_->docking_active.store(false);
+        ctx_->mode.store(ctx_->mode_before_dock);
+        if (result.code == rclcpp_action::ResultCode::SUCCEEDED) {
+            RCLCPP_INFO(get_logger(), "--- Undock succeeded. Mode restored: %s ---",
+                modeToString(ctx_->mode_before_dock));
+            publishLed(makeLightring(0, 255, 0));  // vert = succès
+        } else {
+            RCLCPP_ERROR(get_logger(), "--- Undock FAILED. Mode restored: %s ---",
+                modeToString(ctx_->mode_before_dock));
+            publishLed(makeLightring(255, 0, 0));  // rouge = échec
+        }
+    };
+    undock_client_->async_send_goal(UndockAction::Goal{}, opts);
+}
+
+void BtManagerNode::publishLed(const LightringLeds& msg)
+{
+    led_pub_->publish(msg);
+}
+
+irobot_create_msgs::msg::LightringLeds BtManagerNode::makeLightring(uint8_t r, uint8_t g, uint8_t b)
+{
+    LedColor color;
+    color.red = r; color.green = g; color.blue = b;
+    LightringLeds msg;
+    msg.override_system = true;
+    msg.leds.fill(color);
+    return msg;
 }

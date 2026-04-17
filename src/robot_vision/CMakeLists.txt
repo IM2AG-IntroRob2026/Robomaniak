@@ -21,6 +21,7 @@ find_package(cv_bridge          REQUIRED)
 find_package(irobot_create_msgs REQUIRED)
 find_package(behaviortree_cpp   REQUIRED)
 find_package(PkgConfig          REQUIRED)
+find_package(rclcpp_action      REQUIRED)
 
 find_package(OpenCV REQUIRED COMPONENTS core imgproc videoio)
 
@@ -114,6 +115,7 @@ set_target_properties(sherpa_onnx::c_api PROPERTIES
 # ----- Dépendances ROS2 communes -----
 set(ROS_DEPS
         rclcpp
+        rclcpp_action
         sensor_msgs
         std_msgs
         geometry_msgs

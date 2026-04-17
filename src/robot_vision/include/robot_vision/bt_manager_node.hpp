@@ -15,6 +15,12 @@
 #include <std_msgs/msg/empty.hpp>
 #include <std_msgs/msg/string.hpp>
 
+#include <rclcpp_action/rclcpp_action.hpp>
+#include <irobot_create_msgs/action/dock.hpp>
+#include <irobot_create_msgs/action/undock.hpp>
+#include <irobot_create_msgs/msg/lightring_leds.hpp>
+#include <irobot_create_msgs/msg/led_color.hpp>
+
 using Twist = geometry_msgs::msg::Twist;
 
 enum class RobotMode { TELEOP, FOLLOW, LISTEN };
@@ -52,6 +58,8 @@ struct BtContext
     Twist teleop_cmd;
 
     std::optional<std::string> pending_listen_cmd;
+    std::atomic<bool> docking_active{false};
+    RobotMode mode_before_dock{RobotMode::TELEOP};
 
     double impulse_duration_s    {1.5};
     double impulse_linear_speed  {0.3};
@@ -145,6 +153,19 @@ private:
     rclcpp::Subscription<std_msgs::msg::String>::SharedPtr listen_cmd_sub_;
     rclcpp::TimerBase::SharedPtr bt_timer_;
 
+    using DockAction = irobot_create_msgs::action::Dock;
+    using UndockAction = irobot_create_msgs::action::Undock;
+    using LightringLeds = irobot_create_msgs::msg::LightringLeds;
+    using LedColor = irobot_create_msgs::msg::LedColor;
+
+    rclcpp_action::Client<DockAction>::SharedPtr   dock_client_;
+    rclcpp_action::Client<UndockAction>::SharedPtr undock_client_;
+
+    rclcpp::Subscription<std_msgs::msg::Empty>::SharedPtr dock_sub_;
+    rclcpp::Subscription<std_msgs::msg::Empty>::SharedPtr undock_sub_;
+
+    rclcpp::Publisher<LightringLeds>::SharedPtr led_pub_;
+
     static constexpr const char* TREE_XML = R"(
     <root BTCPP_format="4">
       <BehaviorTree ID="MainTree">
@@ -174,4 +195,10 @@ private:
     void tickBt();
 
     void cycleMode();
+
+    void onDockRequest();
+    void onUndockRequest();
+
+    void publishLed(const LightringLeds& msg);
+    [[nodiscard]] static LightringLeds makeLightring(uint8_t r, uint8_t g, uint8_t b);
 };

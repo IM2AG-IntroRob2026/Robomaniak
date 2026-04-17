@@ -32,10 +32,14 @@ private:
     char key_left_     {'q'};
     char key_right_    {'d'};
     char key_switch_   {' '};
+    char key_dock_     {'i'};
+    char key_undock_   {'o'};
 
     int gp_axis_linear_   {1};
     int gp_axis_angular_  {0};
     int gp_btn_switch_    {304};
+    int gp_btn_dock_      {305};
+    int gp_btn_undock_    {308};
 
     struct InputState {
         double linear_x  {0.0};
@@ -53,9 +57,13 @@ private:
 
     rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_pub_;
     rclcpp::Publisher<std_msgs::msg::Empty>::SharedPtr switch_pub_;
+    rclcpp::Publisher<std_msgs::msg::Empty>::SharedPtr dock_pub_;
+    rclcpp::Publisher<std_msgs::msg::Empty>::SharedPtr undock_pub_;
     rclcpp::TimerBase::SharedPtr publish_timer_;
 
-    std::atomic<bool> running_ {true};
+    std::atomic<bool> running_        {true};
+    std::atomic<bool> dock_pending_   {false};
+    std::atomic<bool> undock_pending_ {false};
     std::thread kb_thread_;
     std::thread gp_thread_;
 
