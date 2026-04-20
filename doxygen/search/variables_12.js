@@ -11,6 +11,5 @@ var searchData=
   ['trace_5ftimeout_5fs_5f_8',['trace_timeout_s_',['../classTurtleBoundaries.html#a4d59cddd8b6f61fd43e1bdb33ec1f777',1,'TurtleBoundaries']]],
   ['tree_5f_9',['tree_',['../classBtManagerNode.html#aff8fe4fc4c4256fa49b4860ff5b8a953',1,'BtManagerNode']]],
   ['tree_5fxml_10',['TREE_XML',['../classBtManagerNode.html#a9b5dc8cd7ff996ef02cf7c9be8ac58e4',1,'BtManagerNode']]],
-  ['turn_5fangle_5fdeg_5f_11',['turn_angle_deg_',['../classrobot__audio__pipeline_1_1VoiceCommandNode.html#ae04c369d012d9e85ee12318def88aee4',1,'robot_audio_pipeline::VoiceCommandNode']]],
-  ['turn_5fspeed_5f_12',['turn_speed_',['../classTurtleFsmNode.html#a579a86cd3a071ac9a036e9cdbc7e4913',1,'TurtleFsmNode']]]
+  ['turn_5fspeed_5f_11',['turn_speed_',['../classTurtleFsmNode.html#a579a86cd3a071ac9a036e9cdbc7e4913',1,'TurtleFsmNode']]]
 ];

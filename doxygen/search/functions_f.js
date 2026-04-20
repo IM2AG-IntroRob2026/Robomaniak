@@ -1,18 +1,11 @@
 var searchData=
 [
-  ['rb_5fsnowboy_5fbits_5fper_5fsample_0',['rb_snowboy_bits_per_sample',['../snowboy__c__bridge_8h.html#a123f795f76c017d9eb3c1ff771c56966',1,'rb_snowboy_bits_per_sample(const rb_snowboy_handle *handle):&#160;snowboy_c_bridge.cpp'],['../snowboy__c__bridge_8cpp.html#a123f795f76c017d9eb3c1ff771c56966',1,'rb_snowboy_bits_per_sample(const rb_snowboy_handle *handle):&#160;snowboy_c_bridge.cpp']]],
-  ['rb_5fsnowboy_5fcreate_1',['rb_snowboy_create',['../snowboy__c__bridge_8cpp.html#af20b8f799da1eb1ee1df32853cfcdbcb',1,'rb_snowboy_create(const char *resource_path, const char *model_list, const char *sensitivity_csv, float audio_gain, int apply_frontend, char *error_buffer, std::size_t error_buffer_size):&#160;snowboy_c_bridge.cpp'],['../snowboy__c__bridge_8h.html#af20b8f799da1eb1ee1df32853cfcdbcb',1,'rb_snowboy_create(const char *resource_path, const char *model_list, const char *sensitivity_csv, float audio_gain, int apply_frontend, char *error_buffer, std::size_t error_buffer_size):&#160;snowboy_c_bridge.cpp']]],
-  ['rb_5fsnowboy_5fdestroy_2',['rb_snowboy_destroy',['../snowboy__c__bridge_8cpp.html#ae2e9d961acd685d9959a6cf20a339923',1,'rb_snowboy_destroy(rb_snowboy_handle *handle):&#160;snowboy_c_bridge.cpp'],['../snowboy__c__bridge_8h.html#ae2e9d961acd685d9959a6cf20a339923',1,'rb_snowboy_destroy(rb_snowboy_handle *handle):&#160;snowboy_c_bridge.cpp']]],
-  ['rb_5fsnowboy_5fnum_5fchannels_3',['rb_snowboy_num_channels',['../snowboy__c__bridge_8cpp.html#a6fa8da8d9d3687dbfa4292f5e56a9424',1,'rb_snowboy_num_channels(const rb_snowboy_handle *handle):&#160;snowboy_c_bridge.cpp'],['../snowboy__c__bridge_8h.html#a6fa8da8d9d3687dbfa4292f5e56a9424',1,'rb_snowboy_num_channels(const rb_snowboy_handle *handle):&#160;snowboy_c_bridge.cpp']]],
-  ['rb_5fsnowboy_5frun_5fdetection_4',['rb_snowboy_run_detection',['../snowboy__c__bridge_8cpp.html#afc6b6d8e0f53eeda83211219f2042e76',1,'rb_snowboy_run_detection(rb_snowboy_handle *handle, const int16_t *pcm_data, int data_length, int is_end, char *error_buffer, std::size_t error_buffer_size):&#160;snowboy_c_bridge.cpp'],['../snowboy__c__bridge_8h.html#afc6b6d8e0f53eeda83211219f2042e76',1,'rb_snowboy_run_detection(rb_snowboy_handle *handle, const int16_t *pcm_data, int data_length, int is_end, char *error_buffer, std::size_t error_buffer_size):&#160;snowboy_c_bridge.cpp']]],
-  ['rb_5fsnowboy_5fsample_5frate_5',['rb_snowboy_sample_rate',['../snowboy__c__bridge_8cpp.html#a9074c6feae4af5b37556f383f6622159',1,'rb_snowboy_sample_rate(const rb_snowboy_handle *handle):&#160;snowboy_c_bridge.cpp'],['../snowboy__c__bridge_8h.html#a9074c6feae4af5b37556f383f6622159',1,'rb_snowboy_sample_rate(const rb_snowboy_handle *handle):&#160;snowboy_c_bridge.cpp']]],
-  ['read_5fchar_6',['read_char',['../classTurtleBoundariesKeyboard.html#a7e20e12f75209b680f0a39d1075ed7ca',1,'TurtleBoundariesKeyboard']]],
-  ['read_5fframe_7',['read_frame',['../classrobot__audio__pipeline_1_1PortAudioInput.html#a9e673b34aed2db99b84e1e80080f1c94',1,'robot_audio_pipeline::PortAudioInput']]],
-  ['requestswitch_8',['requestSwitch',['../classTeleopNode.html#add590ce28d371cf80add6786301895f2',1,'TeleopNode']]],
-  ['resetpd_9',['resetPD',['../classFollowNode.html#acc4f2b8563c5ea02986fb1becafae98f',1,'FollowNode']]],
-  ['resolvetarget_10',['resolveTarget',['../classFollowNode.html#a6ca95589a7844dc348e3687e9cfd1e6f',1,'FollowNode']]],
-  ['restore_5fterminal_11',['restore_terminal',['../classTurtleBoundariesKeyboard.html#ab7c4e1c38dba352f9683578295f24c43',1,'TurtleBoundariesKeyboard']]],
-  ['restoreterminal_12',['restoreTerminal',['../classTeleopNode.html#ad2246462e130d113583cd74755859fe4',1,'TeleopNode']]],
-  ['robotsquareserver_13',['RobotSquareServer',['../classRobotSquareServer.html#aa1e4ffa262631b753cd28d9155c8834a',1,'RobotSquareServer']]],
-  ['runinference_14',['runInference',['../classrobot__vision_1_1YoloDetector.html#a9d1542e67aa23e03ae5531d5d4b78b76',1,'robot_vision::YoloDetector']]]
+  ['read_5fchar_0',['read_char',['../classTurtleBoundariesKeyboard.html#a7e20e12f75209b680f0a39d1075ed7ca',1,'TurtleBoundariesKeyboard']]],
+  ['requestswitch_1',['requestSwitch',['../classTeleopNode.html#add590ce28d371cf80add6786301895f2',1,'TeleopNode']]],
+  ['resetpd_2',['resetPD',['../classFollowNode.html#acc4f2b8563c5ea02986fb1becafae98f',1,'FollowNode']]],
+  ['resolvetarget_3',['resolveTarget',['../classFollowNode.html#a6ca95589a7844dc348e3687e9cfd1e6f',1,'FollowNode']]],
+  ['restore_5fterminal_4',['restore_terminal',['../classTurtleBoundariesKeyboard.html#ab7c4e1c38dba352f9683578295f24c43',1,'TurtleBoundariesKeyboard']]],
+  ['restoreterminal_5',['restoreTerminal',['../classTeleopNode.html#ad2246462e130d113583cd74755859fe4',1,'TeleopNode']]],
+  ['robotsquareserver_6',['RobotSquareServer',['../classRobotSquareServer.html#aa1e4ffa262631b753cd28d9155c8834a',1,'RobotSquareServer']]],
+  ['runinference_7',['runInference',['../classrobot__vision_1_1YoloDetector.html#a9d1542e67aa23e03ae5531d5d4b78b76',1,'robot_vision::YoloDetector']]]
 ];

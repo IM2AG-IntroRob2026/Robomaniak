@@ -1,3 +1,25 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$structrb__snowboy__handle.html" title=" " alt="" coords="5,5,156,31"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,252,108,277"/>
+<area shape="rect" id="Node000001" href="$classBtManagerNode.html" title=" " alt="" coords="189,5,315,31"/>
+<area shape="poly" id="edge5_Node000000_Node000001" title=" " alt="" coords="59,238,69,195,87,141,114,87,133,62,154,40,170,30,187,23,189,28,172,34,158,44,137,65,119,89,92,143,74,196,65,239"/>
+<area shape="rect" id="Node000002" href="$classDetectionNode.html" title=" " alt="" coords="193,55,311,80"/>
+<area shape="poly" id="edge6_Node000000_Node000002" title=" " alt="" coords="63,238,75,204,94,164,120,123,154,89,172,79,191,72,193,77,174,84,158,93,125,127,99,166,80,206,68,240"/>
+<area shape="rect" id="Node000003" href="$classFollowNode.html" title="ROS2 target tracking node based on 2D detections. The node:" alt="" coords="203,104,301,129"/>
+<area shape="poly" id="edge7_Node000000_Node000003" title=" " alt="" coords="69,238,103,187,127,161,155,138,178,127,202,120,203,125,179,132,157,143,130,165,107,191,73,241"/>
+<area shape="rect" id="Node000004" href="$classListenNode.html" title=" " alt="" coords="205,153,299,179"/>
+<area shape="poly" id="edge8_Node000000_Node000004" title=" " alt="" coords="80,240,114,213,155,188,204,171,205,176,157,192,117,217,83,245"/>
+<area shape="rect" id="Node000005" href="$classRobotSquareServer.html" title=" " alt="" coords="179,203,325,228"/>
+<area shape="poly" id="edge9_Node000000_Node000005" title=" " alt="" coords="119,246,155,237,199,226,201,231,157,242,121,251"/>
+<area shape="rect" id="Node000006" href="$classTeleopNode.html" title=" " alt="" coords="203,252,301,277"/>
+<area shape="poly" id="edge10_Node000000_Node000006" title=" " alt="" coords="121,262,202,262,202,267,121,267"/>
+<area shape="rect" id="Node000007" href="$classTurtleBoundaries.html" title="Serveur d&#39;action ROS 2 pour tracer le contour d&#39;un mur/objet." alt="" coords="187,301,317,327"/>
+<area shape="poly" id="edge11_Node000000_Node000007" title=" " alt="" coords="121,278,202,299,200,304,120,283"/>
+<area shape="rect" id="Node000008" href="$classTurtleBoundariesKeyboard.html" title=" " alt="" coords="156,351,348,376"/>
+<area shape="poly" id="edge12_Node000000_Node000008" title=" " alt="" coords="83,284,117,311,157,336,190,348,188,353,155,340,114,315,80,288"/>
+<area shape="rect" id="Node000009" href="$classTurtleFsmNode.html" title="Noeud ROS2 qui pilote turtle1 avec une machine a etats finis (FSM)." alt="" coords="192,400,312,425"/>
+<area shape="poly" id="edge13_Node000000_Node000009" title=" " alt="" coords="74,288,108,338,131,364,157,385,193,401,191,405,155,390,127,367,103,341,69,291"/>
+<area shape="rect" id="Node000010" href="$classTurtleSquareServer.html" title=" " alt="" coords="179,449,325,475"/>
+<area shape="poly" id="edge14_Node000000_Node000010" title=" " alt="" coords="68,290,81,323,99,362,125,401,158,435,180,447,178,452,154,439,121,405,95,365,76,325,63,292"/>
+<area shape="rect" id="Node000011" href="$classVideoNode.html" title=" " alt="" coords="205,499,299,524"/>
+<area shape="poly" id="edge15_Node000000_Node000011" title=" " alt="" coords="65,291,75,333,92,386,119,439,137,463,158,484,180,497,206,505,204,510,178,502,154,488,133,466,115,442,87,388,69,335,60,292"/>
 </map>

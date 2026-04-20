@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rb_5fsnowboy_5fhandle_0',['rb_snowboy_handle',['../snowboy__c__bridge_8h.html#a1e86cb627e90d1827a7265c9ad7d09d2',1,'snowboy_c_bridge.h']]]
+  ['twist_0',['twist',['../bt__manager__node_8hpp.html#a2f304fa38449e26b09c0640b96772341',1,'Twist:&#160;bt_manager_node.hpp'],['../follow__node_8hpp.html#a2f304fa38449e26b09c0640b96772341',1,'Twist:&#160;follow_node.hpp'],['../bt__manager__node_8cpp.html#a2f304fa38449e26b09c0640b96772341',1,'Twist:&#160;bt_manager_node.cpp'],['../follow__node_8cpp.html#a2f304fa38449e26b09c0640b96772341',1,'Twist:&#160;follow_node.cpp']]]
 ];

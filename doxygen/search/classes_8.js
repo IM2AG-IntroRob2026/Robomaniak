@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['rb_5fsnowboy_5fhandle_0',['rb_snowboy_handle',['../structrb__snowboy__handle.html',1,'']]],
-  ['robotsquareserver_1',['RobotSquareServer',['../classRobotSquareServer.html',1,'']]]
+  ['saved_5ftermios_5f_0',['saved_termios_',['../structTeleopNode_1_1saved__termios__.html',1,'TeleopNode']]]
 ];

@@ -10,5 +10,5 @@ var searchData=
   ['yolo_5fnum_5fanchors_7',['YOLO_NUM_ANCHORS',['../namespacerobot__vision.html#afb1ede051e65f5f75ed87af171a3f07b',1,'robot_vision']]],
   ['yolo_5fnum_5fclasses_8',['YOLO_NUM_CLASSES',['../namespacerobot__vision.html#aa3c3fe3e844a87bce37d88cf4ba6b3f7',1,'robot_vision']]],
   ['yolodetector_9',['yolodetector',['../classrobot__vision_1_1YoloDetector.html',1,'robot_vision::YoloDetector'],['../classrobot__vision_1_1YoloDetector.html#abf3e5cf45658ca4fd9e08df890e37d71',1,'robot_vision::YoloDetector::YoloDetector()']]],
-  ['yolov8_10',['YOLOv8',['../md_src_2robot__vision_2Readme.html#autotoc_md7',1,'']]]
+  ['yolov8_10',['YOLOv8',['../md_src_2robot__vision_2Readme.html#autotoc_md1',1,'']]]
 ];
