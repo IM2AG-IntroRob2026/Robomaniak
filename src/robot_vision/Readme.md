@@ -13,6 +13,7 @@ docker run --rm -v $(pwd):/ros2_ws -w /ros2_ws ros2 \
 docker run -it --rm \
     --net=host \
     --privileged \
+    --device /dev/snd \
     -v $(pwd):/ros2_ws \
     -w /ros2_ws \
     ros2 /bin/bash -c "source install/setup.bash && ros2 launch robot_vision robot_complet.launch.py"
