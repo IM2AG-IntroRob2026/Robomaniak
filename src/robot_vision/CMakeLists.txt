@@ -11,17 +11,17 @@ endif()
 
 add_compile_options(-Wall -Wextra -Wpedantic)
 
-find_package(ament_cmake        REQUIRED)
-find_package(rclcpp             REQUIRED)
-find_package(sensor_msgs        REQUIRED)
-find_package(std_msgs           REQUIRED)
-find_package(geometry_msgs      REQUIRED)
-find_package(vision_msgs        REQUIRED)
-find_package(cv_bridge          REQUIRED)
-find_package(irobot_create_msgs REQUIRED)
-find_package(behaviortree_cpp   REQUIRED)
-find_package(PkgConfig          REQUIRED)
-find_package(rclcpp_action      REQUIRED)
+find_package(ament_cmake         REQUIRED)
+find_package(rclcpp              REQUIRED)
+find_package(sensor_msgs         REQUIRED)
+find_package(std_msgs            REQUIRED)
+find_package(geometry_msgs       REQUIRED)
+find_package(vision_msgs         REQUIRED)
+find_package(cv_bridge           REQUIRED)
+find_package(irobot_create_msgs  REQUIRED)
+find_package(behaviortree_cpp_v3 REQUIRED)
+find_package(PkgConfig           REQUIRED)
+find_package(rclcpp_action       REQUIRED)
 
 find_package(OpenCV REQUIRED COMPONENTS core imgproc videoio)
 
@@ -122,7 +122,7 @@ set(ROS_DEPS
         vision_msgs
         cv_bridge
         irobot_create_msgs
-        behaviortree_cpp
+        behaviortree_cpp_v3
 )
 
 # ----- YOLO Detector Library -----

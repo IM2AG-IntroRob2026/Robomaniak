@@ -7,9 +7,9 @@
 #include <optional>
 #include <string>
 
-#include <behaviortree_cpp/action_node.h>
-#include <behaviortree_cpp/bt_factory.h>
-#include <behaviortree_cpp/condition_node.h>
+#include <behaviortree_cpp_v3/action_node.h>
+#include <behaviortree_cpp_v3/bt_factory.h>
+#include <behaviortree_cpp_v3/condition_node.h>
 #include <geometry_msgs/msg/twist.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/empty.hpp>
@@ -75,7 +75,7 @@ private:
     std::shared_ptr<BtContext> ctx_;
 public:
     // Constructor
-    IsMode(const std::string& name, const BT::NodeConfig& config, std::shared_ptr<BtContext> ctx);
+    IsMode(const std::string& name, const BT::NodeConfiguration& config, std::shared_ptr<BtContext> ctx);
 
     static BT::PortsList providedPorts();
     BT::NodeStatus tick() override;
@@ -88,7 +88,7 @@ private:
 
 public:
     // Constructor
-    FollowAction(const std::string& name, const BT::NodeConfig& config, std::shared_ptr<BtContext> ctx);
+    FollowAction(const std::string& name, const BT::NodeConfiguration& config, std::shared_ptr<BtContext> ctx);
     
     // Methods
     static BT::PortsList providedPorts();
@@ -105,7 +105,7 @@ private:
 
 public:
     // Constructor
-    TeleopAction(const std::string& name, const BT::NodeConfig& config, std::shared_ptr<BtContext> ctx);
+    TeleopAction(const std::string& name, const BT::NodeConfiguration& config, std::shared_ptr<BtContext> ctx);
 
     // Methods
     static BT::PortsList providedPorts();
@@ -126,7 +126,7 @@ private:
     std::optional<Impulse> active_impulse_;
 
 public:
-    ListenAction(const std::string& name, const BT::NodeConfig& config, std::shared_ptr<BtContext> ctx);
+    ListenAction(const std::string& name, const BT::NodeConfiguration& config, std::shared_ptr<BtContext> ctx);
 
     static BT::PortsList providedPorts();
     BT::NodeStatus onStart() override;

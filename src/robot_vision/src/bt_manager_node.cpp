@@ -6,9 +6,9 @@
 #include <stdexcept>
 #include <string>
 
-#include <behaviortree_cpp/action_node.h>
-#include <behaviortree_cpp/bt_factory.h>
-#include <behaviortree_cpp/condition_node.h>
+#include <behaviortree_cpp_v3/action_node.h>
+#include <behaviortree_cpp_v3/bt_factory.h>
+#include <behaviortree_cpp_v3/condition_node.h>
 #include <geometry_msgs/msg/twist.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/empty.hpp>
@@ -16,7 +16,7 @@
 
 using Twist = geometry_msgs::msg::Twist;
 
-IsMode::IsMode(const std::string& name, const BT::NodeConfig& config, std::shared_ptr<BtContext> ctx)
+IsMode::IsMode(const std::string& name, const BT::NodeConfiguration& config, std::shared_ptr<BtContext> ctx)
     : BT::ConditionNode(name, config), ctx_(std::move(ctx)) {}
 
 BT::PortsList IsMode::providedPorts()
@@ -35,7 +35,7 @@ BT::NodeStatus IsMode::tick()
     return ctx_->mode.load() == expected ? BT::NodeStatus::SUCCESS : BT::NodeStatus::FAILURE;
 }
 
-FollowAction::FollowAction(const std::string& name, const BT::NodeConfig& config, std::shared_ptr<BtContext> ctx)
+FollowAction::FollowAction(const std::string& name, const BT::NodeConfiguration& config, std::shared_ptr<BtContext> ctx)
     : BT::StatefulActionNode(name, config), ctx_(std::move(ctx)) {}
 
 BT::PortsList FollowAction::providedPorts() { return {}; }
@@ -56,7 +56,7 @@ void FollowAction::onHalted()
     ctx_->cmd_vel_pub->publish(Twist{});
 }
 
-TeleopAction::TeleopAction(const std::string& name, const BT::NodeConfig& config, std::shared_ptr<BtContext> ctx)
+TeleopAction::TeleopAction(const std::string& name, const BT::NodeConfiguration& config, std::shared_ptr<BtContext> ctx)
     : BT::StatefulActionNode(name, config), ctx_(std::move(ctx)) {}
 
 BT::PortsList TeleopAction::providedPorts() { return {}; }
@@ -79,7 +79,7 @@ void TeleopAction::onHalted()
     ctx_->cmd_vel_pub->publish(Twist{});
 }
 
-ListenAction::ListenAction(const std::string& name, const BT::NodeConfig& config, std::shared_ptr<BtContext> ctx)
+ListenAction::ListenAction(const std::string& name, const BT::NodeConfiguration& config, std::shared_ptr<BtContext> ctx)
     : BT::StatefulActionNode(name, config), ctx_(std::move(ctx)) {}
 
 BT::PortsList ListenAction::providedPorts() { return {}; }
@@ -241,22 +241,22 @@ void BtManagerNode::buildTree()
     auto ctx = ctx_;
 
     factory_.registerBuilder<IsMode>("IsMode",
-        [ctx](const std::string& name, const BT::NodeConfig& config) {
+        [ctx](const std::string& name, const BT::NodeConfiguration& config) {
             return std::make_unique<IsMode>(name, config, ctx);
         });
 
     factory_.registerBuilder<FollowAction>("FollowAction",
-        [ctx](const std::string& name, const BT::NodeConfig& config) {
+        [ctx](const std::string& name, const BT::NodeConfiguration& config) {
             return std::make_unique<FollowAction>(name, config, ctx);
         });
 
     factory_.registerBuilder<TeleopAction>("TeleopAction",
-        [ctx](const std::string& name, const BT::NodeConfig& config) {
+        [ctx](const std::string& name, const BT::NodeConfiguration& config) {
             return std::make_unique<TeleopAction>(name, config, ctx);
         });
 
     factory_.registerBuilder<ListenAction>("ListenAction",
-        [ctx](const std::string& name, const BT::NodeConfig& config) {
+        [ctx](const std::string& name, const BT::NodeConfiguration& config) {
             return std::make_unique<ListenAction>(name, config, ctx);
         });
 
@@ -266,7 +266,7 @@ void BtManagerNode::buildTree()
 void BtManagerNode::tickBt()
 {
     if (ctx_->docking_active.load()) { return; }
-    tree_.tickOnce();
+    tree_.tickRoot();
 }
 
 int main(int argc, char* argv[])
