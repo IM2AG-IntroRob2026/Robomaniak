@@ -1,6 +1,5 @@
 #include <chrono>
 #include <filesystem>
-#include <format>
 #include <memory>
 #include <string>
 
@@ -171,7 +170,7 @@ void DetectionNode::saveDebugImage(const cv::Mat& frame, const std::vector<robot
 
         cv::rectangle(annotated, {x1, y1}, {x2, y2}, cv::Scalar(0, 220, 0), 1);
 
-        const std::string label = std::format("person {:.0f}%", det.confidence * 100.0f);
+        const std::string label = "person " + std::to_string(static_cast<int>(det.confidence * 100.0f)) + "%";
 
         int baseline = 0;
         const auto text_size = cv::getTextSize(label, cv::FONT_HERSHEY_SIMPLEX, 0.55, 1, &baseline);
@@ -188,7 +187,7 @@ void DetectionNode::saveDebugImage(const cv::Mat& frame, const std::vector<robot
     }
 
     const auto now_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-    const auto filename = debug_output_dir_ / std::format("detection_{}.jpg", now_ns);
+    const auto filename = debug_output_dir_ / ("detection_" + std::to_string(now_ns) + ".jpg");
 
     if (cv::imwrite(filename.string(), annotated)) {
         ++debug_save_count_;
