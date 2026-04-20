@@ -41,23 +41,23 @@ ros2 run rqt_image_view rqt_image_view /camera/image_raw
 
 ```bash
 ros2 run robot_vision detection_node --ros-args -p model_path:="$(ros2 pkg prefix robot_vision)/share/robot_vision/models/models/yolov8s.onnx" -p confidence_threshold:=0.5 -p use_gpu:=false
-````
+```
 
 ## Suivi de cible
 
 ```bash
 ros2 run robot_vision follow_node --ros-args -p strategy:="most_centered" -p angular_dead_zone:=0.2 -p allow_reverse:=false -p target_bbox_height:=1000.0 -p lock_lost_frames:=10 -p linear_dead_zone:=50.0 -p allow_reverse:=true --remap /ir_intensity:=/Robot3/ir_intensity --remap /hazard_detection:=/Robot3/hazard_detection
-``````
+```
 
 ## BT Manager
 
 ```bash
 ros2 run robot_vision bt_manager_node --ros-args -p bt_tick_hz:=50.0 --remap /cmd_vel:=/Robot3/cmd_vel --remap cmd_lightring:=/Robot3/cmd_lightringv
-````
+```
 
 ```bash
 ros2 run robot_vision teleop_node
-````
+```
 
 ## Listen node
 
