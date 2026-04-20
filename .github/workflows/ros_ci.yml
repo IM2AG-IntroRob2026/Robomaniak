@@ -1,4 +1,4 @@
-name: ROS2 Jazzy CI
+name: ROS2 Iron CI
 
 on: [push, pull_request, workflow_dispatch]
 
@@ -26,8 +26,9 @@ jobs:
 
       - name: Install Project Dependencies
         run: |
+          apt-get update
           rosdep update
-          rosdep install --from-paths src --ignore-src -y --rosdistro jazzy
+          rosdep install --from-paths src --ignore-src -y --rosdistro iron --skip-keys "behaviortree_cpp" --skip-keys "irobot_create_msgs" --skip-keys "vision_msgs"
 
       - name: Ensure ccache directory exists
         run: mkdir -p ~/.ccache
@@ -42,10 +43,14 @@ jobs:
 
       - name: Build Project with Coverage
         run: |
-          . /opt/ros/jazzy/setup.sh
+          . /opt/ros/iron/setup.sh
+          . /root/create3_ws/install/setup.sh
+          
           export CCACHE_DIR=$HOME/.ccache
           export PATH="/usr/lib/ccache:$PATH"
+          
           colcon build \
+            --symlink-install \
             --cmake-args \
             -DCMAKE_BUILD_TYPE=Debug \
             -DCMAKE_C_COMPILER_LAUNCHER=ccache \
@@ -55,7 +60,9 @@ jobs:
 
       - name: Run tests
         run: |
-          . /opt/ros/jazzy/setup.sh
+          . /opt/ros/iron/setup.sh
+          . /root/create3_ws/install/setup.sh
+          . install/setup.sh
           colcon test
 
       - name: Install coverage and documentation tools
@@ -63,7 +70,7 @@ jobs:
 
       - name: Generate coverage report
         run: |
-          . /opt/ros/jazzy/setup.sh
+          . /opt/ros/iron/setup.sh
           mkdir -p coverage
           gcovr -r . \
             --html \
@@ -86,7 +93,7 @@ jobs:
 
       - name: Build documentation
         run: |
-          . /opt/ros/jazzy/setup.sh
+          . /opt/ros/iron/setup.sh
           mkdir -p doc
           doxygen Doxyfile
 
