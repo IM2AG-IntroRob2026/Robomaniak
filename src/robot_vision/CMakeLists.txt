@@ -183,6 +183,11 @@ install(TARGETS
 install(DIRECTORY include/ DESTINATION include)
 install(DIRECTORY models/  DESTINATION share/${PROJECT_NAME}/models)
 
+install(
+        DIRECTORY launch/
+        DESTINATION share/${PROJECT_NAME}/launch
+)
+
 # ----- Tests -----
 if(BUILD_TESTING)
     find_package(ament_lint_auto REQUIRED)
