@@ -145,6 +145,8 @@ BtManagerNode::BtManagerNode() : Node("bt_manager_node")
     declare_parameter<double>("impulse_duration_s", 1.5);
     declare_parameter<double>("impulse_linear_speed", 0.3);
     declare_parameter<double>("impulse_angular_speed", 0.8);
+    declare_parameter<std::string>("dock_action",   "/dock");
+    declare_parameter<std::string>("undock_action", "/undock");
 
     const double tick_hz = get_parameter("bt_tick_hz").as_double();
 
@@ -152,8 +154,8 @@ BtManagerNode::BtManagerNode() : Node("bt_manager_node")
     ctx_->cmd_vel_pub          = create_publisher<Twist>("/cmd_vel", 10);
     led_pub_                   = create_publisher<LightringLeds>("/cmd_lightring", 10);
 
-    dock_client_   = rclcpp_action::create_client<DockAction>  (this, "/dock");
-    undock_client_ = rclcpp_action::create_client<UndockAction>(this, "/undock");
+    dock_client_   = rclcpp_action::create_client<DockAction>  (this, get_parameter("dock_action").as_string());
+    undock_client_ = rclcpp_action::create_client<UndockAction>(this, get_parameter("undock_action").as_string());
 
     dock_sub_ = create_subscription<std_msgs::msg::Empty>("/teleop/dock", 10,
         [this](const std_msgs::msg::Empty::ConstSharedPtr&) { onDockRequest(); });
