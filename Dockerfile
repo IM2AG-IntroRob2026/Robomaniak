@@ -4,7 +4,7 @@ COPY src /tmp/src
 RUN find src -type f ! -name "package.xml" -delete
 
 FROM alpine AS downloader
-ENV ONNX_VERSION=1.24.4
+ENV ONNX_VERSION=1.23.2
 ENV SHERPA_ONNX_VERSION=1.12.35
 RUN apk add --no-cache wget tar bzip2
 WORKDIR /deps
@@ -31,8 +31,8 @@ RUN apt-get update && apt-get install -y \
 ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
 RUN mkdir -p /usr/local/include/sherpa-onnx/c-api
-COPY --from=downloader /deps/onnxruntime-linux-x64-1.24.4/include/* /usr/local/include/
-COPY --from=downloader /deps/onnxruntime-linux-x64-1.24.4/lib/* /usr/local/lib/
+COPY --from=downloader /deps/onnxruntime-linux-x64-1.23.2/include/* /usr/local/include/
+COPY --from=downloader /deps/onnxruntime-linux-x64-1.23.2/lib/* /usr/local/lib/
 COPY --from=downloader /deps/sherpa-onnx-v1.12.35-linux-x64-shared-no-tts/include/sherpa-onnx/c-api/* /usr/local/include/sherpa-onnx/c-api/
 COPY --from=downloader /deps/sherpa-onnx-v1.12.35-linux-x64-shared-no-tts/lib/* /usr/local/lib/
 RUN ldconfig
