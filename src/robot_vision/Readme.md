@@ -1,3 +1,23 @@
+http://192.168.10.1/
+
+## Docker
+
+```bash
+sudo docker buildx build -t ros2 .
+```
+```bash
+docker run --rm -v $(pwd):/ros2_ws -w /ros2_ws ros2 \
+          /ros_entrypoint.sh /bin/bash -c "source /root/create3_ws/install/setup.bash && colcon build"
+```
+```bash
+docker run -it --rm \
+    --net=host \
+    --privileged \
+    -v $(pwd):/ros2_ws \
+    -w /ros2_ws \
+    ros2 /bin/bash -c "source install/setup.bash && ros2 launch robot_vision robot_complet.launch.py"
+```
+
 ## onnxruntime
 
 https://github.com/microsoft/onnxruntime/releases
@@ -33,6 +53,7 @@ cp yolov8n.onnx ~/ros2_ws/src/robot_vision/models/
 ros2 run robot_vision video_node --ros-args -p stream_url:="http://10.202.48.94:8080/video" -p publish_rate_hz:=30
 ```
 
+Optionnellement, pour visualiser le flux vidéo :
 ```bash
 ros2 run rqt_image_view rqt_image_view /camera/image_raw
 ```
@@ -52,7 +73,12 @@ ros2 run robot_vision follow_node --ros-args -p strategy:="most_centered" -p ang
 ## BT Manager
 
 ```bash
-ros2 run robot_vision bt_manager_node --ros-args -p bt_tick_hz:=50.0 --remap /cmd_vel:=/Robot3/cmd_vel --remap cmd_lightring:=/Robot3/cmd_lightringv
+ros2 run robot_vision bt_manager_node --ros-args \
+  -p bt_tick_hz:=50.0 \
+  -p dock_action:=/Robot3/dock \
+  -p undock_action:=/Robot3/undock \
+  --remap /cmd_vel:=/Robot3/cmd_vel \
+  --remap /cmd_lightring:=/Robot3/cmd_lightring
 ```
 
 ```bash
