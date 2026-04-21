@@ -1,12 +1,25 @@
 name: ROS2 Iron CI
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**/Dockerfile'
+      - '**/.github/workflows/ros_ci.yml'
+      - '**/package.xml'
+      - '**/CMakeLists.txt'
+      - '**/src/**'
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
 
 jobs:
   ros_build_test:
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/im2ag-introrob2026/robomaniak:latest
 
     permissions:
       contents: write
@@ -17,65 +30,39 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v5
 
-      - name: Cache rosdep
-        uses: actions/cache@v4
+      - name: Log in to the Container registry
+        uses: docker/login-action@v4
         with:
-          path: ~/.ros/rosdep
-          key: rosdep-${{ runner.os }}-${{ hashFiles('**/package.xml') }}
-          restore-keys: rosdep-
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install Project Dependencies
-        run: |
-          apt-get update
-          rosdep update
-          rosdep install --from-paths src --ignore-src -y --rosdistro iron --skip-keys "behaviortree_cpp" --skip-keys "irobot_create_msgs" --skip-keys "vision_msgs"
+      - name: Lowercase repo name
+        run: echo "IMAGE_NAME_LOWER=${IMAGE_NAME,,}" >> $GITHUB_ENV
 
-      - name: Ensure ccache directory exists
-        run: mkdir -p ~/.ccache
-
-      - name: Setup ccache
-        uses: actions/cache@v5
-        with:
-          path: ~/.ccache
-          key: ccache-${{ runner.os }}-${{ hashFiles('**/CMakeLists.txt') }}
-          restore-keys: |
-            ccache-${{ runner.os }}-
+      - name: Pull Docker image
+        run: docker pull ${{ env.IMAGE_NAME_LOWER }}:latest
 
       - name: Build Project with Coverage
         run: |
-          . /opt/ros/iron/setup.sh
-          . /root/create3_ws/install/setup.sh
+          docker run --rm \
+            -v ${{ github.workspace }}:/ros2_ws \
+            -w /ros2_ws \
+            ${{ env.IMAGE_NAME_LOWER }}:latest \
+            /ros_entrypoint.sh /bin/bash -c "T
+              apt-get update && apt-get install -y lcov doxygen graphviz &&
           
-          export CCACHE_DIR=$HOME/.ccache
-          export PATH="/usr/lib/ccache:$PATH"
+              source /root/create3_ws/install/setup.bash &&
           
-          colcon build \
-            --symlink-install \
-            --cmake-args \
-            -DCMAKE_BUILD_TYPE=Debug \
-            -DCMAKE_C_COMPILER_LAUNCHER=ccache \
-            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
-            -DCMAKE_CXX_FLAGS="--coverage" \
-            -DCMAKE_C_FLAGS="--coverage"
-
-      - name: Run tests
-        run: |
-          . /opt/ros/iron/setup.sh
-          . /root/create3_ws/install/setup.sh
-          . install/setup.sh
-          colcon test
-
-      - name: Install coverage and documentation tools
-        run: apt-get update && apt-get install -y gcovr doxygen graphviz
-
-      - name: Generate coverage report
-        run: |
-          . /opt/ros/iron/setup.sh
-          mkdir -p coverage
-          gcovr -r . \
-            --html \
-            --html-details \
-            -o coverage/index.html
+              colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS='--coverage' -DCMAKE_C_FLAGS='--coverage' &&
+              colcon test --return-code-on-test-failure &&
+          
+              lcov --capture --directory build --output-file coverage.info &&
+              lcov --remove coverage.info '/usr/*' '*/install/*' '*/test/*' --output-file coverage.info &&
+              genhtml coverage.info --output-directory coverage &&
+          
+              doxygen Doxyfile
+            "
 
       - name: Upload coverage report as artifact
         uses: actions/upload-artifact@v6
@@ -90,12 +77,6 @@ jobs:
           header: '### Code Coverage Report'
           message: |
             [View the full coverage report](${{ github.server_url }}/${{ github.repository }}/actions/artifacts/${{ github.run_id }})
-
-      - name: Build documentation
-        run: |
-          . /opt/ros/iron/setup.sh
-          mkdir -p doc
-          doxygen Doxyfile
 
       - name: Extract metrics
         run: |
