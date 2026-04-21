@@ -27,35 +27,53 @@ ListenNode::ListenNode() : Node("listen_node")
     declare_parameter<std::string>("tokens_path",        "");
     declare_parameter<double>     ("keyword_score",      2.5);
     declare_parameter<double>     ("score_threshold",    0.01);
-    declare_parameter<std::string>("wake_word",          "computer");
     declare_parameter<std::string>("kw_forward",         "forward");
     declare_parameter<std::string>("kw_left",            "left");
     declare_parameter<std::string>("kw_right",           "right");
-    declare_parameter<std::string>("wake_word_tokens",   "");
     declare_parameter<std::string>("kw_forward_tokens",  "");
     declare_parameter<std::string>("kw_left_tokens",     "");
     declare_parameter<std::string>("kw_right_tokens",    "");
+    declare_parameter<std::string>("kw_mode_teleop",     "teleop");
+    declare_parameter<std::string>("kw_mode_follow",     "follow");
+    declare_parameter<std::string>("kw_mode_listen",     "listen");
+    declare_parameter<std::string>("kw_dock",            "dock");
+    declare_parameter<std::string>("kw_undock",          "undock");
+    declare_parameter<std::string>("kw_mode_teleop_tokens",  "");
+    declare_parameter<std::string>("kw_mode_follow_tokens",  "");
+    declare_parameter<std::string>("kw_mode_listen_tokens",  "");
+    declare_parameter<std::string>("kw_dock_tokens",         "");
+    declare_parameter<std::string>("kw_undock_tokens",       "");
 
-    sample_rate_        = get_parameter("sample_rate").as_int();
-    pa_device_index_    = get_parameter("pa_device_index").as_int();
-    encoder_path_       = get_parameter("encoder_path").as_string();
-    decoder_path_       = get_parameter("decoder_path").as_string();
-    joiner_path_        = get_parameter("joiner_path").as_string();
-    tokens_path_        = get_parameter("tokens_path").as_string();
-    keyword_score_      = static_cast<float>(get_parameter("keyword_score").as_double());
-    score_threshold_    = static_cast<float>(get_parameter("score_threshold").as_double());
-    wake_word_          = get_parameter("wake_word").as_string();
-    kw_forward_         = get_parameter("kw_forward").as_string();
-    kw_left_            = get_parameter("kw_left").as_string();
-    kw_right_           = get_parameter("kw_right").as_string();
-    wake_word_tokens_   = get_parameter("wake_word_tokens").as_string();
-    kw_forward_tokens_  = get_parameter("kw_forward_tokens").as_string();
-    kw_left_tokens_     = get_parameter("kw_left_tokens").as_string();
-    kw_right_tokens_    = get_parameter("kw_right_tokens").as_string();
+    sample_rate_            = get_parameter("sample_rate").as_int();
+    pa_device_index_        = get_parameter("pa_device_index").as_int();
+    encoder_path_           = get_parameter("encoder_path").as_string();
+    decoder_path_           = get_parameter("decoder_path").as_string();
+    joiner_path_            = get_parameter("joiner_path").as_string();
+    tokens_path_            = get_parameter("tokens_path").as_string();
+    keyword_score_          = static_cast<float>(get_parameter("keyword_score").as_double());
+    score_threshold_        = static_cast<float>(get_parameter("score_threshold").as_double());
+    kw_forward_             = get_parameter("kw_forward").as_string();
+    kw_left_                = get_parameter("kw_left").as_string();
+    kw_right_               = get_parameter("kw_right").as_string();
+    kw_forward_tokens_      = get_parameter("kw_forward_tokens").as_string();
+    kw_left_tokens_         = get_parameter("kw_left_tokens").as_string();
+    kw_right_tokens_        = get_parameter("kw_right_tokens").as_string();
+    kw_mode_teleop_         = get_parameter("kw_mode_teleop").as_string();
+    kw_mode_follow_         = get_parameter("kw_mode_follow").as_string();
+    kw_mode_listen_         = get_parameter("kw_mode_listen").as_string();
+    kw_dock_                = get_parameter("kw_dock").as_string();
+    kw_undock_              = get_parameter("kw_undock").as_string();
+    kw_mode_teleop_tokens_  = get_parameter("kw_mode_teleop_tokens").as_string();
+    kw_mode_follow_tokens_  = get_parameter("kw_mode_follow_tokens").as_string();
+    kw_mode_listen_tokens_  = get_parameter("kw_mode_listen_tokens").as_string();
+    kw_dock_tokens_         = get_parameter("kw_dock_tokens").as_string();
+    kw_undock_tokens_       = get_parameter("kw_undock_tokens").as_string();
 
-    switch_pub_    = create_publisher<std_msgs::msg::Empty> ("/listen/mode_switch", 10);
-    command_pub_   = create_publisher<std_msgs::msg::String>("/listen/command",     10);
-    publish_timer_ = create_wall_timer(20ms, std::bind(&ListenNode::onPublishTimer, this));
+    command_pub_      = create_publisher<std_msgs::msg::String>("/listen/command",      10);
+    mode_request_pub_ = create_publisher<std_msgs::msg::String>("/listen/mode_request", 10);
+    dock_pub_         = create_publisher<std_msgs::msg::Empty> ("/teleop/dock",         10);
+    undock_pub_       = create_publisher<std_msgs::msg::Empty> ("/teleop/undock",       10);
+    publish_timer_    = create_wall_timer(20ms, std::bind(&ListenNode::onPublishTimer,  this));
 
     if (!initSherpa()) {
         throw std::runtime_error("Sherpa-ONNX initialization failed. Check parameters and model files.");
@@ -150,10 +168,14 @@ std::string ListenNode::wordToTokens(const std::string& word, const std::string&
 std::string ListenNode::buildKeywordsBuf() const
 {
     std::ostringstream oss;
-    oss << wordToTokens(wake_word_,  wake_word_tokens_)  << '\n'
-        << wordToTokens(kw_forward_, kw_forward_tokens_) << '\n'
-        << wordToTokens(kw_left_,    kw_left_tokens_)    << '\n'
-        << wordToTokens(kw_right_,   kw_right_tokens_)   << '\n';
+    oss << wordToTokens(kw_forward_,      kw_forward_tokens_)       << '\n'
+        << wordToTokens(kw_left_,         kw_left_tokens_)          << '\n'
+        << wordToTokens(kw_right_,        kw_right_tokens_)         << '\n'
+        << wordToTokens(kw_mode_teleop_,  kw_mode_teleop_tokens_)   << '\n'
+        << wordToTokens(kw_mode_follow_,  kw_mode_follow_tokens_)   << '\n'
+        << wordToTokens(kw_mode_listen_,  kw_mode_listen_tokens_)   << '\n'
+        << wordToTokens(kw_dock_,         kw_dock_tokens_)          << '\n'
+        << wordToTokens(kw_undock_,       kw_undock_tokens_)        << '\n';
     return oss.str();
 }
 
@@ -388,17 +410,24 @@ void ListenNode::handleKeyword(const std::string& keyword)
     RCLCPP_INFO(get_logger(), "Keyword detected: '%s'", kw.c_str());
 
     PendingPublish pending;
-    if (kw == wake_word_) {
-        pending.kind = PendingPublish::Kind::ModeSwitch;
-    } else {
-        pending.kind = PendingPublish::Kind::Command;
-        if (kw == kw_forward_) { pending.data = "forward"; }
-        else if (kw == kw_left_) { pending.data = "left"; }
-        else if (kw == kw_right_) { pending.data = "right"; }
-        else {
-            RCLCPP_WARN(get_logger(), "Unrecognized keyword '%s' detected. Ignoring.", kw.c_str());
-            return;
-        }
+    if (kw == kw_mode_teleop_) {
+        pending.kind = PendingPublish::Kind::ModeRequest;
+        pending.data = "TELEOP";
+    } else if (kw == kw_mode_follow_) {
+        pending.kind = PendingPublish::Kind::ModeRequest;
+        pending.data = "FOLLOW";
+    } else if (kw == kw_mode_listen_) {
+        pending.kind = PendingPublish::Kind::ModeRequest;
+        pending.data = "LISTEN";
+    }
+    else if (kw == kw_dock_)    { pending.kind = PendingPublish::Kind::Dock; }
+    else if (kw == kw_undock_)  { pending.kind = PendingPublish::Kind::Undock; }
+    else if (kw == kw_forward_) { pending.kind = PendingPublish::Kind::Command; pending.data = "forward"; }
+    else if (kw == kw_left_)    { pending.kind = PendingPublish::Kind::Command; pending.data = "left";    }
+    else if (kw == kw_right_)   { pending.kind = PendingPublish::Kind::Command; pending.data = "right";   }
+    else {
+        RCLCPP_WARN(get_logger(), "Unrecognized keyword '%s'. Ignoring.", kw.c_str());
+        return;
     }
 
     std::lock_guard lock(publish_mutex_);
@@ -413,14 +442,32 @@ void ListenNode::onPublishTimer()
         to_publish.swap(publish_queue_);
     }
     for (const auto& p : to_publish) {
-        if (p.kind == PendingPublish::Kind::ModeSwitch) {
-            switch_pub_->publish(std_msgs::msg::Empty{});
-            RCLCPP_INFO(get_logger(), "Mode switch command published.");
-        } else {
-            std_msgs::msg::String msg;
-            msg.data = p.data;
-            command_pub_->publish(msg);
-            RCLCPP_INFO(get_logger(), "Command '%s' published.", p.data.c_str());
+        switch (p.kind) {
+            case PendingPublish::Kind::Command: {
+                std_msgs::msg::String msg;
+                msg.data = p.data;
+                command_pub_->publish(msg);
+                RCLCPP_INFO(get_logger(), "Command '%s' → /listen/command.", p.data.c_str());
+                break;
+            }
+
+            case PendingPublish::Kind::ModeRequest: {
+                std_msgs::msg::String msg;
+                msg.data = p.data;
+                mode_request_pub_->publish(msg);
+                RCLCPP_INFO(get_logger(), "Mode request '%s' → /listen/mode_request.", p.data.c_str());
+                break;
+            }
+
+            case PendingPublish::Kind::Dock:
+                dock_pub_->publish(std_msgs::msg::Empty{});
+                RCLCPP_INFO(get_logger(), "Voice dock command → /teleop/dock.");
+                break;
+
+            case PendingPublish::Kind::Undock:
+                undock_pub_->publish(std_msgs::msg::Empty{});
+                RCLCPP_INFO(get_logger(), "Voice undock command → /teleop/undock.");
+                break;
         }
     }
 }

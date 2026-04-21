@@ -250,15 +250,9 @@ BtManagerNode::BtManagerNode() : Node("bt_manager_node")
         "/teleop/mode_switch", 10,
         [this](const std_msgs::msg::Empty::ConstSharedPtr&) { cycleMode(); });
 
-    listen_switch_sub_ = create_subscription<std_msgs::msg::Empty>(
-        "/listen/mode_switch", 10,
-        [this](const std_msgs::msg::Empty::ConstSharedPtr&) {
-            if (ctx_->docking_active.load()) { return; }
-            const RobotMode prev = ctx_->mode.exchange(RobotMode::LISTEN);
-            if (prev != RobotMode::LISTEN) {
-                RCLCPP_INFO(get_logger(), "--- Wake word detected : %s -> LISTEN ---", modeToString(prev));
-            }
-        });
+    mode_request_sub_ = create_subscription<std_msgs::msg::String>(
+        "/listen/mode_request", 10,
+        std::bind(&BtManagerNode::onModeRequest, this, std::placeholders::_1));
 
     const rclcpp::QoS sensor_qos = rclcpp::QoS(rclcpp::KeepLast(1)).best_effort().durability_volatile();
     odom_sub_ = create_subscription<nav_msgs::msg::Odometry>(
@@ -306,12 +300,7 @@ BtManagerNode::~BtManagerNode()
 void BtManagerNode::cycleMode()
 {
     if (ctx_->docking_active.load()) {
-        const auto phase = approach_phase_.load();
-        if (phase != ApproachPhase::IDLE && phase != ApproachPhase::DOCK_PENDING) {
-            abortApproach("user mode_switch");
-            return;
-        }
-        RCLCPP_WARN(get_logger(), "Mode switch ignored: native dock action in progress.");
+        switchToTeleopAndCancelEverything("user mode_switch");
         return;
     }
 
@@ -447,7 +436,27 @@ void BtManagerNode::onUndockRequest()
     RCLCPP_INFO(get_logger(), "--- Undocking... (mode saved: %s) ---", modeToString(ctx_->mode_before_dock));
 
     auto opts = rclcpp_action::Client<UndockAction>::SendGoalOptions{};
+
+    opts.goal_response_callback =
+        [this](UndockGoalHandle::SharedPtr handle) {
+            if (!handle) {
+                RCLCPP_ERROR(get_logger(), "Undock goal REJECTED.");
+                ctx_->docking_active.store(false);
+                ctx_->mode.store(ctx_->mode_before_dock);
+                led_mgr_->clearState(LedState::UNDOCKING);
+                led_mgr_->setStateTransient(LedState::ERROR, 3.0);
+                refreshModeLed();
+                return;
+            }
+            std::lock_guard lock(active_undock_goal_mutex_);
+            active_undock_goal_ = handle;
+    };
+
     opts.result_callback = [this](const auto& result) {
+        {
+            std::lock_guard lock(active_undock_goal_mutex_);
+            active_undock_goal_.reset();
+        }
         ctx_->docking_active.store(false);
         ctx_->mode.store(ctx_->mode_before_dock);
         led_mgr_->clearState(LedState::UNDOCKING);
@@ -460,6 +469,7 @@ void BtManagerNode::onUndockRequest()
         }
         refreshModeLed();
     };
+
     undock_client_->async_send_goal(UndockAction::Goal{}, opts);
 }
 
@@ -689,6 +699,7 @@ void BtManagerNode::resetAllState()
 
     // 2. Annule tout goal d'action en cours
     cancelActiveDockGoal();
+    cancelActiveUndockGoal();
 
     // 3. Reset machine d'état d'approche
     approach_phase_.store(ApproachPhase::IDLE);
@@ -733,6 +744,78 @@ void BtManagerNode::refreshModeLed()
         case RobotMode::FOLLOW: led_mgr_->setState(LedState::FOLLOW); break;
         case RobotMode::LISTEN: led_mgr_->setState(LedState::LISTEN); break;
     }
+}
+
+void BtManagerNode::onModeRequest(const std_msgs::msg::String::ConstSharedPtr& msg)
+{
+    RobotMode requested;
+    if (msg->data == "TELEOP")      { requested = RobotMode::TELEOP; }
+    else if (msg->data == "FOLLOW") { requested = RobotMode::FOLLOW; }
+    else if (msg->data == "LISTEN") { requested = RobotMode::LISTEN; }
+    else {
+        RCLCPP_WARN(get_logger(), "Unknown mode request '%s'", msg->data.c_str());
+        return;
+    }
+
+    if (ctx_->docking_active.load()) {
+        RCLCPP_WARN(get_logger(),
+            "Mode request '%s' during docking → forcing TELEOP and aborting.",
+            msg->data.c_str());
+        switchToTeleopAndCancelEverything("voice mode_request");
+        return;
+    }
+
+    const RobotMode prev = ctx_->mode.exchange(requested);
+    if (prev != requested) {
+        RCLCPP_INFO(get_logger(), "--- Voice mode change: %s → %s ---",
+            modeToString(prev), modeToString(requested));
+        refreshModeLed();
+    }
+}
+
+void BtManagerNode::cancelActiveUndockGoal()
+{
+    std::shared_ptr<UndockGoalHandle> handle;
+    {
+        std::lock_guard lock(active_undock_goal_mutex_);
+        handle = active_undock_goal_;
+        active_undock_goal_.reset();
+    }
+    if (!handle) { return; }
+    RCLCPP_WARN(get_logger(), "Cancelling active /undock goal...");
+    try {
+        undock_client_->async_cancel_goal(handle);
+    } catch (const std::exception& e) {
+        RCLCPP_ERROR(get_logger(), "Exception cancelling undock: %s", e.what());
+    }
+}
+
+void BtManagerNode::switchToTeleopAndCancelEverything(const char* reason)
+{
+    RCLCPP_WARN(get_logger(), "Stop & take control: %s", reason);
+
+    // 1. Annule toutes les actions en cours
+    cancelActiveDockGoal();
+    cancelActiveUndockGoal();
+
+    // 2. Reset machine d'état d'approche
+    approach_phase_.store(ApproachPhase::IDLE);
+
+    // 3. Stoppe le robot
+    publishZeroCmd();
+    publishZeroCmd();
+
+    // 4. Force état neutre TELEOP
+    ctx_->docking_active.store(false);
+    ctx_->mode.store(RobotMode::TELEOP);
+    ctx_->mode_before_dock = RobotMode::TELEOP;
+
+    // 5. LED feedback
+    led_mgr_->clearState(LedState::DOCK_APPROACH);
+    led_mgr_->clearState(LedState::DOCK_PENDING);
+    led_mgr_->clearState(LedState::UNDOCKING);
+    led_mgr_->setStateTransient(LedState::ERROR, 1.0);
+    refreshModeLed();
 }
 
 void BtManagerNode::triggerDockAction()

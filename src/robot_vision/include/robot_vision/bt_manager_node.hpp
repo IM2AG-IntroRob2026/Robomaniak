@@ -197,14 +197,18 @@ private:
     rclcpp::Subscription<Twist>::SharedPtr follow_sub_;
     rclcpp::Subscription<Twist>::SharedPtr teleop_sub_;
     rclcpp::Subscription<std_msgs::msg::Empty>::SharedPtr  cycle_switch_sub_;
-    rclcpp::Subscription<std_msgs::msg::Empty>::SharedPtr  listen_switch_sub_;
     rclcpp::Subscription<std_msgs::msg::String>::SharedPtr listen_cmd_sub_;
+    rclcpp::Subscription<std_msgs::msg::String>::SharedPtr mode_request_sub_;
     rclcpp::TimerBase::SharedPtr bt_timer_;
 
     using DockAction = irobot_create_msgs::action::Dock;
     using UndockAction = irobot_create_msgs::action::Undock;
     using LightringLeds = irobot_create_msgs::msg::LightringLeds;
     using LedColor = irobot_create_msgs::msg::LedColor;
+    using UndockGoalHandle = rclcpp_action::ClientGoalHandle<UndockAction>;
+
+    std::shared_ptr<UndockGoalHandle> active_undock_goal_;
+    std::mutex                        active_undock_goal_mutex_;
 
     rclcpp_action::Client<DockAction>::SharedPtr   dock_client_;
     rclcpp_action::Client<UndockAction>::SharedPtr undock_client_;
@@ -327,6 +331,10 @@ private:
     void cancelActiveDockGoal();
     void resetAllState();
     void refreshModeLed();
+
+    void onModeRequest(const std_msgs::msg::String::ConstSharedPtr& msg);
+    void cancelActiveUndockGoal();
+    void switchToTeleopAndCancelEverything(const char* reason);
 
     // Helpers
     [[nodiscard]] bool   dockDetectedRecently() const;
