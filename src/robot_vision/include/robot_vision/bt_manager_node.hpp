@@ -25,6 +25,9 @@
 #include <irobot_create_msgs/msg/led_color.hpp>
 #include <tf2/LinearMath/Transform.h>
 #include <tf2/LinearMath/Quaternion.h>
+#include <irobot_create_msgs/msg/hazard_detection_vector.hpp>
+#include <irobot_create_msgs/msg/hazard_detection.hpp>
+#include "robot_vision/led_manager.hpp"
 
 using Twist = geometry_msgs::msg::Twist;
 
@@ -209,8 +212,6 @@ private:
     rclcpp::Subscription<std_msgs::msg::Empty>::SharedPtr dock_sub_;
     rclcpp::Subscription<std_msgs::msg::Empty>::SharedPtr undock_sub_;
 
-    rclcpp::Publisher<LightringLeds>::SharedPtr led_pub_;
-
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr         odom_sub_;
     rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr dock_pose_sub_;
     rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr             dock_detected_sub_;
@@ -252,6 +253,24 @@ private:
     double cam_yaw_deg_     {0.0};
 
     tf2::Transform tf_cam_to_base_;
+
+    using HazardVec = irobot_create_msgs::msg::HazardDetectionVector;
+    rclcpp::Subscription<HazardVec>::SharedPtr            hazard_sub_;
+    rclcpp::Subscription<std_msgs::msg::Empty>::SharedPtr emergency_reset_sub_;
+
+    rclcpp::Time last_dock_request_time_   {0, 0, RCL_ROS_TIME};
+    rclcpp::Time last_undock_request_time_ {0, 0, RCL_ROS_TIME};
+    double       request_debounce_s_       {0.5};
+
+    using DockGoalHandle = rclcpp_action::ClientGoalHandle<DockAction>;
+    std::shared_ptr<DockGoalHandle> active_dock_goal_;
+    std::mutex                      active_dock_goal_mutex_;
+
+    double dock_pending_timeout_s_ {120.0};
+
+    std::unique_ptr<LedManager> led_mgr_;
+
+    rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr human_present_sub_;
 
     static constexpr const char* TREE_XML = R"(
     <root BTCPP_format="4">
@@ -301,6 +320,14 @@ private:
     void tickFine();
     void tickSearch();
 
+    void onHazard(const HazardVec::ConstSharedPtr& msg);
+    void onEmergencyReset();
+    void onHumanPresent(const std_msgs::msg::Bool::ConstSharedPtr& msg);
+
+    void cancelActiveDockGoal();
+    void resetAllState();
+    void refreshModeLed();
+
     // Helpers
     [[nodiscard]] bool   dockDetectedRecently() const;
     [[nodiscard]] double phaseElapsedSec() const;
@@ -311,10 +338,6 @@ private:
 
     void buildCameraTransform();
     [[nodiscard]] tf2::Vector3 cameraToBase(const geometry_msgs::msg::Pose& pose_cam) const;
-
-    // LED helpers
-    void publishLed(const LightringLeds& msg);
-    [[nodiscard]] static LightringLeds makeLightring(uint8_t r, uint8_t g, uint8_t b);
 
     // Math helpers
     [[nodiscard]] static double yawFromQuaternion(double x, double y, double z, double w) noexcept;

@@ -158,9 +158,15 @@ target_include_directories(listen_node PRIVATE
 target_link_libraries(listen_node ${PORTAUDIO_LIBRARIES} sherpa_onnx::c_api)
 ament_target_dependencies(listen_node ${ROS_DEPS})
 
+# ----- LED Manager Library -----
+add_library(led_manager_lib src/led_manager.cpp)
+target_include_directories(led_manager_lib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+ament_target_dependencies(led_manager_lib ${ROS_DEPS})
+
 # ----- BT Manager Node -----
 add_executable(bt_manager_node src/bt_manager_node.cpp)
 target_include_directories(bt_manager_node PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+target_link_libraries(bt_manager_node led_manager_lib)
 ament_target_dependencies(bt_manager_node ${ROS_DEPS})
 
 # ----- Dock Detector Node -----
@@ -184,6 +190,7 @@ install(TARGETS
         bt_manager_node
         dock_detector_node
         dock_calibration_node
+        led_manager_lib
         DESTINATION lib/${PROJECT_NAME}
 )
 

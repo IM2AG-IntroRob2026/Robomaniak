@@ -26,19 +26,21 @@ TeleopNode::TeleopNode() : Node("teleop_node")
     declare_parameter<double>("gp_timeout_s",    2.0);
     declare_parameter<double>("gp_deadzone",     0.1);
 
-    declare_parameter<std::string>("key_forward",  "z");
-    declare_parameter<std::string>("key_backward", "s");
-    declare_parameter<std::string>("key_left",     "q");
-    declare_parameter<std::string>("key_right",    "d");
-    declare_parameter<std::string>("key_switch",   " ");
-    declare_parameter<std::string>("key_dock",     "i");
-    declare_parameter<std::string>("key_undock",   "o");
+    declare_parameter<std::string>("key_forward",   "z");
+    declare_parameter<std::string>("key_backward",  "s");
+    declare_parameter<std::string>("key_left",      "q");
+    declare_parameter<std::string>("key_right",     "d");
+    declare_parameter<std::string>("key_switch",    " ");
+    declare_parameter<std::string>("key_dock",      "i");
+    declare_parameter<std::string>("key_undock",    "o");
+    declare_parameter<std::string>("key_emergency", "x");
 
-    declare_parameter<int>("gp_axis_linear",   ABS_Y);
-    declare_parameter<int>("gp_axis_angular",  ABS_X);
-    declare_parameter<int>("gp_btn_switch",    BTN_SOUTH);
-    declare_parameter<int>("gp_btn_dock",      BTN_EAST);
-    declare_parameter<int>("gp_btn_undock",    BTN_WEST);
+    declare_parameter<int>("gp_axis_linear",    ABS_Y);
+    declare_parameter<int>("gp_axis_angular",   ABS_X);
+    declare_parameter<int>("gp_btn_switch",     BTN_SOUTH);
+    declare_parameter<int>("gp_btn_dock",       BTN_EAST);
+    declare_parameter<int>("gp_btn_undock",     BTN_WEST);
+    declare_parameter<int> ("gp_btn_emergency", BTN_NORTH);
 
     linear_speed_   = get_parameter("linear_speed").as_double();
     angular_speed_  = get_parameter("angular_speed").as_double();
@@ -47,24 +49,27 @@ TeleopNode::TeleopNode() : Node("teleop_node")
     gp_deadzone_    = get_parameter("gp_deadzone").as_double();
 
     auto parse_key = [](const std::string& s) -> char { return s.empty() ? ' ' : s[0]; };
-    key_forward_  = parse_key(get_parameter("key_forward").as_string());
-    key_backward_ = parse_key(get_parameter("key_backward").as_string());
-    key_left_     = parse_key(get_parameter("key_left").as_string());
-    key_right_    = parse_key(get_parameter("key_right").as_string());
-    key_switch_   = parse_key(get_parameter("key_switch").as_string());
-    key_dock_     = parse_key(get_parameter("key_dock").as_string());
-    key_undock_   = parse_key(get_parameter("key_undock").as_string());
+    key_forward_   = parse_key(get_parameter("key_forward").as_string());
+    key_backward_  = parse_key(get_parameter("key_backward").as_string());
+    key_left_      = parse_key(get_parameter("key_left").as_string());
+    key_right_     = parse_key(get_parameter("key_right").as_string());
+    key_switch_    = parse_key(get_parameter("key_switch").as_string());
+    key_dock_      = parse_key(get_parameter("key_dock").as_string());
+    key_undock_    = parse_key(get_parameter("key_undock").as_string());
+    key_emergency_ = parse_key(get_parameter("key_emergency").as_string());
 
-    gp_axis_linear_  = get_parameter("gp_axis_linear").as_int();
-    gp_axis_angular_ = get_parameter("gp_axis_angular").as_int();
-    gp_btn_switch_   = get_parameter("gp_btn_switch").as_int();
-    gp_btn_dock_     = get_parameter("gp_btn_dock").as_int();
-    gp_btn_undock_   = get_parameter("gp_btn_undock").as_int();
+    gp_axis_linear_   = get_parameter("gp_axis_linear").as_int();
+    gp_axis_angular_  = get_parameter("gp_axis_angular").as_int();
+    gp_btn_switch_    = get_parameter("gp_btn_switch").as_int();
+    gp_btn_dock_      = get_parameter("gp_btn_dock").as_int();
+    gp_btn_undock_    = get_parameter("gp_btn_undock").as_int();
+    gp_btn_emergency_ = get_parameter("gp_btn_emergency").as_int();
 
     cmd_vel_pub_   = create_publisher<geometry_msgs::msg::Twist>("/teleop/cmd_vel", 10);
     switch_pub_    = create_publisher<std_msgs::msg::Empty>("/teleop/mode_switch", 10);
     dock_pub_      = create_publisher<std_msgs::msg::Empty>("/teleop/dock", 10);
     undock_pub_    = create_publisher<std_msgs::msg::Empty>("/teleop/undock", 10);
+    emergency_pub_ = create_publisher<std_msgs::msg::Empty>("/teleop/emergency_reset", 10);
     publish_timer_ = create_wall_timer(50ms, std::bind(&TeleopNode::onPublishTimer, this));
 
     kb_thread_ = std::thread(&TeleopNode::keyboardLoop, this);
@@ -127,6 +132,10 @@ void TeleopNode::keyboardLoop()
         }
         if (c == key_undock_) {
             undock_pending_.store(true);
+            continue;
+        }
+        if (c == key_emergency_) {
+            emergency_pending_.store(true);
             continue;
         }
 
@@ -243,9 +252,10 @@ void TeleopNode::gamepadLoop()
                     }
                 } else if (ev.type == EV_KEY && ev.value == 1) {
                     const int code = static_cast<int>(ev.code);
-                    if      (code == gp_btn_switch_)  { should_switch = true; }
-                    else if (code == gp_btn_dock_)    { dock_pending_.store(true); }
-                    else if (code == gp_btn_undock_)  { undock_pending_.store(true); }
+                    if      (code == gp_btn_switch_)    { should_switch = true; }
+                    else if (code == gp_btn_dock_)      { dock_pending_.store(true); }
+                    else if (code == gp_btn_undock_)    { undock_pending_.store(true); }
+                    else if (code == gp_btn_emergency_) { emergency_pending_.store(true); }
                 }
             }
 
@@ -279,6 +289,11 @@ void TeleopNode::onPublishTimer()
     if (undock_pending_.exchange(false)) {
         undock_pub_->publish(std_msgs::msg::Empty{});
         RCLCPP_INFO(get_logger(), "--- Undock requested ---");
+    }
+    if (emergency_pending_.exchange(false)) {
+        emergency_pub_->publish(std_msgs::msg::Empty{});
+        cmd_vel_pub_->publish(geometry_msgs::msg::Twist{});
+        RCLCPP_ERROR(get_logger(), "*** EMERGENCY RESET pressed ***");
     }
 
     const auto now = std::chrono::steady_clock::now();

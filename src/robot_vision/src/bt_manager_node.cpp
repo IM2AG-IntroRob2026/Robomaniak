@@ -167,6 +167,9 @@ BtManagerNode::BtManagerNode() : Node("bt_manager_node")
     declare_parameter<double>("camera_pitch_deg", -20.0);
     declare_parameter<double>("camera_yaw_deg",    0.0);
 
+    declare_parameter<double>("request_debounce_s",     0.5);
+    declare_parameter<double>("dock_pending_timeout_s", 120.0);
+
     const double tick_hz = get_parameter("bt_tick_hz").as_double();
 
     approach_coarse_tolerance_m_ = get_parameter("approach_coarse_tolerance_m").as_double();
@@ -191,6 +194,9 @@ BtManagerNode::BtManagerNode() : Node("bt_manager_node")
     cam_pitch_deg_ = get_parameter("camera_pitch_deg").as_double();
     cam_yaw_deg_   = get_parameter("camera_yaw_deg").as_double();
 
+    request_debounce_s_     = get_parameter("request_debounce_s").as_double();
+    dock_pending_timeout_s_ = get_parameter("dock_pending_timeout_s").as_double();
+
     buildCameraTransform();
 
     RCLCPP_INFO(get_logger(),
@@ -198,9 +204,11 @@ BtManagerNode::BtManagerNode() : Node("bt_manager_node")
         cam_x_m_, cam_y_m_, cam_z_m_,
         cam_roll_deg_, cam_pitch_deg_, cam_yaw_deg_);
 
-    ctx_                       = std::make_shared<BtContext>();
-    ctx_->cmd_vel_pub          = create_publisher<Twist>("/cmd_vel", 10);
-    led_pub_                   = create_publisher<LightringLeds>("/cmd_lightring", 10);
+    ctx_ = std::make_shared<BtContext>();
+    ctx_->cmd_vel_pub = create_publisher<Twist>("/cmd_vel", 10);
+
+    led_mgr_ = std::make_unique<LedManager>(this);
+    refreshModeLed();
 
     dock_client_   = rclcpp_action::create_client<DockAction>  (this, get_parameter("dock_action").as_string());
     undock_client_ = rclcpp_action::create_client<UndockAction>(this, get_parameter("undock_action").as_string());
@@ -265,6 +273,18 @@ BtManagerNode::BtManagerNode() : Node("bt_manager_node")
         "/dock/detected", 10,
         std::bind(&BtManagerNode::onDockDetected, this, std::placeholders::_1));
 
+    hazard_sub_ = create_subscription<HazardVec>(
+        "/hazard_detection", sensor_qos,
+        std::bind(&BtManagerNode::onHazard, this, std::placeholders::_1));
+
+    emergency_reset_sub_ = create_subscription<std_msgs::msg::Empty>(
+        "/teleop/emergency_reset", 10,
+        [this](const std_msgs::msg::Empty::ConstSharedPtr&) { onEmergencyReset(); });
+
+    human_present_sub_ = create_subscription<std_msgs::msg::Bool>(
+        "/detection/human_present", 10,
+        std::bind(&BtManagerNode::onHumanPresent, this, std::placeholders::_1));
+
     buildTree();
 
     const auto period = std::chrono::duration<double>(1.0 / tick_hz);
@@ -278,6 +298,8 @@ BtManagerNode::BtManagerNode() : Node("bt_manager_node")
 
 BtManagerNode::~BtManagerNode()
 {
+    if (led_mgr_) { led_mgr_->clearAll(); }
+    cancelActiveDockGoal();
     ctx_->cmd_vel_pub->publish(Twist{});
 }
 
@@ -297,6 +319,7 @@ void BtManagerNode::cycleMode()
     RobotMode next = nextMode(current);
     while (!ctx_->mode.compare_exchange_weak(current, next)) { next = nextMode(current); }
     RCLCPP_INFO(get_logger(), "--- Mode : %s -> %s ---", modeToString(current), modeToString(next));
+    refreshModeLed();
 }
 
 void BtManagerNode::buildTree()
@@ -363,6 +386,14 @@ void BtManagerNode::onDockDetected(const std_msgs::msg::Bool::ConstSharedPtr& ms
 
 void BtManagerNode::onDockRequest()
 {
+    const auto now = this->now();
+
+    if (last_dock_request_time_.nanoseconds() != 0 && (now - last_dock_request_time_).seconds() < request_debounce_s_) {
+        RCLCPP_WARN(get_logger(), "Dock request ignored: debounce (%.1fs).", request_debounce_s_);
+        return;
+    }
+    last_dock_request_time_ = now;
+
     if (ctx_->docking_active.load()) {
         RCLCPP_WARN(get_logger(), "Dock request ignored: already docking.");
         return;
@@ -372,6 +403,8 @@ void BtManagerNode::onDockRequest()
     ctx_->docking_active.store(true);
     ctx_->cmd_vel_pub->publish(Twist{});
 
+    led_mgr_->setState(LedState::DOCK_APPROACH);
+
     RCLCPP_INFO(get_logger(), "--- Dock requested (mode saved: %s) ---", modeToString(ctx_->mode_before_dock));
 
     startApproach();
@@ -379,19 +412,29 @@ void BtManagerNode::onDockRequest()
 
 void BtManagerNode::onUndockRequest()
 {
+    const auto now = this->now();
+
+    if (last_undock_request_time_.nanoseconds() != 0 && (now - last_undock_request_time_).seconds() < request_debounce_s_) {
+        RCLCPP_WARN(get_logger(), "Undock request ignored: debounce (%.1fs).", request_debounce_s_);
+        return;
+    }
+    last_undock_request_time_ = now;
+
     if (ctx_->docking_active.load()) {
         RCLCPP_WARN(get_logger(), "Undock request ignored: operation in progress.");
         return;
     }
     if (!undock_client_->action_server_is_ready()) {
         RCLCPP_ERROR(get_logger(), "Undock action server not ready.");
+        led_mgr_->setStateTransient(LedState::ERROR, 2.0);
         return;
     }
 
     if (auto cur = currentOdomCopy(); cur.has_value()) {
         std::lock_guard lock(odom_mutex_);
         saved_dock_odom_pose_ = cur;
-        RCLCPP_INFO(get_logger(), "Saved dock odom pose before undock: (%.2f, %.2f, %.2f rad)",
+        RCLCPP_INFO(get_logger(),
+            "Saved dock odom pose before undock: (%.2f, %.2f, %.2f rad)",
             cur->x, cur->y, cur->yaw);
     } else {
         RCLCPP_WARN(get_logger(), "No odometry yet; cannot save dock pose before undock.");
@@ -400,22 +443,22 @@ void BtManagerNode::onUndockRequest()
     ctx_->mode_before_dock = ctx_->mode.load();
     ctx_->docking_active.store(true);
     ctx_->cmd_vel_pub->publish(Twist{});
-    publishLed(makeLightring(0, 150, 255));  // cyan = undocking en cours
+    led_mgr_->setState(LedState::UNDOCKING);
     RCLCPP_INFO(get_logger(), "--- Undocking... (mode saved: %s) ---", modeToString(ctx_->mode_before_dock));
 
     auto opts = rclcpp_action::Client<UndockAction>::SendGoalOptions{};
     opts.result_callback = [this](const auto& result) {
         ctx_->docking_active.store(false);
         ctx_->mode.store(ctx_->mode_before_dock);
+        led_mgr_->clearState(LedState::UNDOCKING);
         if (result.code == rclcpp_action::ResultCode::SUCCEEDED) {
-            RCLCPP_INFO(get_logger(), "--- Undock succeeded. Mode restored: %s ---",
-                modeToString(ctx_->mode_before_dock));
-            publishLed(makeLightring(0, 255, 0));  // vert = succès
+            RCLCPP_INFO(get_logger(), "--- Undock succeeded. Mode restored: %s ---", modeToString(ctx_->mode_before_dock));
+            led_mgr_->setStateTransient(LedState::SUCCESS, 2.0);
         } else {
-            RCLCPP_ERROR(get_logger(), "--- Undock FAILED. Mode restored: %s ---",
-                modeToString(ctx_->mode_before_dock));
-            publishLed(makeLightring(255, 0, 0));  // rouge = échec
+            RCLCPP_ERROR(get_logger(), "--- Undock FAILED. Mode restored: %s ---", modeToString(ctx_->mode_before_dock));
+            led_mgr_->setStateTransient(LedState::ERROR, 3.0);
         }
+        refreshModeLed();
     };
     undock_client_->async_send_goal(UndockAction::Goal{}, opts);
 }
@@ -438,8 +481,6 @@ void BtManagerNode::startApproach()
         initial = ApproachPhase::SEARCH;
         RCLCPP_INFO(get_logger(), "Approach start → SEARCH (no saved pose, no recent detection)");
     }
-
-    publishLed(makeLightring(255, 100, 0));  // orange = approaching
     transitionPhase(initial);
 }
 
@@ -457,7 +498,19 @@ void BtManagerNode::approachTick()
 {
     if (!ctx_->docking_active.load()) { return; }
     const auto phase = approach_phase_.load();
-    if (phase == ApproachPhase::IDLE || phase == ApproachPhase::DOCK_PENDING) { return; }
+
+    if (phase == ApproachPhase::DOCK_PENDING) {
+        if (phaseElapsedSec() > dock_pending_timeout_s_) {
+            RCLCPP_ERROR(get_logger(),
+                "DOCK_PENDING timeout (%.1fs) → force abort + cancel goal",
+                dock_pending_timeout_s_);
+            cancelActiveDockGoal();
+            finishApproach(false);
+        }
+        return;
+    }
+
+    if (phase == ApproachPhase::IDLE) { return; }
 
     switch (phase) {
         case ApproachPhase::COARSE: tickCoarse(); break;
@@ -574,6 +627,114 @@ void BtManagerNode::tickSearch()
     ctx_->cmd_vel_pub->publish(cmd);
 }
 
+void BtManagerNode::onHazard(const HazardVec::ConstSharedPtr& msg)
+{
+    using HazardType = irobot_create_msgs::msg::HazardDetection;
+
+    const auto phase = approach_phase_.load();
+    if (phase == ApproachPhase::IDLE) { return; }
+
+    for (const auto& hazard : msg->detections) {
+        if (hazard.type == HazardType::BUMP || hazard.type == HazardType::CLIFF) {
+            const char* type_str = (hazard.type == HazardType::BUMP) ? "BUMP" : "CLIFF";
+            RCLCPP_ERROR(get_logger(),
+                "*** %s detected during approach (%s) -> ABORT DOCK ***",
+                type_str, approachPhaseToString(phase));
+            cancelActiveDockGoal();
+            finishApproach(false);
+            return;
+        }
+    }
+}
+
+void BtManagerNode::onEmergencyReset()
+{
+    RCLCPP_ERROR(get_logger(), "════════ EMERGENCY RESET REQUESTED ════════");
+    resetAllState();
+}
+
+void BtManagerNode::onHumanPresent(const std_msgs::msg::Bool::ConstSharedPtr& msg)
+{
+    if (ctx_->mode.load() != RobotMode::FOLLOW) {
+        led_mgr_->clearState(LedState::HUMAN_DETECTED);
+        return;
+    }
+    if (msg->data) { led_mgr_->setState(LedState::HUMAN_DETECTED); }
+    else { led_mgr_->clearState(LedState::HUMAN_DETECTED); }
+}
+
+void BtManagerNode::cancelActiveDockGoal()
+{
+    std::shared_ptr<DockGoalHandle> handle;
+    {
+        std::lock_guard lock(active_dock_goal_mutex_);
+        handle = active_dock_goal_;
+        active_dock_goal_.reset();
+    }
+    if (!handle) { return; }
+
+    RCLCPP_WARN(get_logger(), "Cancelling active /dock goal...");
+    try {
+        dock_client_->async_cancel_goal(handle);
+    } catch (const std::exception& e) {
+        RCLCPP_ERROR(get_logger(), "Exception while cancelling dock goal: %s", e.what());
+    }
+}
+
+void BtManagerNode::resetAllState()
+{
+    // 1. Stoppe immédiatement tout mouvement
+    publishZeroCmd();
+    publishZeroCmd();
+
+    // 2. Annule tout goal d'action en cours
+    cancelActiveDockGoal();
+
+    // 3. Reset machine d'état d'approche
+    approach_phase_.store(ApproachPhase::IDLE);
+
+    // 4. Vide les commandes en attente
+    {
+        std::lock_guard lock(ctx_->cmd_mutex);
+        ctx_->follow_cmd     = Twist{};
+        ctx_->teleop_cmd     = Twist{};
+        ctx_->has_follow_cmd = false;
+        ctx_->pending_listen_cmd.reset();
+    }
+
+    // 5. Force état "neutre" : TELEOP, pas de docking
+    ctx_->docking_active.store(false);
+    ctx_->mode.store(RobotMode::TELEOP);
+    ctx_->mode_before_dock = RobotMode::TELEOP;
+
+    // 6. Feedback visuel : rouge clignotant pendant 2s, puis retour TELEOP
+    led_mgr_->clearAll();
+    led_mgr_->setStateTransient(LedState::EMERGENCY_RESET, 2.0);
+    led_mgr_->setState(LedState::TELEOP);
+
+    // 7. Republie un Twist zéro pour vider d'éventuels caches DDS
+    publishZeroCmd();
+
+    RCLCPP_WARN(get_logger(), "RESET COMPLETE: docking_active=false mode=TELEOP approach=IDLE");
+}
+
+void BtManagerNode::refreshModeLed()
+{
+    led_mgr_->clearState(LedState::TELEOP);
+    led_mgr_->clearState(LedState::FOLLOW);
+    led_mgr_->clearState(LedState::LISTEN);
+
+    if (ctx_->mode.load() != RobotMode::FOLLOW) {
+        led_mgr_->clearState(LedState::HUMAN_DETECTED);
+    }
+
+    switch (ctx_->mode.load()) {
+        case RobotMode::TELEOP: led_mgr_->setState(LedState::TELEOP); break;
+        case RobotMode::FOLLOW: led_mgr_->setState(LedState::FOLLOW); break;
+        case RobotMode::LISTEN: led_mgr_->setState(LedState::LISTEN); break;
+    }
+}
+
 void BtManagerNode::triggerDockAction()
 {
     if (!dock_client_->action_server_is_ready()) {
@@ -583,12 +744,30 @@ void BtManagerNode::triggerDockAction()
     }
 
     transitionPhase(ApproachPhase::DOCK_PENDING);
-    publishLed(makeLightring(255, 200, 0));  // jaune
+    led_mgr_->clearState(LedState::DOCK_APPROACH);
+    led_mgr_->setState(LedState::DOCK_PENDING);
 
     auto opts = rclcpp_action::Client<DockAction>::SendGoalOptions{};
-    opts.result_callback = [this](const auto& result) {
-        const bool ok = (result.code == rclcpp_action::ResultCode::SUCCEEDED);
 
+    opts.goal_response_callback =
+        [this](DockGoalHandle::SharedPtr handle) {
+            if (!handle) {
+                RCLCPP_ERROR(get_logger(), "Dock goal REJECTED by server!");
+                finishApproach(false);
+                return;
+            }
+            RCLCPP_INFO(get_logger(), "Dock goal accepted by server.");
+            std::lock_guard lock(active_dock_goal_mutex_);
+            active_dock_goal_ = handle;
+        };
+
+    opts.result_callback = [this](const auto& result) {
+        {
+            std::lock_guard lock(active_dock_goal_mutex_);
+            active_dock_goal_.reset();
+        }
+
+        const bool ok = (result.code == rclcpp_action::ResultCode::SUCCEEDED);
         if (ok) {
             if (auto cur = currentOdomCopy(); cur.has_value()) {
                 std::lock_guard lock(odom_mutex_);
@@ -597,6 +776,14 @@ void BtManagerNode::triggerDockAction()
                     "Updated saved dock odom pose after successful dock: (%.2f, %.2f)",
                     cur->x, cur->y);
             }
+        } else {
+            auto code_str = "UNKNOWN";
+            switch (result.code) {
+                case rclcpp_action::ResultCode::ABORTED:  code_str = "ABORTED"; break;
+                case rclcpp_action::ResultCode::CANCELED: code_str = "CANCELED"; break;
+                default: break;
+            }
+            RCLCPP_ERROR(get_logger(), "Dock action did not succeed (code: %s)", code_str);
         }
         finishApproach(ok);
     };
@@ -607,18 +794,23 @@ void BtManagerNode::finishApproach(bool success)
 {
     approach_phase_.store(ApproachPhase::IDLE);
     publishZeroCmd();
+
+    led_mgr_->clearState(LedState::DOCK_APPROACH);
+    led_mgr_->clearState(LedState::DOCK_PENDING);
+
     ctx_->docking_active.store(false);
     ctx_->mode.store(ctx_->mode_before_dock);
 
     if (success) {
-        RCLCPP_INFO(get_logger(), "--- Dock SUCCESS. Mode restored: %s ---",
-            modeToString(ctx_->mode_before_dock));
-        publishLed(makeLightring(0, 255, 0));
+        RCLCPP_INFO(get_logger(), "--- Dock SUCCESS. Mode restored: %s ---", modeToString(ctx_->mode_before_dock));
+        led_mgr_->setStateTransient(LedState::SUCCESS, 2.0);
     } else {
-        RCLCPP_ERROR(get_logger(), "--- Dock FAILED. Mode restored: %s ---",
-            modeToString(ctx_->mode_before_dock));
-        publishLed(makeLightring(255, 0, 0));
+        RCLCPP_ERROR(get_logger(), "--- Dock FAILED. Mode restored: %s ---", modeToString(ctx_->mode_before_dock));
+        led_mgr_->setStateTransient(LedState::ERROR, 3.0);
     }
+
+    refreshModeLed();
+    cancelActiveDockGoal();
 }
 
 void BtManagerNode::abortApproach(const char* reason)
@@ -695,21 +887,6 @@ tf2::Vector3 BtManagerNode::cameraToBase(const geometry_msgs::msg::Pose& pose_ca
         pose_cam.position.z);
 
     return tf_cam_to_base_ * p_cam;
-}
-
-void BtManagerNode::publishLed(const LightringLeds& msg)
-{
-    led_pub_->publish(msg);
-}
-
-irobot_create_msgs::msg::LightringLeds BtManagerNode::makeLightring(uint8_t r, uint8_t g, uint8_t b)
-{
-    LedColor color;
-    color.red = r; color.green = g; color.blue = b;
-    LightringLeds msg;
-    msg.override_system = true;
-    msg.leds.fill(color);
-    return msg;
 }
 
 double BtManagerNode::yawFromQuaternion(double x, double y, double z, double w) noexcept
