@@ -46,7 +46,8 @@ def generate_launch_description():
             parameters=[{'bt_tick_hz': 50.0, 'dock_action': '/Robot3/dock', 'undock_action': '/Robot3/undock'}],
             remappings=[
                 ('/cmd_vel', '/Robot3/cmd_vel'),
-                ('/cmd_lightring', '/Robot3/cmd_lightring')
+                ('/cmd_lightring', '/Robot3/cmd_lightring'),
+                ('/odom', '/Robot3/odom')
             ]
         ),
 
@@ -68,5 +69,20 @@ def generate_launch_description():
             package='robot_vision',
             executable='teleop_node',
             condition=None
+        ),
+
+        # 7. Dock Detector
+        Node(
+            package='robot_vision',
+            executable='dock_detector_node',
+            name='dock_detector_node',
+            output='screen',
+            parameters=[{
+                'camera_info_path': '/root/ros2_ws/src/robot_vision/config/camera_intrinsics.yaml',
+                'marker_id':      0,
+                'marker_size_m':  0.08,
+                'dictionary':     'DICT_4X4_50',
+                'publish_debug':  False,
+            }]
         )
     ])
