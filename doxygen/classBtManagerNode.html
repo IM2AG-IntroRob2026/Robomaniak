@@ -89,13 +89,14 @@ Collaboration diagram for BtManagerNode:</div>
 <div class="dyncontent">
 <div class="center"><img src="classBtManagerNode__coll__graph.png" border="0" usemap="#aBtManagerNode_coll__map" alt="Collaboration graph"/></div>
 <map name="aBtManagerNode_coll__map" id="aBtManagerNode_coll__map">
-<area shape="rect" title=" " alt="" coords="449,156,576,183"/>
-<area shape="rect" title=" " alt="" coords="69,5,171,32"/>
-<area shape="rect" title=" " alt="" coords="5,56,235,83"/>
-<area shape="rect" title=" " alt="" coords="7,107,233,133"/>
-<area shape="rect" title=" " alt="" coords="74,205,166,232"/>
-<area shape="rect" title=" " alt="" coords="13,256,227,283"/>
-<area shape="rect" title=" " alt="" coords="21,307,219,349"/>
+<area shape="rect" title=" " alt="" coords="449,246,576,272"/>
+<area shape="rect" title=" " alt="" coords="69,14,171,40"/>
+<area shape="rect" title=" " alt="" coords="5,64,235,91"/>
+<area shape="rect" title=" " alt="" coords="7,115,233,142"/>
+<area shape="rect" title=" " alt="" coords="74,232,166,259"/>
+<area shape="rect" title=" " alt="" coords="13,284,227,325"/>
+<area shape="rect" title=" " alt="" coords="13,350,227,376"/>
+<area shape="rect" title=" " alt="" coords="21,401,219,442"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -116,6 +117,8 @@ Private Types</h2></td></tr>
 <tr class="separator:aa0a1a8a6838651fad5afe62b9d3cfc62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a830b77fda67870db3d0a206558d96b63"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a830b77fda67870db3d0a206558d96b63">LedColor</a> = irobot_create_msgs::msg::LedColor</td></tr>
 <tr class="separator:a830b77fda67870db3d0a206558d96b63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c8292ef2d485d9be4add67120469c74"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a4c8292ef2d485d9be4add67120469c74">UndockGoalHandle</a> = rclcpp_action::ClientGoalHandle&lt; <a class="el" href="classBtManagerNode.html#a929f3c5e2b9cc246613f27f99e3d6821">UndockAction</a> &gt;</td></tr>
+<tr class="separator:a4c8292ef2d485d9be4add67120469c74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a6fb16201120a200e87d71f65eab175"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a4a6fb16201120a200e87d71f65eab175">HazardVec</a> = irobot_create_msgs::msg::HazardDetectionVector</td></tr>
 <tr class="separator:a4a6fb16201120a200e87d71f65eab175"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80cbb85a4ce07fe06c86bf508d1f7a03"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a80cbb85a4ce07fe06c86bf508d1f7a03">DockGoalHandle</a> = rclcpp_action::ClientGoalHandle&lt; <a class="el" href="classBtManagerNode.html#a0114acb9601d4adacc8ae8d15099f212">DockAction</a> &gt;</td></tr>
@@ -169,6 +172,12 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:acd92754d5d1b075ca5b3f6640508427b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22bcf719dbec6a06cd00812ceafc3894"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a22bcf719dbec6a06cd00812ceafc3894">refreshModeLed</a> ()</td></tr>
 <tr class="separator:a22bcf719dbec6a06cd00812ceafc3894"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7ae1dd29e5b4db393dd93d0c06e3fe4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#af7ae1dd29e5b4db393dd93d0c06e3fe4">onModeRequest</a> (const std_msgs::msg::String::ConstSharedPtr &amp;msg)</td></tr>
+<tr class="separator:af7ae1dd29e5b4db393dd93d0c06e3fe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ef1be630e8d70344180a51fcd2723e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a7ef1be630e8d70344180a51fcd2723e7">cancelActiveUndockGoal</a> ()</td></tr>
+<tr class="separator:a7ef1be630e8d70344180a51fcd2723e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a494672b003c234748b992494cf7f1813"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a494672b003c234748b992494cf7f1813">switchToTeleopAndCancelEverything</a> (const char *reason)</td></tr>
+<tr class="separator:a494672b003c234748b992494cf7f1813"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe482a3dcde941378ee7995da20a26f6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#afe482a3dcde941378ee7995da20a26f6">dockDetectedRecently</a> () const</td></tr>
 <tr class="separator:afe482a3dcde941378ee7995da20a26f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0de84ca47cb00e0a58c6e1c363c8a86a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a0de84ca47cb00e0a58c6e1c363c8a86a">phaseElapsedSec</a> () const</td></tr>
@@ -207,12 +216,16 @@ Private Attributes</h2></td></tr>
 <tr class="separator:af48908086a191f06d313fa254af1e810"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc09772f30e5ce7eaf42d27445a2f9a6"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; std_msgs::msg::Empty &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#adc09772f30e5ce7eaf42d27445a2f9a6">cycle_switch_sub_</a></td></tr>
 <tr class="separator:adc09772f30e5ce7eaf42d27445a2f9a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe437d4b90f8613c810a0fd533b0ca1e"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; std_msgs::msg::Empty &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#afe437d4b90f8613c810a0fd533b0ca1e">listen_switch_sub_</a></td></tr>
-<tr class="separator:afe437d4b90f8613c810a0fd533b0ca1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a184cfe02fbb27ed8d573bd54b365c952"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; std_msgs::msg::String &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a184cfe02fbb27ed8d573bd54b365c952">listen_cmd_sub_</a></td></tr>
 <tr class="separator:a184cfe02fbb27ed8d573bd54b365c952"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5db4b4d6063db41a3fafde4e9ea1a3df"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; std_msgs::msg::String &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a5db4b4d6063db41a3fafde4e9ea1a3df">mode_request_sub_</a></td></tr>
+<tr class="separator:a5db4b4d6063db41a3fafde4e9ea1a3df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c514468eb0e056ec0e6dc2d99fc5567"><td class="memItemLeft" align="right" valign="top">rclcpp::TimerBase::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a0c514468eb0e056ec0e6dc2d99fc5567">bt_timer_</a></td></tr>
 <tr class="separator:a0c514468eb0e056ec0e6dc2d99fc5567"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3db79de0c1bb6bcad455ee4028f27f5"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classBtManagerNode.html#a4c8292ef2d485d9be4add67120469c74">UndockGoalHandle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#ae3db79de0c1bb6bcad455ee4028f27f5">active_undock_goal_</a></td></tr>
+<tr class="separator:ae3db79de0c1bb6bcad455ee4028f27f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01a1b998838be4315d14de372c487fc9"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a01a1b998838be4315d14de372c487fc9">active_undock_goal_mutex_</a></td></tr>
+<tr class="separator:a01a1b998838be4315d14de372c487fc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a305421f3f9a67cfa81ceddf26d1f728e"><td class="memItemLeft" align="right" valign="top">rclcpp_action::Client&lt; <a class="el" href="classBtManagerNode.html#a0114acb9601d4adacc8ae8d15099f212">DockAction</a> &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a305421f3f9a67cfa81ceddf26d1f728e">dock_client_</a></td></tr>
 <tr class="separator:a305421f3f9a67cfa81ceddf26d1f728e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbbb004c0a5d98888a82efba9535e7ed"><td class="memItemLeft" align="right" valign="top">rclcpp_action::Client&lt; <a class="el" href="classBtManagerNode.html#a929f3c5e2b9cc246613f27f99e3d6821">UndockAction</a> &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#abbbb004c0a5d98888a82efba9535e7ed">undock_client_</a></td></tr>
@@ -448,6 +461,28 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a4c8292ef2d485d9be4add67120469c74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c8292ef2d485d9be4add67120469c74">&#9670;&nbsp;</a></span>UndockGoalHandle</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classBtManagerNode.html#a4c8292ef2d485d9be4add67120469c74">BtManagerNode::UndockGoalHandle</a> =  rclcpp_action::ClientGoalHandle&lt;<a class="el" href="classBtManagerNode.html#a929f3c5e2b9cc246613f27f99e3d6821">UndockAction</a>&gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a03c6e6cea2e119f2eccf904566100c0d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a03c6e6cea2e119f2eccf904566100c0d">&#9670;&nbsp;</a></span>BtManagerNode()</h2>
@@ -666,6 +701,31 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">void BtManagerNode::cancelActiveDockGoal </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7ef1be630e8d70344180a51fcd2723e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ef1be630e8d70344180a51fcd2723e7">&#9670;&nbsp;</a></span>cancelActiveUndockGoal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::cancelActiveUndockGoal </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -960,6 +1020,32 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="af7ae1dd29e5b4db393dd93d0c06e3fe4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7ae1dd29e5b4db393dd93d0c06e3fe4">&#9670;&nbsp;</a></span>onModeRequest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::onModeRequest </td>
+          <td>(</td>
+          <td class="paramtype">const std_msgs::msg::String::ConstSharedPtr &amp;&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a7fd05f391163069231be67b0a18c1c07"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7fd05f391163069231be67b0a18c1c07">&#9670;&nbsp;</a></span>onOdom()</h2>
 
@@ -1149,6 +1235,32 @@ Static Private Attributes</h2></td></tr>
           <td class="memname">void BtManagerNode::startApproach </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a494672b003c234748b992494cf7f1813"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a494672b003c234748b992494cf7f1813">&#9670;&nbsp;</a></span>switchToTeleopAndCancelEverything()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::switchToTeleopAndCancelEverything </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>reason</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1394,6 +1506,50 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::mutex BtManagerNode::active_dock_goal_mutex_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae3db79de0c1bb6bcad455ee4028f27f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3db79de0c1bb6bcad455ee4028f27f5">&#9670;&nbsp;</a></span>active_undock_goal_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classBtManagerNode.html#a4c8292ef2d485d9be4add67120469c74">UndockGoalHandle</a>&gt; BtManagerNode::active_undock_goal_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a01a1b998838be4315d14de372c487fc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01a1b998838be4315d14de372c487fc9">&#9670;&nbsp;</a></span>active_undock_goal_mutex_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::mutex BtManagerNode::active_undock_goal_mutex_</td>
         </tr>
       </table>
   </td>
@@ -2395,8 +2551,8 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="afe437d4b90f8613c810a0fd533b0ca1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe437d4b90f8613c810a0fd533b0ca1e">&#9670;&nbsp;</a></span>listen_switch_sub_</h2>
+<a id="a5db4b4d6063db41a3fafde4e9ea1a3df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5db4b4d6063db41a3fafde4e9ea1a3df">&#9670;&nbsp;</a></span>mode_request_sub_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2405,7 +2561,7 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">rclcpp::Subscription&lt;std_msgs::msg::Empty&gt;::SharedPtr BtManagerNode::listen_switch_sub_</td>
+          <td class="memname">rclcpp::Subscription&lt;std_msgs::msg::String&gt;::SharedPtr BtManagerNode::mode_request_sub_</td>
         </tr>
       </table>
   </td>

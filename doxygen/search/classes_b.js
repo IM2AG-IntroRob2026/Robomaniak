@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['yolodetector_628',['YoloDetector',['../classrobot__vision_1_1YoloDetector.html',1,'robot_vision']]]
+  ['yolodetector_645',['YoloDetector',['../classrobot__vision_1_1YoloDetector.html',1,'robot_vision']]]
 ];
