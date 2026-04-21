@@ -105,6 +105,15 @@ $(function() {
 <li>cameraToBase()
 : <a class="el" href="classBtManagerNode.html#a651f12fb448d5fbc253cc019adc55c89">BtManagerNode</a>
 </li>
+<li>cancelActiveDockGoal()
+: <a class="el" href="classBtManagerNode.html#a5993d3411a728ccd457e9ade0eba62f6">BtManagerNode</a>
+</li>
+<li>clearAll()
+: <a class="el" href="classLedManager.html#aa984acd0318e77368d22edf874db7dbb">LedManager</a>
+</li>
+<li>clearState()
+: <a class="el" href="classLedManager.html#a1bc7fc3c2dfe287e4f9b6ad1f421a1a5">LedManager</a>
+</li>
 <li>closeGamepad()
 : <a class="el" href="classTeleopNode.html#a22b00aae6d78008be90cc1f422ef380b">TeleopNode</a>
 </li>
@@ -289,6 +298,9 @@ $(function() {
 <li>latestDockPoseCopy()
 : <a class="el" href="classBtManagerNode.html#a329519271a406427d999313b3aba1f49">BtManagerNode</a>
 </li>
+<li>LedManager()
+: <a class="el" href="classLedManager.html#afaec3ae4cc15fd3da927cff4f797484a">LedManager</a>
+</li>
 <li>ListenAction()
 : <a class="el" href="classListenAction.html#a0e09cf42dbe7c780107771906ffc9fe6">ListenAction</a>
 </li>
@@ -305,9 +317,8 @@ $(function() {
 
 
 <h3><a id="index_m"></a>- m -</h3><ul>
-<li>makeLightring()
-: <a class="el" href="classBtManagerNode.html#a264d54b3e08eb1c5ce387b4e7ba29f4a">BtManagerNode</a>
-, <a class="el" href="classDetectionNode.html#a4af951b812012b9234b9e2c8f252b2e3">DetectionNode</a>
+<li>makeMsg()
+: <a class="el" href="classLedManager.html#a63c3440dc8a0abb67a4b0943cf613e82">LedManager</a>
 </li>
 <li>makePose()
 : <a class="el" href="classDockDetectorNode.html#a55bfa5f0c979e1f7d8549e055a8df9d4">DockDetectorNode</a>
@@ -360,13 +371,20 @@ $(function() {
 <li>onDockRequest()
 : <a class="el" href="classBtManagerNode.html#ad10d3b878fb44990ca56149ba8c7cb57">BtManagerNode</a>
 </li>
+<li>onEmergencyReset()
+: <a class="el" href="classBtManagerNode.html#a2c50dbc67a8a365e485f5b35134ee494">BtManagerNode</a>
+</li>
 <li>onHalted()
 : <a class="el" href="classFollowAction.html#afa4bac49ed5f8095026a8ccbf7e6bc02">FollowAction</a>
 , <a class="el" href="classListenAction.html#a9cfe2c2ddda6a8eccb2f656b4e2a137c">ListenAction</a>
 , <a class="el" href="classTeleopAction.html#ae6ffca4a57582c2061ff61765815c565">TeleopAction</a>
 </li>
 <li>onHazard()
-: <a class="el" href="classFollowNode.html#a8b78a1fa3ae9ebc226ee3ddd8475e323">FollowNode</a>
+: <a class="el" href="classBtManagerNode.html#a2e328efc11b2c0a2534486dd77e59f03">BtManagerNode</a>
+, <a class="el" href="classFollowNode.html#a8b78a1fa3ae9ebc226ee3ddd8475e323">FollowNode</a>
+</li>
+<li>onHumanPresent()
+: <a class="el" href="classBtManagerNode.html#a5b0cbb78941185cb289377abde7c929f">BtManagerNode</a>
 </li>
 <li>onImage()
 : <a class="el" href="classDetectionNode.html#ac8417f4efafaf3cc84bb04b0d0a1bc24">DetectionNode</a>
@@ -396,7 +414,8 @@ $(function() {
 , <a class="el" href="classTeleopAction.html#a9f711477429826d8deefa64267924f1e">TeleopAction</a>
 </li>
 <li>onTimer()
-: <a class="el" href="classVideoNode.html#aa7a4ec2eff04867cc844c36f436eef47">VideoNode</a>
+: <a class="el" href="classLedManager.html#ad4e932b25fa4cd8244447d7f42382538">LedManager</a>
+, <a class="el" href="classVideoNode.html#aa7a4ec2eff04867cc844c36f436eef47">VideoNode</a>
 </li>
 <li>onUndockRequest()
 : <a class="el" href="classBtManagerNode.html#a1fb69f54e53e1d17105fe2aa7c5aec17">BtManagerNode</a>
@@ -410,6 +429,9 @@ $(function() {
 <h3><a id="index_p"></a>- p -</h3><ul>
 <li>paCallback()
 : <a class="el" href="classListenNode.html#a2c16c18bb8cdf22d92fc141ab75e5a8c">ListenNode</a>
+</li>
+<li>palette()
+: <a class="el" href="classLedManager.html#add888cd7520d069417b5fafccd26c5bc">LedManager</a>
 </li>
 <li>parse_key()
 : <a class="el" href="classTurtleBoundariesKeyboard.html#a20b75bc8b97c7b79b069753980ba5a2b">TurtleBoundariesKeyboard</a>
@@ -451,9 +473,8 @@ $(function() {
 <li>publish_twist()
 : <a class="el" href="classTurtleFsmNode.html#a1e575eb254a99f641d8fcfc1efe5a318">TurtleFsmNode</a>
 </li>
-<li>publishLed()
-: <a class="el" href="classBtManagerNode.html#a32754fd063df6f4b7688f68adda2226d">BtManagerNode</a>
-, <a class="el" href="classDetectionNode.html#adad63f7a762e134fddf14b7d4867e0e6">DetectionNode</a>
+<li>publishCurrent()
+: <a class="el" href="classLedManager.html#ab27684078404723070b925ec29076d89">LedManager</a>
 </li>
 <li>publishZeroCmd()
 : <a class="el" href="classBtManagerNode.html#a1674410ec881264e80bea1ba7bd4ffd4">BtManagerNode</a>
@@ -465,11 +486,20 @@ $(function() {
 <li>read_char()
 : <a class="el" href="classTurtleBoundariesKeyboard.html#a7e20e12f75209b680f0a39d1075ed7ca">TurtleBoundariesKeyboard</a>
 </li>
+<li>refreshModeLed()
+: <a class="el" href="classBtManagerNode.html#a22bcf719dbec6a06cd00812ceafc3894">BtManagerNode</a>
+</li>
 <li>requestSwitch()
 : <a class="el" href="classTeleopNode.html#add590ce28d371cf80add6786301895f2">TeleopNode</a>
 </li>
+<li>resetAllState()
+: <a class="el" href="classBtManagerNode.html#acd92754d5d1b075ca5b3f6640508427b">BtManagerNode</a>
+</li>
 <li>resetPD()
 : <a class="el" href="classFollowNode.html#acc4f2b8563c5ea02986fb1becafae98f">FollowNode</a>
+</li>
+<li>resolveActiveState()
+: <a class="el" href="classLedManager.html#a0c61f8889e7f7ac771423734a840dd9d">LedManager</a>
 </li>
 <li>resolveTarget()
 : <a class="el" href="classFollowNode.html#a6ca95589a7844dc348e3687e9cfd1e6f">FollowNode</a>
@@ -516,6 +546,12 @@ $(function() {
 </li>
 <li>set_state()
 : <a class="el" href="classTurtleFsmNode.html#abc4af0738019f6ab0299f1d3ab5a8d67">TurtleFsmNode</a>
+</li>
+<li>setState()
+: <a class="el" href="classLedManager.html#aa0c0d6243d5354bc609fb44bc5f64695">LedManager</a>
+</li>
+<li>setStateTransient()
+: <a class="el" href="classLedManager.html#aee030e458e223e7dafe5cea7f8381724">LedManager</a>
 </li>
 <li>setupRawTerminal()
 : <a class="el" href="classTeleopNode.html#a0061645a69747910a38cb6ff54799acf">TeleopNode</a>

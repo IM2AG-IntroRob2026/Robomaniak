@@ -106,15 +106,11 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:a4e921caa8a2b0ea5c6b5100ef16e7020"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46816d7f0980f7d4dc745c023263fec8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetectionNode.html#a46816d7f0980f7d4dc745c023263fec8">saveDebugImage</a> (const cv::Mat &amp;frame, const std::vector&lt; <a class="el" href="structrobot__vision_1_1Detection.html">robot_vision::Detection</a> &gt; &amp;detections)</td></tr>
 <tr class="separator:a46816d7f0980f7d4dc745c023263fec8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adad63f7a762e134fddf14b7d4867e0e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetectionNode.html#adad63f7a762e134fddf14b7d4867e0e6">publishLed</a> (const <a class="el" href="detection__node_8hpp.html#ace303531e12d8b301cf64ba19ecd64ad">LightringLeds</a> &amp;msg)</td></tr>
-<tr class="separator:adad63f7a762e134fddf14b7d4867e0e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
 <tr class="memitem:a3806ce9fbff3f843446fe2196fd53196"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="detection__node_8hpp.html#af5f3ac93d8c027afbd1ea387de88f8c4">Detection2DArray</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetectionNode.html#a3806ce9fbff3f843446fe2196fd53196">toDetection2DArray</a> (const std::vector&lt; <a class="el" href="structrobot__vision_1_1Detection.html">robot_vision::Detection</a> &gt; &amp;dets, const std_msgs::msg::Header &amp;header)</td></tr>
 <tr class="separator:a3806ce9fbff3f843446fe2196fd53196"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4af951b812012b9234b9e2c8f252b2e3"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="detection__node_8hpp.html#ace303531e12d8b301cf64ba19ecd64ad">LightringLeds</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetectionNode.html#a4af951b812012b9234b9e2c8f252b2e3">makeLightring</a> (uint8_t r, uint8_t g, uint8_t b)</td></tr>
-<tr class="separator:a4af951b812012b9234b9e2c8f252b2e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -124,16 +120,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a1db32baad48cbaae57aa278597b47b28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b2577b627878b379ac8ab48f8b251ec"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; std_msgs::msg::Bool &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetectionNode.html#a9b2577b627878b379ac8ab48f8b251ec">human_pub_</a></td></tr>
 <tr class="separator:a9b2577b627878b379ac8ab48f8b251ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3416b24cde4aea83393828bc3db0d9ac"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; <a class="el" href="detection__node_8hpp.html#ace303531e12d8b301cf64ba19ecd64ad">LightringLeds</a> &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetectionNode.html#a3416b24cde4aea83393828bc3db0d9ac">led_pub_</a></td></tr>
-<tr class="separator:a3416b24cde4aea83393828bc3db0d9ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a146b332284e03183874fc4151fded173"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; <a class="el" href="detection__node_8hpp.html#af5f3ac93d8c027afbd1ea387de88f8c4">Detection2DArray</a> &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetectionNode.html#a146b332284e03183874fc4151fded173">detections_pub_</a></td></tr>
 <tr class="separator:a146b332284e03183874fc4151fded173"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7bdd5a83a49a1ebc7ca5c4875f0e0bc3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="detection__node_8hpp.html#ace303531e12d8b301cf64ba19ecd64ad">LightringLeds</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetectionNode.html#a7bdd5a83a49a1ebc7ca5c4875f0e0bc3">led_human_</a></td></tr>
-<tr class="separator:a7bdd5a83a49a1ebc7ca5c4875f0e0bc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2b2b4c164a799678237786bb7f5aa6e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="detection__node_8hpp.html#ace303531e12d8b301cf64ba19ecd64ad">LightringLeds</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetectionNode.html#ab2b2b4c164a799678237786bb7f5aa6e">led_idle_</a></td></tr>
-<tr class="separator:ab2b2b4c164a799678237786bb7f5aa6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0ba4dbfadcb1b3b000d6e59f6cba386"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetectionNode.html#aa0ba4dbfadcb1b3b000d6e59f6cba386">last_human_state_</a> {false}</td></tr>
-<tr class="separator:aa0ba4dbfadcb1b3b000d6e59f6cba386"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a459e3a1535bfb10119b6d84bc5c8dd8f"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetectionNode.html#a459e3a1535bfb10119b6d84bc5c8dd8f">debug_output_dir_</a></td></tr>
 <tr class="separator:a459e3a1535bfb10119b6d84bc5c8dd8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59b13b76ed19e32ebfff0cbcdcf9929a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetectionNode.html#a59b13b76ed19e32ebfff0cbcdcf9929a">debug_max_saves_</a> {200}</td></tr>
@@ -185,48 +173,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a4af951b812012b9234b9e2c8f252b2e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4af951b812012b9234b9e2c8f252b2e3">&#9670;&nbsp;</a></span>makeLightring()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="detection__node_8hpp.html#ace303531e12d8b301cf64ba19ecd64ad">LightringLeds</a> DetectionNode::makeLightring </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>r</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>g</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="ac8417f4efafaf3cc84bb04b0d0a1bc24"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac8417f4efafaf3cc84bb04b0d0a1bc24">&#9670;&nbsp;</a></span>onImage()</h2>
 
@@ -240,32 +186,6 @@ Private Attributes</h2></td></tr>
           <td class="memname">void DetectionNode::onImage </td>
           <td>(</td>
           <td class="paramtype">const sensor_msgs::msg::Image::ConstSharedPtr &amp;&#160;</td>
-          <td class="paramname"><em>msg</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="adad63f7a762e134fddf14b7d4867e0e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adad63f7a762e134fddf14b7d4867e0e6">&#9670;&nbsp;</a></span>publishLed()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DetectionNode::publishLed </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="detection__node_8hpp.html#ace303531e12d8b301cf64ba19ecd64ad">LightringLeds</a> &amp;&#160;</td>
           <td class="paramname"><em>msg</em></td><td>)</td>
           <td></td>
         </tr>
@@ -495,94 +415,6 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">rclcpp::Subscription&lt;sensor_msgs::msg::Image&gt;::SharedPtr DetectionNode::image_sub_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa0ba4dbfadcb1b3b000d6e59f6cba386"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0ba4dbfadcb1b3b000d6e59f6cba386">&#9670;&nbsp;</a></span>last_human_state_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool DetectionNode::last_human_state_ {false}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7bdd5a83a49a1ebc7ca5c4875f0e0bc3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7bdd5a83a49a1ebc7ca5c4875f0e0bc3">&#9670;&nbsp;</a></span>led_human_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="detection__node_8hpp.html#ace303531e12d8b301cf64ba19ecd64ad">LightringLeds</a> DetectionNode::led_human_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab2b2b4c164a799678237786bb7f5aa6e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2b2b4c164a799678237786bb7f5aa6e">&#9670;&nbsp;</a></span>led_idle_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="detection__node_8hpp.html#ace303531e12d8b301cf64ba19ecd64ad">LightringLeds</a> DetectionNode::led_idle_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3416b24cde4aea83393828bc3db0d9ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3416b24cde4aea83393828bc3db0d9ac">&#9670;&nbsp;</a></span>led_pub_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">rclcpp::Publisher&lt;<a class="el" href="detection__node_8hpp.html#ace303531e12d8b301cf64ba19ecd64ad">LightringLeds</a>&gt;::SharedPtr DetectionNode::led_pub_</td>
         </tr>
       </table>
   </td>
