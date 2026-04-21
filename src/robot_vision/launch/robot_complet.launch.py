@@ -65,11 +65,11 @@ def generate_launch_description():
         ),
 
         # 6. Teleop
-        Node(
-            package='robot_vision',
-            executable='teleop_node',
-            condition=None
-        ),
+        # Node(
+        #     package='robot_vision',
+        #     executable='teleop_node',
+        #     condition=None
+        # ),
 
         # 7. Dock Detector
         Node(

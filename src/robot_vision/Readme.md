@@ -10,14 +10,33 @@ docker run --rm -v $(pwd):/ros2_ws -w /ros2_ws ros2 \
           /ros_entrypoint.sh /bin/bash -c "source /root/create3_ws/install/setup.bash && colcon build"
 ```
 ```bash
-docker run -it --rm \
+sudo docker run -it --rm \
     --net=host \
     --privileged \
     --device /dev/snd \
+    --device /dev/input \
+    --device /dev/hidraw0 \
+    -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp \
+    -e CYCLONEDDS_URI=file:///ros2_ws/cyclonedds.xml \
     -v $(pwd):/ros2_ws \
     -w /ros2_ws \
     ros2 /bin/bash -c "source install/setup.bash && ros2 launch robot_vision robot_complet.launch.py"
 ```
+```bash
+sudo docker run -it --rm \
+    --net=host \
+    --privileged \
+    --device /dev/snd \
+    --device /dev/input \
+    --device /dev/hidraw0 \
+    -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp \
+    -e CYCLONEDDS_URI=file:///ros2_ws/cyclonedds.xml \
+    -v $(pwd):/ros2_ws \
+    -w /ros2_ws \
+    ros2 /bin/bash -c "source install/setup.bash && ros2 run robot_vision teleop_node"
+```
+
+todo : faire en sorte que le docker est accès au micro et a la manette
 
 ## onnxruntime
 
