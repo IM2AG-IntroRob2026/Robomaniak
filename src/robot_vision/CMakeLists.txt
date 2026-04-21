@@ -163,15 +163,16 @@ add_executable(bt_manager_node src/bt_manager_node.cpp)
 target_include_directories(bt_manager_node PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 ament_target_dependencies(bt_manager_node ${ROS_DEPS})
 
-# ----- Dock Detector Node (NOUVEAU) -----
+# ----- Dock Detector Node -----
 add_executable(dock_detector_node src/dock_detector_node.cpp)
-target_include_directories(dock_detector_node PRIVATE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
-target_link_libraries(dock_detector_node
-        ${OpenCV_LIBS}
-        yaml-cpp
-)
+target_include_directories(dock_detector_node PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+target_link_libraries(dock_detector_node ${OpenCV_LIBS} yaml-cpp )
 ament_target_dependencies(dock_detector_node ${ROS_DEPS})
+
+# ----- Dock Calibration Node -----
+add_executable(dock_calibration_node src/dock_calibration_node.cpp)
+target_include_directories(dock_calibration_node PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+ament_target_dependencies(dock_calibration_node ${ROS_DEPS})
 
 # ----- Installation -----
 install(TARGETS
@@ -182,6 +183,7 @@ install(TARGETS
         listen_node
         bt_manager_node
         dock_detector_node
+        dock_calibration_node
         DESTINATION lib/${PROJECT_NAME}
 )
 

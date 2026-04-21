@@ -23,6 +23,8 @@
 #include <irobot_create_msgs/action/undock.hpp>
 #include <irobot_create_msgs/msg/lightring_leds.hpp>
 #include <irobot_create_msgs/msg/led_color.hpp>
+#include <tf2/LinearMath/Transform.h>
+#include <tf2/LinearMath/Quaternion.h>
 
 using Twist = geometry_msgs::msg::Twist;
 
@@ -242,6 +244,15 @@ private:
     double approach_tick_hz_            {20.0};
     double approach_heading_threshold_  {0.15};
 
+    double cam_x_m_         {0.0};
+    double cam_y_m_         {0.0};
+    double cam_z_m_         {0.10};
+    double cam_roll_deg_    {0.0};
+    double cam_pitch_deg_   {-20.0};
+    double cam_yaw_deg_     {0.0};
+
+    tf2::Transform tf_cam_to_base_;
+
     static constexpr const char* TREE_XML = R"(
     <root BTCPP_format="4">
       <BehaviorTree ID="MainTree">
@@ -297,6 +308,9 @@ private:
     [[nodiscard]] std::optional<Pose2D> savedDockPoseCopy() const;
     [[nodiscard]] std::optional<geometry_msgs::msg::PoseStamped> latestDockPoseCopy() const;
     void publishZeroCmd();
+
+    void buildCameraTransform();
+    [[nodiscard]] tf2::Vector3 cameraToBase(const geometry_msgs::msg::Pose& pose_cam) const;
 
     // LED helpers
     void publishLed(const LightringLeds& msg);

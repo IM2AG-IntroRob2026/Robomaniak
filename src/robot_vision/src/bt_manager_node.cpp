@@ -160,6 +160,13 @@ BtManagerNode::BtManagerNode() : Node("bt_manager_node")
     declare_parameter<double>("approach_tick_hz",            20.0);
     declare_parameter<double>("approach_heading_threshold",  0.15);
 
+    declare_parameter<double>("camera_x_m",        0.0);
+    declare_parameter<double>("camera_y_m",        0.0);
+    declare_parameter<double>("camera_z_m",        0.10);
+    declare_parameter<double>("camera_roll_deg",   0.0);
+    declare_parameter<double>("camera_pitch_deg", -20.0);
+    declare_parameter<double>("camera_yaw_deg",    0.0);
+
     const double tick_hz = get_parameter("bt_tick_hz").as_double();
 
     approach_coarse_tolerance_m_ = get_parameter("approach_coarse_tolerance_m").as_double();
@@ -176,6 +183,20 @@ BtManagerNode::BtManagerNode() : Node("bt_manager_node")
     approach_lost_timeout_s_     = get_parameter("approach_lost_timeout_s").as_double();
     approach_tick_hz_            = get_parameter("approach_tick_hz").as_double();
     approach_heading_threshold_  = get_parameter("approach_heading_threshold").as_double();
+
+    cam_x_m_       = get_parameter("camera_x_m").as_double();
+    cam_y_m_       = get_parameter("camera_y_m").as_double();
+    cam_z_m_       = get_parameter("camera_z_m").as_double();
+    cam_roll_deg_  = get_parameter("camera_roll_deg").as_double();
+    cam_pitch_deg_ = get_parameter("camera_pitch_deg").as_double();
+    cam_yaw_deg_   = get_parameter("camera_yaw_deg").as_double();
+
+    buildCameraTransform();
+
+    RCLCPP_INFO(get_logger(),
+        "Camera→base_link transform: pos=(%.2f, %.2f, %.2f) rpy=(%.1f, %.1f, %.1f) deg",
+        cam_x_m_, cam_y_m_, cam_z_m_,
+        cam_roll_deg_, cam_pitch_deg_, cam_yaw_deg_);
 
     ctx_                       = std::make_shared<BtContext>();
     ctx_->cmd_vel_pub          = create_publisher<Twist>("/cmd_vel", 10);
@@ -507,15 +528,19 @@ void BtManagerNode::tickFine()
 
     auto pose_opt = latestDockPoseCopy();
     if (!pose_opt.has_value()) { publishZeroCmd(); return; }
-    const auto& pose = *pose_opt;
 
-    const double lateral  = pose.pose.position.x;
-    const double forward  = pose.pose.position.z;
+    const tf2::Vector3 p_base = cameraToBase(pose_opt->pose);
+    const double forward = p_base.x();
+    const double lateral = p_base.y();
+
+    RCLCPP_DEBUG(get_logger(),
+        "FINE: marker in base_link = (%.2f, %.2f, %.2f) | fwd=%.2f lat=%.2f",
+        p_base.x(), p_base.y(), p_base.z(), forward, lateral);
 
     if (forward < approach_trigger_distance_m_ &&
         std::abs(lateral) < approach_trigger_lateral_m_) {
         RCLCPP_INFO(get_logger(),
-            "FINE: in IR zone (z=%.2fm lat=%.2fm) → trigger native /dock",
+            "FINE: in IR zone (fwd=%.2fm lat=%.2fm) → trigger native /dock",
             forward, lateral);
         publishZeroCmd();
         triggerDockAction();
@@ -523,7 +548,7 @@ void BtManagerNode::tickFine()
     }
 
     Twist cmd;
-    cmd.angular.z = std::clamp(-approach_kp_rot_ * lateral,
+    cmd.angular.z = std::clamp(approach_kp_rot_ * lateral,
         -approach_max_angular_speed_, approach_max_angular_speed_);
 
     if (std::abs(lateral) < 0.3) {
@@ -636,6 +661,40 @@ std::optional<geometry_msgs::msg::PoseStamped> BtManagerNode::latestDockPoseCopy
 void BtManagerNode::publishZeroCmd()
 {
     ctx_->cmd_vel_pub->publish(Twist{});
+}
+
+void BtManagerNode::buildCameraTransform()
+{
+    tf2::Matrix3x3 R_optical_to_rosframe(
+         0.0,  0.0,  1.0,
+        -1.0,  0.0,  0.0,
+         0.0, -1.0,  0.0);
+
+    constexpr double DEG_TO_RAD = M_PI / 180.0;
+    tf2::Quaternion q_mount;
+    q_mount.setRPY(
+        cam_roll_deg_  * DEG_TO_RAD,
+        cam_pitch_deg_ * DEG_TO_RAD,
+        cam_yaw_deg_   * DEG_TO_RAD);
+    tf2::Matrix3x3 R_mount(q_mount);
+
+    tf2::Matrix3x3 R_total = R_mount * R_optical_to_rosframe;
+
+    tf2::Quaternion q_total;
+    R_total.getRotation(q_total);
+
+    tf_cam_to_base_.setOrigin(tf2::Vector3(cam_x_m_, cam_y_m_, cam_z_m_));
+    tf_cam_to_base_.setRotation(q_total);
+}
+
+tf2::Vector3 BtManagerNode::cameraToBase(const geometry_msgs::msg::Pose& pose_cam) const
+{
+    const tf2::Vector3 p_cam(
+        pose_cam.position.x,
+        pose_cam.position.y,
+        pose_cam.position.z);
+
+    return tf_cam_to_base_ * p_cam;
 }
 
 void BtManagerNode::publishLed(const LightringLeds& msg)
