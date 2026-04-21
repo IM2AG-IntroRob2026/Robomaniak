@@ -71,14 +71,30 @@ Docker</h2>
 <div class="fragment"><div class="line">sudo docker buildx build -t ros2 .</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">docker run --rm -v $(pwd):/ros2_ws -w /ros2_ws ros2 \</div>
 <div class="line">          /ros_entrypoint.sh /bin/bash -c &quot;source /root/create3_ws/install/setup.bash &amp;&amp; colcon build&quot;</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">docker run -it --rm \</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">sudo docker run -it --rm \</div>
 <div class="line">    --net=host \</div>
 <div class="line">    --privileged \</div>
 <div class="line">    --device /dev/snd \</div>
+<div class="line">    --device /dev/input \</div>
+<div class="line">    --device /dev/hidraw0 \</div>
+<div class="line">    -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp \</div>
+<div class="line">    -e CYCLONEDDS_URI=file:///ros2_ws/cyclonedds.xml \</div>
 <div class="line">    -v $(pwd):/ros2_ws \</div>
 <div class="line">    -w /ros2_ws \</div>
 <div class="line">    ros2 /bin/bash -c &quot;source install/setup.bash &amp;&amp; ros2 launch robot_vision robot_complet.launch.py&quot;</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md1"></a>
+</div><!-- fragment --> <div class="fragment"><div class="line">sudo docker run -it --rm \</div>
+<div class="line">    --net=host \</div>
+<div class="line">    --privileged \</div>
+<div class="line">    --device /dev/snd \</div>
+<div class="line">    --device /dev/input \</div>
+<div class="line">    --device /dev/hidraw0 \</div>
+<div class="line">    -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp \</div>
+<div class="line">    -e CYCLONEDDS_URI=file:///ros2_ws/cyclonedds.xml \</div>
+<div class="line">    -v $(pwd):/ros2_ws \</div>
+<div class="line">    -w /ros2_ws \</div>
+<div class="line">    ros2 /bin/bash -c &quot;source install/setup.bash &amp;&amp; ros2 run robot_vision teleop_node&quot;</div>
+</div><!-- fragment --><p>todo : faire en sorte que le docker est accès au micro et a la manette</p>
+<h2><a class="anchor" id="autotoc_md1"></a>
 onnxruntime</h2>
 <p><a href="https://github.com/microsoft/onnxruntime/releases">https://github.com/microsoft/onnxruntime/releases</a></p>
 <div class="fragment"><div class="line">sudo cp -r &lt;ORT_VARIANT&gt;/include/* /usr/local/include/</div>
