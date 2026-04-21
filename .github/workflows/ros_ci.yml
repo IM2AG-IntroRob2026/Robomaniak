@@ -43,6 +43,17 @@ jobs:
       - name: Pull Docker image
         run: docker pull ${{ env.IMAGE_NAME_LOWER }}:latest
 
+      - name: Ensure ccache directory exists
+        run: mkdir -p ~/.ccache
+
+      - name: Setup ccache
+        uses: actions/cache@v5
+        with:
+          path: ~/.ccache
+          key: ccache-${{ runner.os }}-${{ hashFiles('**/CMakeLists.txt') }}
+          restore-keys: |
+            ccache-${{ runner.os }}-
+
       - name: Build Project with Coverage
         run: |
           docker run --rm \
@@ -54,8 +65,9 @@ jobs:
           
               source /root/create3_ws/install/setup.bash &&
           
-              colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS='--coverage' -DCMAKE_C_FLAGS='--coverage' &&
+              colcon build --symlink-install --cmake-args -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS='--coverage' -DCMAKE_C_FLAGS='--coverage' &&
               # colcon test --return-code-on-test-failure &&
+              colcon test &&
           
               lcov --capture --directory build --output-file coverage.info &&
               lcov --remove coverage.info '/usr/*' '*/install/*' '*/test/*' --output-file coverage.info &&
