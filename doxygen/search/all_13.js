@@ -1,27 +1,8 @@
 var searchData=
 [
-  ['kb_5fstate_5f_0',['kb_state_',['../classTeleopNode.html#ad4e14bbe1b9277f3e9f7cfe004fa625a',1,'TeleopNode']]],
-  ['kb_5fthread_5f_1',['kb_thread_',['../classTeleopNode.html#a9cf376e354fda339aa6ebe4fec1b0d03',1,'TeleopNode']]],
-  ['kb_5ftimeout_5fs_5f_2',['kb_timeout_s_',['../classTeleopNode.html#a76d206db4bbf66208ef73e49da83443d',1,'TeleopNode']]],
-  ['kd_5fangular_5f_3',['kd_angular_',['../classFollowNode.html#aec31c3e71a0c6749807bdcffe5a6218e',1,'FollowNode']]],
-  ['kd_5flinear_5f_4',['kd_linear_',['../classFollowNode.html#a63b5fb50836f2971620c51b5a3cee6ec',1,'FollowNode']]],
-  ['key_5fbackward_5f_5',['key_backward_',['../classTeleopNode.html#a9ce6ecc200171054d0250263f61a5901',1,'TeleopNode']]],
-  ['key_5fdock_5f_6',['key_dock_',['../classTeleopNode.html#a6ed5e06f3319efcb987db6748abd9645',1,'TeleopNode']]],
-  ['key_5fforward_5f_7',['key_forward_',['../classTeleopNode.html#ac023531c0a5227b3daf9e0cec78598f6',1,'TeleopNode']]],
-  ['key_5fleft_5f_8',['key_left_',['../classTeleopNode.html#a6b605c277f7774dfe205c1cfd0176bee',1,'TeleopNode']]],
-  ['key_5fright_5f_9',['key_right_',['../classTeleopNode.html#a19d2e66f3774418e49146beee8264629',1,'TeleopNode']]],
-  ['key_5fswitch_5f_10',['key_switch_',['../classTeleopNode.html#aaa84cd07154a5287640932693ceb9b7c',1,'TeleopNode']]],
-  ['key_5fundock_5f_11',['key_undock_',['../classTeleopNode.html#a5ab6fde6608733f980e4b22d7e48e2f8',1,'TeleopNode']]],
-  ['keyaction_12',['KeyAction',['../classTurtleBoundariesKeyboard.html#ad4ec69a244b192ab9e06dab019613c30',1,'TurtleBoundariesKeyboard']]],
-  ['keyboardloop_13',['keyboardLoop',['../classTeleopNode.html#a97100bc8c78feefb97025496344c8633',1,'TeleopNode']]],
-  ['keyword_5fscore_5f_14',['keyword_score_',['../classListenNode.html#a068595718b25f7e8c3cab1051451216c',1,'ListenNode']]],
-  ['kind_15',['kind',['../structListenNode_1_1PendingPublish.html#aa3b0536cd55ceea5c826045bf4dbe3ff',1,'ListenNode::PendingPublish::Kind'],['../structListenNode_1_1PendingPublish.html#afb539c38c56f4fa52b65aea5a73d6689',1,'ListenNode::PendingPublish::kind']]],
-  ['kp_5fangular_5f_16',['kp_angular_',['../classFollowNode.html#a9bc46c035eaa177f5d31733a81ecbedc',1,'FollowNode']]],
-  ['kp_5flinear_5f_17',['kp_linear_',['../classFollowNode.html#a6b95299b2c86968672584eae7537343d',1,'FollowNode']]],
-  ['kw_5fforward_5f_18',['kw_forward_',['../classListenNode.html#af190e72605c1d69b08f8d6abeae98e5e',1,'ListenNode']]],
-  ['kw_5fforward_5ftokens_5f_19',['kw_forward_tokens_',['../classListenNode.html#a657e82e52a24b36e23f837d12c145a5f',1,'ListenNode']]],
-  ['kw_5fleft_5f_20',['kw_left_',['../classListenNode.html#a93426d09c10eb7f017083d39f7892224',1,'ListenNode']]],
-  ['kw_5fleft_5ftokens_5f_21',['kw_left_tokens_',['../classListenNode.html#a178ba2f5190d0b6c45132f13c9c409bf',1,'ListenNode']]],
-  ['kw_5fright_5f_22',['kw_right_',['../classListenNode.html#a7867aae0051c56b2d437d7e2887675a8',1,'ListenNode']]],
-  ['kw_5fright_5ftokens_5f_23',['kw_right_tokens_',['../classListenNode.html#a4765fe04e6d335c827a2d717dee5c8da',1,'ListenNode']]]
+  ['undock_5fclient_5f_428',['undock_client_',['../classBtManagerNode.html#abbbb004c0a5d98888a82efba9535e7ed',1,'BtManagerNode']]],
+  ['undock_5fpending_5f_429',['undock_pending_',['../classTeleopNode.html#a38922ff4761521d552552a529d33be62',1,'TeleopNode']]],
+  ['undock_5fpub_5f_430',['undock_pub_',['../classTeleopNode.html#a05019ae88b17407117d5852247cada3c',1,'TeleopNode']]],
+  ['undock_5fsub_5f_431',['undock_sub_',['../classBtManagerNode.html#ab182989135aa0754fdc9e3c99fd26789',1,'BtManagerNode']]],
+  ['undockaction_432',['UndockAction',['../classBtManagerNode.html#a929f3c5e2b9cc246613f27f99e3d6821',1,'BtManagerNode']]]
 ];

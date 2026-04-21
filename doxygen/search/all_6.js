@@ -1,9 +1,25 @@
 var searchData=
 [
-  ['7_201_20flux_20vidéo_20smartphone_0',['7.1 Flux vidéo smartphone',['../md_src_2robot__vision_2SRS.html#autotoc_md38',1,'']]],
-  ['7_202_20capteurs_20du_20robot_1',['7.2 Capteurs du robot',['../md_src_2robot__vision_2SRS.html#autotoc_md39',1,'']]],
-  ['7_203_20commandes_20vers_20le_20robot_2',['7.3 Commandes vers le robot',['../md_src_2robot__vision_2SRS.html#autotoc_md40',1,'']]],
-  ['7_204_20interfaces_20opérateur_3',['7.4 Interfaces opérateur',['../md_src_2robot__vision_2SRS.html#autotoc_md41',1,'']]],
-  ['7_20ajouter_20des_20murs_20rouges_20dans_20turtlesim_4',['7) Ajouter des murs rouges dans turtlesim',['../index.html#autotoc_md55',1,'']]],
-  ['7_20interfaces_5',['7. Interfaces',['../md_src_2robot__vision_2SRS.html#autotoc_md37',1,'']]]
+  ['gamepadloop_112',['gamepadLoop',['../classTeleopNode.html#a09dc94d9474242c361a685524990d703',1,'TeleopNode']]],
+  ['generate_5flaunch_5fdescription_113',['generate_launch_description',['../namespaceturtle__fsm.html#a742fa42ad1b930406374c33b37958b6c',1,'turtle_fsm.generate_launch_description()'],['../namespacedraw__boundaries__with__keyboard.html#a42583803ce7f872234b5dddde542cbe5',1,'draw_boundaries_with_keyboard.generate_launch_description()'],['../namespacedraw__boundaries.html#a0e98ffc1cc9262dc5e02a05b4f1fba10',1,'draw_boundaries.generate_launch_description()'],['../namespacerobot__complet.html#ac28cd494c96fe45895d4be9b236a6643',1,'robot_complet.generate_launch_description()']]],
+  ['get_5fmanual_5fcmd_114',['get_manual_cmd',['../classTurtleBoundaries.html#a2aaa9bf229226266b61eabce57227dc3',1,'TurtleBoundaries']]],
+  ['github_20pages_115',['GitHub Pages',['../index.html',1,'']]],
+  ['goalhandle_116',['GoalHandle',['../classRobotSquareServer.html#ad567d1a64d63547e8994025467bbf3e6',1,'RobotSquareServer::GoalHandle()'],['../classTurtleBoundaries.html#a9d4f296884ad4b9d968428d45a734413',1,'TurtleBoundaries::GoalHandle()'],['../classTurtleSquareServer.html#a38d0d367ee0275bfc7eee2b1c798baaa',1,'TurtleSquareServer::GoalHandle()']]],
+  ['gp_5faxis_5fangular_5f_117',['gp_axis_angular_',['../classTeleopNode.html#a931ecf5dbd9038b978c03dad2db926a2',1,'TeleopNode']]],
+  ['gp_5faxis_5flinear_5f_118',['gp_axis_linear_',['../classTeleopNode.html#aa99c6f45b76eecb66a32482c1c974484',1,'TeleopNode']]],
+  ['gp_5fbtn_5fdock_5f_119',['gp_btn_dock_',['../classTeleopNode.html#a0265ea633f1239bb809d3025f0ae2479',1,'TeleopNode']]],
+  ['gp_5fbtn_5fswitch_5f_120',['gp_btn_switch_',['../classTeleopNode.html#af52849643236d40cc2d1dd1688be031e',1,'TeleopNode']]],
+  ['gp_5fbtn_5fundock_5f_121',['gp_btn_undock_',['../classTeleopNode.html#a637cad7c7caaea73bd21d34377e1959c',1,'TeleopNode']]],
+  ['gp_5fdeadzone_5f_122',['gp_deadzone_',['../classTeleopNode.html#ab7b85c6fdb560db83b81b3cd7a4c434d',1,'TeleopNode']]],
+  ['gp_5fdev_5f_123',['gp_dev_',['../classTeleopNode.html#a68e11e0fca3fb823cccb8f1efa3806cf',1,'TeleopNode']]],
+  ['gp_5ffd_5f_124',['gp_fd_',['../classTeleopNode.html#a671bdfe7099fc63007466a7f82b810f9',1,'TeleopNode']]],
+  ['gp_5fstate_5f_125',['gp_state_',['../classTeleopNode.html#a9b6cd370880585cabc7c9255e8afc335',1,'TeleopNode']]],
+  ['gp_5fthread_5f_126',['gp_thread_',['../classTeleopNode.html#a6aa357d6e1e7986c3d8116afd06b5335',1,'TeleopNode']]],
+  ['gp_5ftimeout_5fs_5f_127',['gp_timeout_s_',['../classTeleopNode.html#a502987176069e69f5112acadda1e8824',1,'TeleopNode']]],
+  ['gpu_5fprovider_5f_128',['gpu_provider_',['../classrobot__vision_1_1YoloDetector.html#a480bc66553d72308c760f822c84e4ebd',1,'robot_vision::YoloDetector']]],
+  ['gpuenabled_129',['gpuEnabled',['../classrobot__vision_1_1YoloDetector.html#abbb77c619a37c73f021e670afd4c8cda',1,'robot_vision::YoloDetector']]],
+  ['gpuprovider_130',['gpuProvider',['../classrobot__vision_1_1YoloDetector.html#a45dc7172c89c804a0ee0fb28b8f6cdbf',1,'robot_vision::YoloDetector']]],
+  ['gpuprovider_131',['GpuProvider',['../namespacerobot__vision.html#a7829b6526c29bf03ecd136ce155746c8',1,'robot_vision']]],
+  ['grab_5fdrain_5fcount_5f_132',['grab_drain_count_',['../classVideoNode.html#a08257b11491d152f17f45be66d524feb',1,'VideoNode']]],
+  ['green_5fmax_5ffor_5fred_5f_133',['green_max_for_red_',['../classTurtleFsmNode.html#a5c5037d3483005406ff0d6bbb1483ab8',1,'TurtleFsmNode']]]
 ];

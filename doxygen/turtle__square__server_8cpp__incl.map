@@ -1,15 +1,9 @@
 <map id="src/turtle_square_controller/src/turtle_square_server.cpp" name="src/turtle_square_controller/src/turtle_square_server.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="320,5,529,45"/>
-<area shape="rect" id="Node000002" href="$turtle__square__server_8h.html" title=" " alt="" coords="341,93,508,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="427,46,427,79,422,79,422,46"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,174,137,199"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="370,121,149,169,131,173,130,168,148,164,369,116"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="161,167,312,207"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="398,121,296,164,294,159,396,116"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="337,174,513,199"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="427,119,427,160,422,160,422,119"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="537,174,760,199"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="458,116,604,167,602,172,456,121"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="785,167,966,207"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="493,116,772,164,771,169,492,121"/>
+<area shape="rect" id="node1" title=" " alt="" coords="320,5,529,47"/>
+<area shape="rect" id="node2" href="$turtle__square__server_8h.html" title=" " alt="" coords="341,95,508,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,177,137,203"/>
+<area shape="rect" id="node4" title=" " alt="" coords="161,169,312,211"/>
+<area shape="rect" id="node5" title=" " alt="" coords="337,177,513,203"/>
+<area shape="rect" id="node6" title=" " alt="" coords="537,177,760,203"/>
+<area shape="rect" id="node7" title=" " alt="" coords="785,169,966,211"/>
 </map>

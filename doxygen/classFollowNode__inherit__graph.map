@@ -1,5 +1,4 @@
 <map id="FollowNode" name="FollowNode">
-<area shape="rect" id="Node000001" title="ROS2 target tracking node based on 2D detections. The node:" alt="" coords="7,79,106,104"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,108,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,44,59,79,54,79,54,44"/>
+<area shape="rect" id="node1" title="ROS2 target tracking node based on 2D detections. The node:" alt="" coords="7,80,106,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,108,32"/>
 </map>

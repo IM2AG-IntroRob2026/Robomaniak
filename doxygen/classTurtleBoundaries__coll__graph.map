@@ -1,7 +1,5 @@
 <map id="TurtleBoundaries" name="TurtleBoundaries">
-<area shape="rect" id="Node000001" title="Serveur d&#39;action ROS 2 pour tracer le contour d&#39;un mur/objet." alt="" coords="51,93,182,119"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,108,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,41,110,91,106,94,71,44"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="132,5,224,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="164,44,127,94,123,91,159,41"/>
+<area shape="rect" id="node1" title="Serveur d&#39;action ROS 2 pour tracer le contour d&#39;un mur/objet." alt="" coords="51,95,182,121"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,108,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="132,5,224,32"/>
 </map>
