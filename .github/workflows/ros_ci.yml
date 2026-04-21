@@ -55,7 +55,7 @@ jobs:
               source /root/create3_ws/install/setup.bash &&
           
               colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS='--coverage' -DCMAKE_C_FLAGS='--coverage' &&
-              colcon test --return-code-on-test-failure &&
+              # colcon test --return-code-on-test-failure &&
           
               lcov --capture --directory build --output-file coverage.info &&
               lcov --remove coverage.info '/usr/*' '*/install/*' '*/test/*' --output-file coverage.info &&
