@@ -89,9 +89,11 @@ Collaboration diagram for BtManagerNode:</div>
 <div class="dyncontent">
 <div class="center"><img src="classBtManagerNode__coll__graph.png" border="0" usemap="#aBtManagerNode_coll__map" alt="Collaboration graph"/></div>
 <map name="aBtManagerNode_coll__map" id="aBtManagerNode_coll__map">
-<area shape="rect" title=" " alt="" coords="84,95,211,121"/>
+<area shape="rect" title=" " alt="" coords="272,109,399,136"/>
 <area shape="rect" title=" " alt="" coords="5,5,108,32"/>
-<area shape="rect" title=" " alt="" coords="132,5,347,32"/>
+<area shape="rect" title=" " alt="" coords="132,5,357,32"/>
+<area shape="rect" title=" " alt="" coords="381,5,473,32"/>
+<area shape="rect" title=" " alt="" coords="497,5,712,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -125,6 +127,42 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:ad10d3b878fb44990ca56149ba8c7cb57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fb69f54e53e1d17105fe2aa7c5aec17"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a1fb69f54e53e1d17105fe2aa7c5aec17">onUndockRequest</a> ()</td></tr>
 <tr class="separator:a1fb69f54e53e1d17105fe2aa7c5aec17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fd05f391163069231be67b0a18c1c07"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a7fd05f391163069231be67b0a18c1c07">onOdom</a> (const nav_msgs::msg::Odometry::ConstSharedPtr &amp;msg)</td></tr>
+<tr class="separator:a7fd05f391163069231be67b0a18c1c07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5e15c0b76e7671ea2e8fc2a8ca530e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#af5e15c0b76e7671ea2e8fc2a8ca530e9">onDockPose</a> (const geometry_msgs::msg::PoseStamped::ConstSharedPtr &amp;msg)</td></tr>
+<tr class="separator:af5e15c0b76e7671ea2e8fc2a8ca530e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ba95857cb3efcf1839c755d06394ac8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a5ba95857cb3efcf1839c755d06394ac8">onDockDetected</a> (const std_msgs::msg::Bool::ConstSharedPtr &amp;msg)</td></tr>
+<tr class="separator:a5ba95857cb3efcf1839c755d06394ac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84327f8a53bcd9319d3646b58beda7b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a84327f8a53bcd9319d3646b58beda7b1">approachTick</a> ()</td></tr>
+<tr class="separator:a84327f8a53bcd9319d3646b58beda7b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a920201df770521335fd2f551210dde16"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a920201df770521335fd2f551210dde16">startApproach</a> ()</td></tr>
+<tr class="separator:a920201df770521335fd2f551210dde16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c466a451006de2db6cb38ba4ce7c9ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a1c466a451006de2db6cb38ba4ce7c9ec">triggerDockAction</a> ()</td></tr>
+<tr class="separator:a1c466a451006de2db6cb38ba4ce7c9ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a549ff457914d71764645b4d19dfea902"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a549ff457914d71764645b4d19dfea902">finishApproach</a> (bool success)</td></tr>
+<tr class="separator:a549ff457914d71764645b4d19dfea902"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43d9f77a9dc5e72782b0abcad9c9170d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a43d9f77a9dc5e72782b0abcad9c9170d">abortApproach</a> (const char *reason)</td></tr>
+<tr class="separator:a43d9f77a9dc5e72782b0abcad9c9170d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fff8a65f5a5d75102b92016348aff15"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a6fff8a65f5a5d75102b92016348aff15">transitionPhase</a> (<a class="el" href="bt__manager__node_8hpp.html#a34803508739521c7e0bd5a6d943d7097">ApproachPhase</a> new_phase)</td></tr>
+<tr class="separator:a6fff8a65f5a5d75102b92016348aff15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23f93cc3b23437143dc1a5c7ad908932"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a23f93cc3b23437143dc1a5c7ad908932">tickCoarse</a> ()</td></tr>
+<tr class="separator:a23f93cc3b23437143dc1a5c7ad908932"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bd0b35dc0f483f63aaba29c5aedf149"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a0bd0b35dc0f483f63aaba29c5aedf149">tickFine</a> ()</td></tr>
+<tr class="separator:a0bd0b35dc0f483f63aaba29c5aedf149"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acace016490c17347e85957c0fc11a801"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#acace016490c17347e85957c0fc11a801">tickSearch</a> ()</td></tr>
+<tr class="separator:acace016490c17347e85957c0fc11a801"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe482a3dcde941378ee7995da20a26f6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#afe482a3dcde941378ee7995da20a26f6">dockDetectedRecently</a> () const</td></tr>
+<tr class="separator:afe482a3dcde941378ee7995da20a26f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0de84ca47cb00e0a58c6e1c363c8a86a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a0de84ca47cb00e0a58c6e1c363c8a86a">phaseElapsedSec</a> () const</td></tr>
+<tr class="separator:a0de84ca47cb00e0a58c6e1c363c8a86a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ffad0d99bec8e2e65b9f6d3daad226f"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structPose2D.html">Pose2D</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a2ffad0d99bec8e2e65b9f6d3daad226f">currentOdomCopy</a> () const</td></tr>
+<tr class="separator:a2ffad0d99bec8e2e65b9f6d3daad226f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a83c94972be7f4a02b1b94e804949f3"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structPose2D.html">Pose2D</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a2a83c94972be7f4a02b1b94e804949f3">savedDockPoseCopy</a> () const</td></tr>
+<tr class="separator:a2a83c94972be7f4a02b1b94e804949f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a329519271a406427d999313b3aba1f49"><td class="memItemLeft" align="right" valign="top">std::optional&lt; geometry_msgs::msg::PoseStamped &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a329519271a406427d999313b3aba1f49">latestDockPoseCopy</a> () const</td></tr>
+<tr class="separator:a329519271a406427d999313b3aba1f49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1674410ec881264e80bea1ba7bd4ffd4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a1674410ec881264e80bea1ba7bd4ffd4">publishZeroCmd</a> ()</td></tr>
+<tr class="separator:a1674410ec881264e80bea1ba7bd4ffd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32754fd063df6f4b7688f68adda2226d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a32754fd063df6f4b7688f68adda2226d">publishLed</a> (const <a class="el" href="classBtManagerNode.html#aa0a1a8a6838651fad5afe62b9d3cfc62">LightringLeds</a> &amp;msg)</td></tr>
 <tr class="separator:a32754fd063df6f4b7688f68adda2226d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -132,6 +170,10 @@ Private Member Functions</h2></td></tr>
 Static Private Member Functions</h2></td></tr>
 <tr class="memitem:a264d54b3e08eb1c5ce387b4e7ba29f4a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classBtManagerNode.html#aa0a1a8a6838651fad5afe62b9d3cfc62">LightringLeds</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a264d54b3e08eb1c5ce387b4e7ba29f4a">makeLightring</a> (uint8_t r, uint8_t g, uint8_t b)</td></tr>
 <tr class="separator:a264d54b3e08eb1c5ce387b4e7ba29f4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d8e20734b7c7a22add68ef422e509fe"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a2d8e20734b7c7a22add68ef422e509fe">yawFromQuaternion</a> (double x, double y, double z, double w) noexcept</td></tr>
+<tr class="separator:a2d8e20734b7c7a22add68ef422e509fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32fa2d762e6c6e9c778260c2fadd9241"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a32fa2d762e6c6e9c778260c2fadd9241">angleDiff</a> (double a, double b) noexcept</td></tr>
+<tr class="separator:a32fa2d762e6c6e9c778260c2fadd9241"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -163,6 +205,60 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ab182989135aa0754fdc9e3c99fd26789"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad45098e5d289fb30d396a8256be2ef00"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; <a class="el" href="classBtManagerNode.html#aa0a1a8a6838651fad5afe62b9d3cfc62">LightringLeds</a> &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#ad45098e5d289fb30d396a8256be2ef00">led_pub_</a></td></tr>
 <tr class="separator:ad45098e5d289fb30d396a8256be2ef00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5feccedbab509e8cc37e19886e50fa83"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; nav_msgs::msg::Odometry &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a5feccedbab509e8cc37e19886e50fa83">odom_sub_</a></td></tr>
+<tr class="separator:a5feccedbab509e8cc37e19886e50fa83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a565e8ee9cdc17fea4d688fd24f7a2943"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; geometry_msgs::msg::PoseStamped &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a565e8ee9cdc17fea4d688fd24f7a2943">dock_pose_sub_</a></td></tr>
+<tr class="separator:a565e8ee9cdc17fea4d688fd24f7a2943"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb09ca39a8450607501cc3658bf35023"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; std_msgs::msg::Bool &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#abb09ca39a8450607501cc3658bf35023">dock_detected_sub_</a></td></tr>
+<tr class="separator:abb09ca39a8450607501cc3658bf35023"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad33508e84bafa9b496be457c3d0aaac9"><td class="memItemLeft" align="right" valign="top">rclcpp::TimerBase::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#ad33508e84bafa9b496be457c3d0aaac9">approach_timer_</a></td></tr>
+<tr class="separator:ad33508e84bafa9b496be457c3d0aaac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ef6e2b5f170df7c62c19231c94c1809"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; <a class="el" href="bt__manager__node_8hpp.html#a34803508739521c7e0bd5a6d943d7097">ApproachPhase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a7ef6e2b5f170df7c62c19231c94c1809">approach_phase_</a> {<a class="el" href="bt__manager__node_8hpp.html#a34803508739521c7e0bd5a6d943d7097aa5daf7f2ebbba4975d61dab1c40188c7">ApproachPhase::IDLE</a>}</td></tr>
+<tr class="separator:a7ef6e2b5f170df7c62c19231c94c1809"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab44be68a0da618c21d8f27c36dc13de9"><td class="memItemLeft" align="right" valign="top">rclcpp::Time&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#ab44be68a0da618c21d8f27c36dc13de9">approach_phase_start_</a> {0, 0, RCL_ROS_TIME}</td></tr>
+<tr class="separator:ab44be68a0da618c21d8f27c36dc13de9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc5d42344a0e143ad3315c9022564ecc"><td class="memItemLeft" align="right" valign="top">rclcpp::Time&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#abc5d42344a0e143ad3315c9022564ecc">approach_overall_start_</a> {0, 0, RCL_ROS_TIME}</td></tr>
+<tr class="separator:abc5d42344a0e143ad3315c9022564ecc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadeeba85e31688e761b60a0d2c8020a0"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#aadeeba85e31688e761b60a0d2c8020a0">odom_mutex_</a></td></tr>
+<tr class="separator:aadeeba85e31688e761b60a0d2c8020a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67eff1213d4fc2fd77722283a7569874"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structPose2D.html">Pose2D</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a67eff1213d4fc2fd77722283a7569874">current_odom_pose_</a></td></tr>
+<tr class="separator:a67eff1213d4fc2fd77722283a7569874"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae86e449992996b8db09eae2333cb86dd"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structPose2D.html">Pose2D</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#ae86e449992996b8db09eae2333cb86dd">saved_dock_odom_pose_</a></td></tr>
+<tr class="separator:ae86e449992996b8db09eae2333cb86dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e0d8b03a250024dbdcf2c68d1511ee9"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a0e0d8b03a250024dbdcf2c68d1511ee9">dock_pose_mutex_</a></td></tr>
+<tr class="separator:a0e0d8b03a250024dbdcf2c68d1511ee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b71dbe842803e03a763780fbd733efc"><td class="memItemLeft" align="right" valign="top">std::optional&lt; geometry_msgs::msg::PoseStamped &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a1b71dbe842803e03a763780fbd733efc">latest_dock_pose_cam_</a></td></tr>
+<tr class="separator:a1b71dbe842803e03a763780fbd733efc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5250974e0ff69a528dab1b88aa22fcab"><td class="memItemLeft" align="right" valign="top">rclcpp::Time&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a5250974e0ff69a528dab1b88aa22fcab">last_dock_detection_time_</a> {0, 0, RCL_ROS_TIME}</td></tr>
+<tr class="separator:a5250974e0ff69a528dab1b88aa22fcab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2d3b9c65b5174ded05bf97ad06c0d8d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#ae2d3b9c65b5174ded05bf97ad06c0d8d">approach_coarse_tolerance_m_</a> {0.8}</td></tr>
+<tr class="separator:ae2d3b9c65b5174ded05bf97ad06c0d8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a212aed39c2bcba6d90d212f881ba5937"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a212aed39c2bcba6d90d212f881ba5937">approach_trigger_distance_m_</a> {0.6}</td></tr>
+<tr class="separator:a212aed39c2bcba6d90d212f881ba5937"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad86b7b890fc0c78575701d1df28d2452"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#ad86b7b890fc0c78575701d1df28d2452">approach_trigger_lateral_m_</a> {0.15}</td></tr>
+<tr class="separator:ad86b7b890fc0c78575701d1df28d2452"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d57a23348fbd8e0ffd11a46b62a821e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a4d57a23348fbd8e0ffd11a46b62a821e">approach_max_linear_speed_</a> {0.18}</td></tr>
+<tr class="separator:a4d57a23348fbd8e0ffd11a46b62a821e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadceb300b3f4fa6b132d53401aa4e442"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#aadceb300b3f4fa6b132d53401aa4e442">approach_max_angular_speed_</a> {0.6}</td></tr>
+<tr class="separator:aadceb300b3f4fa6b132d53401aa4e442"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b7d2702c3fb81ed5caf5ea55af3109a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a1b7d2702c3fb81ed5caf5ea55af3109a">approach_kp_rot_</a> {1.2}</td></tr>
+<tr class="separator:a1b7d2702c3fb81ed5caf5ea55af3109a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73f56f324f93d5cb2a7954ad2ba8fc49"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a73f56f324f93d5cb2a7954ad2ba8fc49">approach_kp_fwd_</a> {0.45}</td></tr>
+<tr class="separator:a73f56f324f93d5cb2a7954ad2ba8fc49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdaa9719e2bdc95c91e48f3734b87435"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#afdaa9719e2bdc95c91e48f3734b87435">approach_search_speed_</a> {0.4}</td></tr>
+<tr class="separator:afdaa9719e2bdc95c91e48f3734b87435"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fc6d56485f1dcb6ef74c6cb62d9183e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a6fc6d56485f1dcb6ef74c6cb62d9183e">approach_coarse_timeout_s_</a> {60.0}</td></tr>
+<tr class="separator:a6fc6d56485f1dcb6ef74c6cb62d9183e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1550096fc24f9e7d2e6b541e2ac41793"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a1550096fc24f9e7d2e6b541e2ac41793">approach_fine_timeout_s_</a> {30.0}</td></tr>
+<tr class="separator:a1550096fc24f9e7d2e6b541e2ac41793"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac67eacc3e443e2ea196a07fec7a371f9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#ac67eacc3e443e2ea196a07fec7a371f9">approach_search_timeout_s_</a> {25.0}</td></tr>
+<tr class="separator:ac67eacc3e443e2ea196a07fec7a371f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9986b4d81574301bb7bc0756de0e0f6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#ad9986b4d81574301bb7bc0756de0e0f6">approach_lost_timeout_s_</a> {2.0}</td></tr>
+<tr class="separator:ad9986b4d81574301bb7bc0756de0e0f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1df681d7e4210b2e187cb2abaf2cd46a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a1df681d7e4210b2e187cb2abaf2cd46a">approach_tick_hz_</a> {20.0}</td></tr>
+<tr class="separator:a1df681d7e4210b2e187cb2abaf2cd46a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a430105dbbe0db44b204026f6ae8da438"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a430105dbbe0db44b204026f6ae8da438">approach_heading_threshold_</a> {0.15}</td></tr>
+<tr class="separator:a430105dbbe0db44b204026f6ae8da438"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
@@ -302,6 +398,93 @@ Static Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a43d9f77a9dc5e72782b0abcad9c9170d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43d9f77a9dc5e72782b0abcad9c9170d">&#9670;&nbsp;</a></span>abortApproach()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::abortApproach </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>reason</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a32fa2d762e6c6e9c778260c2fadd9241"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32fa2d762e6c6e9c778260c2fadd9241">&#9670;&nbsp;</a></span>angleDiff()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::angleDiff </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a84327f8a53bcd9319d3646b58beda7b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84327f8a53bcd9319d3646b58beda7b1">&#9670;&nbsp;</a></span>approachTick()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::approachTick </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac5815df215cf4c36f7ddf5444e5e05ca"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac5815df215cf4c36f7ddf5444e5e05ca">&#9670;&nbsp;</a></span>buildTree()</h2>
 
@@ -327,6 +510,31 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a2ffad0d99bec8e2e65b9f6d3daad226f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ffad0d99bec8e2e65b9f6d3daad226f">&#9670;&nbsp;</a></span>currentOdomCopy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structPose2D.html">Pose2D</a> &gt; BtManagerNode::currentOdomCopy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a86e00d2f0db8fd5816a4bc6ca54edf0d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a86e00d2f0db8fd5816a4bc6ca54edf0d">&#9670;&nbsp;</a></span>cycleMode()</h2>
 
@@ -341,6 +549,82 @@ Static Private Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afe482a3dcde941378ee7995da20a26f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe482a3dcde941378ee7995da20a26f6">&#9670;&nbsp;</a></span>dockDetectedRecently()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool BtManagerNode::dockDetectedRecently </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a549ff457914d71764645b4d19dfea902"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a549ff457914d71764645b4d19dfea902">&#9670;&nbsp;</a></span>finishApproach()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::finishApproach </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>success</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a329519271a406427d999313b3aba1f49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a329519271a406427d999313b3aba1f49">&#9670;&nbsp;</a></span>latestDockPoseCopy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; geometry_msgs::msg::PoseStamped &gt; BtManagerNode::latestDockPoseCopy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -394,6 +678,58 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a5ba95857cb3efcf1839c755d06394ac8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ba95857cb3efcf1839c755d06394ac8">&#9670;&nbsp;</a></span>onDockDetected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::onDockDetected </td>
+          <td>(</td>
+          <td class="paramtype">const std_msgs::msg::Bool::ConstSharedPtr &amp;&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af5e15c0b76e7671ea2e8fc2a8ca530e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5e15c0b76e7671ea2e8fc2a8ca530e9">&#9670;&nbsp;</a></span>onDockPose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::onDockPose </td>
+          <td>(</td>
+          <td class="paramtype">const geometry_msgs::msg::PoseStamped::ConstSharedPtr &amp;&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad10d3b878fb44990ca56149ba8c7cb57"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad10d3b878fb44990ca56149ba8c7cb57">&#9670;&nbsp;</a></span>onDockRequest()</h2>
 
@@ -407,6 +743,32 @@ Static Private Attributes</h2></td></tr>
           <td class="memname">void BtManagerNode::onDockRequest </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7fd05f391163069231be67b0a18c1c07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fd05f391163069231be67b0a18c1c07">&#9670;&nbsp;</a></span>onOdom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::onOdom </td>
+          <td>(</td>
+          <td class="paramtype">const nav_msgs::msg::Odometry::ConstSharedPtr &amp;&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -444,6 +806,31 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a0de84ca47cb00e0a58c6e1c363c8a86a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0de84ca47cb00e0a58c6e1c363c8a86a">&#9670;&nbsp;</a></span>phaseElapsedSec()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::phaseElapsedSec </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a32754fd063df6f4b7688f68adda2226d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a32754fd063df6f4b7688f68adda2226d">&#9670;&nbsp;</a></span>publishLed()</h2>
 
@@ -458,6 +845,81 @@ Static Private Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classBtManagerNode.html#aa0a1a8a6838651fad5afe62b9d3cfc62">LightringLeds</a> &amp;&#160;</td>
           <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1674410ec881264e80bea1ba7bd4ffd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1674410ec881264e80bea1ba7bd4ffd4">&#9670;&nbsp;</a></span>publishZeroCmd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::publishZeroCmd </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2a83c94972be7f4a02b1b94e804949f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a83c94972be7f4a02b1b94e804949f3">&#9670;&nbsp;</a></span>savedDockPoseCopy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structPose2D.html">Pose2D</a> &gt; BtManagerNode::savedDockPoseCopy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a920201df770521335fd2f551210dde16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a920201df770521335fd2f551210dde16">&#9670;&nbsp;</a></span>startApproach()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::startApproach </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -495,7 +957,577 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a23f93cc3b23437143dc1a5c7ad908932"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23f93cc3b23437143dc1a5c7ad908932">&#9670;&nbsp;</a></span>tickCoarse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::tickCoarse </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0bd0b35dc0f483f63aaba29c5aedf149"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bd0b35dc0f483f63aaba29c5aedf149">&#9670;&nbsp;</a></span>tickFine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::tickFine </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acace016490c17347e85957c0fc11a801"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acace016490c17347e85957c0fc11a801">&#9670;&nbsp;</a></span>tickSearch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::tickSearch </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6fff8a65f5a5d75102b92016348aff15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fff8a65f5a5d75102b92016348aff15">&#9670;&nbsp;</a></span>transitionPhase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::transitionPhase </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="bt__manager__node_8hpp.html#a34803508739521c7e0bd5a6d943d7097">ApproachPhase</a>&#160;</td>
+          <td class="paramname"><em>new_phase</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1c466a451006de2db6cb38ba4ce7c9ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c466a451006de2db6cb38ba4ce7c9ec">&#9670;&nbsp;</a></span>triggerDockAction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::triggerDockAction </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2d8e20734b7c7a22add68ef422e509fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d8e20734b7c7a22add68ef422e509fe">&#9670;&nbsp;</a></span>yawFromQuaternion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::yawFromQuaternion </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>z</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>w</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a6fc6d56485f1dcb6ef74c6cb62d9183e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fc6d56485f1dcb6ef74c6cb62d9183e">&#9670;&nbsp;</a></span>approach_coarse_timeout_s_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::approach_coarse_timeout_s_ {60.0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae2d3b9c65b5174ded05bf97ad06c0d8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2d3b9c65b5174ded05bf97ad06c0d8d">&#9670;&nbsp;</a></span>approach_coarse_tolerance_m_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::approach_coarse_tolerance_m_ {0.8}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1550096fc24f9e7d2e6b541e2ac41793"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1550096fc24f9e7d2e6b541e2ac41793">&#9670;&nbsp;</a></span>approach_fine_timeout_s_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::approach_fine_timeout_s_ {30.0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a430105dbbe0db44b204026f6ae8da438"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a430105dbbe0db44b204026f6ae8da438">&#9670;&nbsp;</a></span>approach_heading_threshold_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::approach_heading_threshold_ {0.15}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a73f56f324f93d5cb2a7954ad2ba8fc49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73f56f324f93d5cb2a7954ad2ba8fc49">&#9670;&nbsp;</a></span>approach_kp_fwd_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::approach_kp_fwd_ {0.45}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1b7d2702c3fb81ed5caf5ea55af3109a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b7d2702c3fb81ed5caf5ea55af3109a">&#9670;&nbsp;</a></span>approach_kp_rot_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::approach_kp_rot_ {1.2}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad9986b4d81574301bb7bc0756de0e0f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9986b4d81574301bb7bc0756de0e0f6">&#9670;&nbsp;</a></span>approach_lost_timeout_s_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::approach_lost_timeout_s_ {2.0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aadceb300b3f4fa6b132d53401aa4e442"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadceb300b3f4fa6b132d53401aa4e442">&#9670;&nbsp;</a></span>approach_max_angular_speed_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::approach_max_angular_speed_ {0.6}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4d57a23348fbd8e0ffd11a46b62a821e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d57a23348fbd8e0ffd11a46b62a821e">&#9670;&nbsp;</a></span>approach_max_linear_speed_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::approach_max_linear_speed_ {0.18}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abc5d42344a0e143ad3315c9022564ecc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc5d42344a0e143ad3315c9022564ecc">&#9670;&nbsp;</a></span>approach_overall_start_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Time BtManagerNode::approach_overall_start_ {0, 0, RCL_ROS_TIME}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7ef6e2b5f170df7c62c19231c94c1809"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ef6e2b5f170df7c62c19231c94c1809">&#9670;&nbsp;</a></span>approach_phase_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::atomic&lt;<a class="el" href="bt__manager__node_8hpp.html#a34803508739521c7e0bd5a6d943d7097">ApproachPhase</a>&gt; BtManagerNode::approach_phase_ {<a class="el" href="bt__manager__node_8hpp.html#a34803508739521c7e0bd5a6d943d7097aa5daf7f2ebbba4975d61dab1c40188c7">ApproachPhase::IDLE</a>}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab44be68a0da618c21d8f27c36dc13de9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab44be68a0da618c21d8f27c36dc13de9">&#9670;&nbsp;</a></span>approach_phase_start_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Time BtManagerNode::approach_phase_start_ {0, 0, RCL_ROS_TIME}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afdaa9719e2bdc95c91e48f3734b87435"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdaa9719e2bdc95c91e48f3734b87435">&#9670;&nbsp;</a></span>approach_search_speed_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::approach_search_speed_ {0.4}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac67eacc3e443e2ea196a07fec7a371f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac67eacc3e443e2ea196a07fec7a371f9">&#9670;&nbsp;</a></span>approach_search_timeout_s_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::approach_search_timeout_s_ {25.0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1df681d7e4210b2e187cb2abaf2cd46a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1df681d7e4210b2e187cb2abaf2cd46a">&#9670;&nbsp;</a></span>approach_tick_hz_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::approach_tick_hz_ {20.0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad33508e84bafa9b496be457c3d0aaac9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad33508e84bafa9b496be457c3d0aaac9">&#9670;&nbsp;</a></span>approach_timer_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::TimerBase::SharedPtr BtManagerNode::approach_timer_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a212aed39c2bcba6d90d212f881ba5937"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a212aed39c2bcba6d90d212f881ba5937">&#9670;&nbsp;</a></span>approach_trigger_distance_m_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::approach_trigger_distance_m_ {0.6}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad86b7b890fc0c78575701d1df28d2452"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad86b7b890fc0c78575701d1df28d2452">&#9670;&nbsp;</a></span>approach_trigger_lateral_m_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::approach_trigger_lateral_m_ {0.15}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a0c514468eb0e056ec0e6dc2d99fc5567"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0c514468eb0e056ec0e6dc2d99fc5567">&#9670;&nbsp;</a></span>bt_timer_</h2>
 
@@ -540,6 +1572,28 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a67eff1213d4fc2fd77722283a7569874"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67eff1213d4fc2fd77722283a7569874">&#9670;&nbsp;</a></span>current_odom_pose_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structPose2D.html">Pose2D</a>&gt; BtManagerNode::current_odom_pose_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="adc09772f30e5ce7eaf42d27445a2f9a6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adc09772f30e5ce7eaf42d27445a2f9a6">&#9670;&nbsp;</a></span>cycle_switch_sub_</h2>
 
@@ -573,6 +1627,72 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">rclcpp_action::Client&lt;<a class="el" href="classBtManagerNode.html#a0114acb9601d4adacc8ae8d15099f212">DockAction</a>&gt;::SharedPtr BtManagerNode::dock_client_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abb09ca39a8450607501cc3658bf35023"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb09ca39a8450607501cc3658bf35023">&#9670;&nbsp;</a></span>dock_detected_sub_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Subscription&lt;std_msgs::msg::Bool&gt;::SharedPtr BtManagerNode::dock_detected_sub_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0e0d8b03a250024dbdcf2c68d1511ee9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e0d8b03a250024dbdcf2c68d1511ee9">&#9670;&nbsp;</a></span>dock_pose_mutex_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::mutex BtManagerNode::dock_pose_mutex_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a565e8ee9cdc17fea4d688fd24f7a2943"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a565e8ee9cdc17fea4d688fd24f7a2943">&#9670;&nbsp;</a></span>dock_pose_sub_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Subscription&lt;geometry_msgs::msg::PoseStamped&gt;::SharedPtr BtManagerNode::dock_pose_sub_</td>
         </tr>
       </table>
   </td>
@@ -650,6 +1770,50 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a5250974e0ff69a528dab1b88aa22fcab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5250974e0ff69a528dab1b88aa22fcab">&#9670;&nbsp;</a></span>last_dock_detection_time_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Time BtManagerNode::last_dock_detection_time_ {0, 0, RCL_ROS_TIME}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1b71dbe842803e03a763780fbd733efc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b71dbe842803e03a763780fbd733efc">&#9670;&nbsp;</a></span>latest_dock_pose_cam_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;geometry_msgs::msg::PoseStamped&gt; BtManagerNode::latest_dock_pose_cam_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad45098e5d289fb30d396a8256be2ef00"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad45098e5d289fb30d396a8256be2ef00">&#9670;&nbsp;</a></span>led_pub_</h2>
 
@@ -705,6 +1869,72 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">rclcpp::Subscription&lt;std_msgs::msg::Empty&gt;::SharedPtr BtManagerNode::listen_switch_sub_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aadeeba85e31688e761b60a0d2c8020a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadeeba85e31688e761b60a0d2c8020a0">&#9670;&nbsp;</a></span>odom_mutex_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::mutex BtManagerNode::odom_mutex_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5feccedbab509e8cc37e19886e50fa83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5feccedbab509e8cc37e19886e50fa83">&#9670;&nbsp;</a></span>odom_sub_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Subscription&lt;nav_msgs::msg::Odometry&gt;::SharedPtr BtManagerNode::odom_sub_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae86e449992996b8db09eae2333cb86dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae86e449992996b8db09eae2333cb86dd">&#9670;&nbsp;</a></span>saved_dock_odom_pose_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structPose2D.html">Pose2D</a>&gt; BtManagerNode::saved_dock_odom_pose_</td>
         </tr>
       </table>
   </td>

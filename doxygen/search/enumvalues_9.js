@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['teleop_922',['TELEOP',['../bt__manager__node_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3aa10b9d6dc5049f36df3ee7e88697d95a',1,'bt_manager_node.hpp']]],
-  ['togglepause_923',['TogglePause',['../classTurtleBoundariesKeyboard.html#ad4ec69a244b192ab9e06dab019613c30aa755f6cef42bb1c48404ed8217e9e73e',1,'TurtleBoundariesKeyboard']]],
-  ['turnleft_924',['TurnLeft',['../classTurtleBoundariesKeyboard.html#ad4ec69a244b192ab9e06dab019613c30a8240c76a9676d55f5d5bfeb9a6fc7028',1,'TurtleBoundariesKeyboard']]],
-  ['turnright_925',['TurnRight',['../classTurtleBoundariesKeyboard.html#ad4ec69a244b192ab9e06dab019613c30a40dfa38b645f971c52766aa367a474fd',1,'TurtleBoundariesKeyboard']]]
+  ['search_1061',['SEARCH',['../bt__manager__node_8hpp.html#a34803508739521c7e0bd5a6d943d7097a0f544d682c3a664870f025f48c4b04b5',1,'bt_manager_node.hpp']]],
+  ['stop_1062',['Stop',['../classTurtleBoundariesKeyboard.html#ad4ec69a244b192ab9e06dab019613c30a11a755d598c0c417f9a36758c3da7481',1,'TurtleBoundariesKeyboard']]]
 ];

@@ -1,5 +1,7 @@
 <map id="BtManagerNode" name="BtManagerNode">
-<area shape="rect" id="node1" title=" " alt="" coords="84,95,211,121"/>
+<area shape="rect" id="node1" title=" " alt="" coords="272,109,399,136"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,5,108,32"/>
-<area shape="rect" id="node3" title=" " alt="" coords="132,5,347,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="132,5,357,32"/>
+<area shape="rect" id="node4" title=" " alt="" coords="381,5,473,32"/>
+<area shape="rect" id="node5" title=" " alt="" coords="497,5,712,32"/>
 </map>

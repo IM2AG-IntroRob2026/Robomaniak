@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['keyaction_893',['KeyAction',['../classTurtleBoundariesKeyboard.html#ad4ec69a244b192ab9e06dab019613c30',1,'TurtleBoundariesKeyboard']]],
-  ['kind_894',['Kind',['../structListenNode_1_1PendingPublish.html#aa3b0536cd55ceea5c826045bf4dbe3ff',1,'ListenNode::PendingPublish']]]
+  ['gpuprovider_1028',['GpuProvider',['../namespacerobot__vision.html#a7829b6526c29bf03ecd136ce155746c8',1,'robot_vision']]]
 ];

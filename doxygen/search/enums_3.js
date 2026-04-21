@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['safetystatus_896',['SafetyStatus',['../follow__node_8hpp.html#abe2352576a9d42ff13a6343a1ddf10f0',1,'follow_node.hpp']]],
-  ['state_897',['State',['../classTurtleFsmNode.html#a9ecb945771d22545355113adea77bced',1,'TurtleFsmNode']]]
+  ['robotmode_1031',['RobotMode',['../bt__manager__node_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3',1,'bt_manager_node.hpp']]]
 ];
