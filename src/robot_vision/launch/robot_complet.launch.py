@@ -7,6 +7,7 @@ from launch.substitutions import PathJoinSubstitution
 def generate_launch_description():
     pkg_share = FindPackageShare('robot_vision')
     models_path = PathJoinSubstitution([pkg_share, 'models'])
+    config_path = PathJoinSubstitution([pkg_share, 'config'])
 
     return LaunchDescription([
         # 1. Flux Vidéo
@@ -78,7 +79,7 @@ def generate_launch_description():
             name='dock_detector_node',
             output='screen',
             parameters=[{
-                'camera_info_path': '/root/ros2_ws/src/robot_vision/config/camera_intrinsics.yaml',
+                'camera_info_path': PathJoinSubstitution([config_path, 'camera_intrinsics.yaml']),
                 'marker_id':      0,
                 'marker_size_m':  0.08,
                 'dictionary':     'DICT_4X4_50',
