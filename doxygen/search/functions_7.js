@@ -1,10 +1,13 @@
 var searchData=
 [
-  ['handle_5faccepted_626',['handle_accepted',['../classRobotSquareServer.html#a181cf4192b5e15d5c5e77434d6ca990b',1,'RobotSquareServer::handle_accepted()'],['../classTurtleBoundaries.html#a8ee02b8871d4696d6264250e5022b8fe',1,'TurtleBoundaries::handle_accepted()'],['../classTurtleSquareServer.html#a31219ead370876c91c1ab79c35135ac7',1,'TurtleSquareServer::handle_accepted()']]],
-  ['handle_5faction_627',['handle_action',['../classTurtleBoundariesKeyboard.html#ae6fb50864e10f85c4bb0b67789894cae',1,'TurtleBoundariesKeyboard']]],
-  ['handle_5fcancel_628',['handle_cancel',['../classRobotSquareServer.html#ad302fd300fa00ec992b5ebcf8ebede3e',1,'RobotSquareServer::handle_cancel()'],['../classTurtleBoundaries.html#ad3f126463e6f6e1795168bc5bd8a8763',1,'TurtleBoundaries::handle_cancel()'],['../classTurtleSquareServer.html#a72ba95826aa95609dce7891c1508d8ea',1,'TurtleSquareServer::handle_cancel()']]],
-  ['handle_5fgoal_629',['handle_goal',['../classRobotSquareServer.html#a5732b6f0829be622bd46bcb383de9263',1,'RobotSquareServer::handle_goal()'],['../classTurtleBoundaries.html#ae7ec5019426b28a9975ad7a7ede48705',1,'TurtleBoundaries::handle_goal()'],['../classTurtleSquareServer.html#ad2eb2b1bbdc0af655c8e5823b1641ffc',1,'TurtleSquareServer::handle_goal()']]],
-  ['handlekeyword_630',['handleKeyword',['../classListenNode.html#a6e28b1ccf3d98f43e5136799f5e7812f',1,'ListenNode']]],
-  ['handlelockloss_631',['handleLockLoss',['../classFollowNode.html#ad9b32c61eb2d31d5c07932f1fb4df79a',1,'FollowNode']]],
-  ['heading_5ferror_5fto_5fcenter_632',['heading_error_to_center',['../classTurtleFsmNode.html#a1eba5b3e1d5c3dd637eeeca7e17eea22',1,'TurtleFsmNode']]]
+  ['handle_5faccepted_660',['handle_accepted',['../classRobotSquareServer.html#a181cf4192b5e15d5c5e77434d6ca990b',1,'RobotSquareServer::handle_accepted()'],['../classTurtleBoundaries.html#a8ee02b8871d4696d6264250e5022b8fe',1,'TurtleBoundaries::handle_accepted()'],['../classTurtleSquareServer.html#a31219ead370876c91c1ab79c35135ac7',1,'TurtleSquareServer::handle_accepted()']]],
+  ['handle_5faction_661',['handle_action',['../classTurtleBoundariesKeyboard.html#ae6fb50864e10f85c4bb0b67789894cae',1,'TurtleBoundariesKeyboard']]],
+  ['handle_5fcancel_662',['handle_cancel',['../classRobotSquareServer.html#ad302fd300fa00ec992b5ebcf8ebede3e',1,'RobotSquareServer::handle_cancel()'],['../classTurtleBoundaries.html#ad3f126463e6f6e1795168bc5bd8a8763',1,'TurtleBoundaries::handle_cancel()'],['../classTurtleSquareServer.html#a72ba95826aa95609dce7891c1508d8ea',1,'TurtleSquareServer::handle_cancel()']]],
+  ['handle_5fgoal_663',['handle_goal',['../classRobotSquareServer.html#a5732b6f0829be622bd46bcb383de9263',1,'RobotSquareServer::handle_goal()'],['../classTurtleBoundaries.html#ae7ec5019426b28a9975ad7a7ede48705',1,'TurtleBoundaries::handle_goal()'],['../classTurtleSquareServer.html#ad2eb2b1bbdc0af655c8e5823b1641ffc',1,'TurtleSquareServer::handle_goal()']]],
+  ['handlekeyword_664',['handleKeyword',['../classListenNode.html#a6e28b1ccf3d98f43e5136799f5e7812f',1,'ListenNode']]],
+  ['handlelockloss_665',['handleLockLoss',['../classFollowNode.html#ad9b32c61eb2d31d5c07932f1fb4df79a',1,'FollowNode']]],
+  ['handlelog_666',['handleLog',['../classDockCalibrationNode.html#a9daa5b17eb8c9b27f00f24adea227013',1,'DockCalibrationNode']]],
+  ['handlepitch_667',['handlePitch',['../classDockCalibrationNode.html#a33db7aca07c3b938f3ee9034fdcecb67',1,'DockCalibrationNode']]],
+  ['handleraw_668',['handleRaw',['../classDockCalibrationNode.html#a261cb6980b2e0c6e447c051a9a14f6d0',1,'DockCalibrationNode']]],
+  ['heading_5ferror_5fto_5fcenter_669',['heading_error_to_center',['../classTurtleFsmNode.html#a1eba5b3e1d5c3dd637eeeca7e17eea22',1,'TurtleFsmNode']]]
 ];

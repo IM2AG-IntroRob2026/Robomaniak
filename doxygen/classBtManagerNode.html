@@ -163,6 +163,10 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:a329519271a406427d999313b3aba1f49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1674410ec881264e80bea1ba7bd4ffd4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a1674410ec881264e80bea1ba7bd4ffd4">publishZeroCmd</a> ()</td></tr>
 <tr class="separator:a1674410ec881264e80bea1ba7bd4ffd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a122c149d39f9add133bf92f10a9f73e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a122c149d39f9add133bf92f10a9f73e3">buildCameraTransform</a> ()</td></tr>
+<tr class="separator:a122c149d39f9add133bf92f10a9f73e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a651f12fb448d5fbc253cc019adc55c89"><td class="memItemLeft" align="right" valign="top">tf2::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a651f12fb448d5fbc253cc019adc55c89">cameraToBase</a> (const geometry_msgs::msg::Pose &amp;pose_cam) const</td></tr>
+<tr class="separator:a651f12fb448d5fbc253cc019adc55c89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32754fd063df6f4b7688f68adda2226d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a32754fd063df6f4b7688f68adda2226d">publishLed</a> (const <a class="el" href="classBtManagerNode.html#aa0a1a8a6838651fad5afe62b9d3cfc62">LightringLeds</a> &amp;msg)</td></tr>
 <tr class="separator:a32754fd063df6f4b7688f68adda2226d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -259,6 +263,20 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a1df681d7e4210b2e187cb2abaf2cd46a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a430105dbbe0db44b204026f6ae8da438"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a430105dbbe0db44b204026f6ae8da438">approach_heading_threshold_</a> {0.15}</td></tr>
 <tr class="separator:a430105dbbe0db44b204026f6ae8da438"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d6ebc84252a55b4bf3b7c6a8ca751a2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a3d6ebc84252a55b4bf3b7c6a8ca751a2">cam_x_m_</a> {0.0}</td></tr>
+<tr class="separator:a3d6ebc84252a55b4bf3b7c6a8ca751a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad50cf22174ef81ed68fea046cc788c24"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#ad50cf22174ef81ed68fea046cc788c24">cam_y_m_</a> {0.0}</td></tr>
+<tr class="separator:ad50cf22174ef81ed68fea046cc788c24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afad47cda2899bb9a281a4cbeda1b23e6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#afad47cda2899bb9a281a4cbeda1b23e6">cam_z_m_</a> {0.10}</td></tr>
+<tr class="separator:afad47cda2899bb9a281a4cbeda1b23e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15b32a0b810c765169f4deef8f6c64a8"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a15b32a0b810c765169f4deef8f6c64a8">cam_roll_deg_</a> {0.0}</td></tr>
+<tr class="separator:a15b32a0b810c765169f4deef8f6c64a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b37641a7c17edb6b679ff13adf345b1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a6b37641a7c17edb6b679ff13adf345b1">cam_pitch_deg_</a> {-20.0}</td></tr>
+<tr class="separator:a6b37641a7c17edb6b679ff13adf345b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe8e986f0ce6d6b56429f149e86e8bd7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#afe8e986f0ce6d6b56429f149e86e8bd7">cam_yaw_deg_</a> {0.0}</td></tr>
+<tr class="separator:afe8e986f0ce6d6b56429f149e86e8bd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39764bca9582a27ed99bd365292a2437"><td class="memItemLeft" align="right" valign="top">tf2::Transform&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a39764bca9582a27ed99bd365292a2437">tf_cam_to_base_</a></td></tr>
+<tr class="separator:a39764bca9582a27ed99bd365292a2437"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
@@ -485,6 +503,31 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a122c149d39f9add133bf92f10a9f73e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a122c149d39f9add133bf92f10a9f73e3">&#9670;&nbsp;</a></span>buildCameraTransform()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BtManagerNode::buildCameraTransform </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac5815df215cf4c36f7ddf5444e5e05ca"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac5815df215cf4c36f7ddf5444e5e05ca">&#9670;&nbsp;</a></span>buildTree()</h2>
 
@@ -499,6 +542,32 @@ Static Private Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a651f12fb448d5fbc253cc019adc55c89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a651f12fb448d5fbc253cc019adc55c89">&#9670;&nbsp;</a></span>cameraToBase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tf2::Vector3 BtManagerNode::cameraToBase </td>
+          <td>(</td>
+          <td class="paramtype">const geometry_msgs::msg::Pose &amp;&#160;</td>
+          <td class="paramname"><em>pose_cam</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -1550,6 +1619,138 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a6b37641a7c17edb6b679ff13adf345b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b37641a7c17edb6b679ff13adf345b1">&#9670;&nbsp;</a></span>cam_pitch_deg_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::cam_pitch_deg_ {-20.0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a15b32a0b810c765169f4deef8f6c64a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15b32a0b810c765169f4deef8f6c64a8">&#9670;&nbsp;</a></span>cam_roll_deg_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::cam_roll_deg_ {0.0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3d6ebc84252a55b4bf3b7c6a8ca751a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d6ebc84252a55b4bf3b7c6a8ca751a2">&#9670;&nbsp;</a></span>cam_x_m_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::cam_x_m_ {0.0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad50cf22174ef81ed68fea046cc788c24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad50cf22174ef81ed68fea046cc788c24">&#9670;&nbsp;</a></span>cam_y_m_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::cam_y_m_ {0.0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afe8e986f0ce6d6b56429f149e86e8bd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe8e986f0ce6d6b56429f149e86e8bd7">&#9670;&nbsp;</a></span>cam_yaw_deg_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::cam_yaw_deg_ {0.0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afad47cda2899bb9a281a4cbeda1b23e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afad47cda2899bb9a281a4cbeda1b23e6">&#9670;&nbsp;</a></span>cam_z_m_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double BtManagerNode::cam_z_m_ {0.10}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a156f4b16a3f68616f4ea87908cedd021"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a156f4b16a3f68616f4ea87908cedd021">&#9670;&nbsp;</a></span>ctx_</h2>
 
@@ -1957,6 +2158,28 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">rclcpp::Subscription&lt;<a class="el" href="bt__manager__node_8hpp.html#a2f304fa38449e26b09c0640b96772341">Twist</a>&gt;::SharedPtr BtManagerNode::teleop_sub_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a39764bca9582a27ed99bd365292a2437"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39764bca9582a27ed99bd365292a2437">&#9670;&nbsp;</a></span>tf_cam_to_base_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tf2::Transform BtManagerNode::tf_cam_to_base_</td>
         </tr>
       </table>
   </td>
