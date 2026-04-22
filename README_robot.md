@@ -1,5 +1,8 @@
 # Robomaniak
 
+![ROS](https://img.shields.io/badge/ros-%230A0FF9.svg?style=for-the-badge&logo=ros&logoColor=white)
+![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
+
 Ce README.md se base uniquement sur le contenu du repertoire `/src/robot_vision/`.
 
 ## Table des matières
@@ -31,7 +34,7 @@ Le système fonctionne autour de trois modes (`TELEOP`, `FOLLOW`, `LISTEN`) afin
 - Changer de couleurs de leds en fonction de la situation
 - Réinitialisation en temps réels
 - Se docker de n'importe où
-- Se undocker
+- S'undocker
 
 ## Installation
 
@@ -87,13 +90,13 @@ Le teleop a besoin d'être dans un terminal à part pour configurer son terminal
 
 ## Documentation
 ![Github Pages](https://img.shields.io/badge/github%20pages-121013?style=for-the-badge&logo=github&logoColor=white)
+![Doxygen](https://img.shields.io/badge/doxygen-2C4AA8?style=for-the-badge&logo=doxygen&logoColor=white)
 
 Une documention a été mise en place grâce à l'outils doxygen.
 
 Vous trouverez la documentaion en ligne à cette adresse : [Robomaniak Doxygen](https://im2ag-introrob2026.github.io/Robomaniak/)
 
 ## Conception
-
 L’architecture du projet est organisée autour de **7 nœuds ROS2**, tous regroupés dans le package `robot_vision/`, qui contient l’intégralité de la logique du robot : **Flux Vidéo**, **Détection**, **Suivi**, **Téléop**, **Écoute**, **Behavior Tree** (chef d’orchestre) et **Détecteur de Dock**.
 
 Le robot fonctionne selon **3 modes** :
@@ -176,6 +179,7 @@ Cette position est utilisée pour approcher suffisamment le dock, afin de laisse
 Pour obtenir une estimation de position fiable, une calibration caméra est nécessaire à l’aide d’un motif damier dont la taille des carrés est connue.
 
 ## Docker
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
 A partir du moment où docker est installé, vous pouvez lancer tous les noeuds dans n'importe quel environnement.
 
