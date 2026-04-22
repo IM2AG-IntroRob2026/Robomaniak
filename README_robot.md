@@ -7,13 +7,13 @@ Ce README.md se base uniquement sur le contenu du repertoire `/src/robot_vision/
 
 ## Table des matières
 - [Robomaniak](#robomaniak)
-- [Fonctionnalités principales](#-fonctionnalités-principales)
-- [Installation](#-installation)
-- [Documentation](#-documentation)
-- [Conception](#-conception)
-- [Docker](#-docker)
-- [Feedback](#-feedback)
-- [Auteurs](#-auteurs)
+- [Fonctionnalités principales](#fonctionnalité-principales)
+- [Installation](#installation)
+- [Documentation](#documentation)
+- [Conception](#conception)
+- [Docker](#docker)
+- [Feedback](#feedback)
+- [Auteurs](#auteurs)
 
 ## Robomaniak
 
@@ -26,7 +26,7 @@ Le système fonctionne autour de trois modes (`TELEOP`, `FOLLOW`, `LISTEN`) afin
 ## Fonctionnalité principales
 - Dirigeable à partir d'un clavier
 - Dirigeable à partir d'une mannette
-- Configurer des nouveaux mots 
+- Configurer des nouveaux mots
 - Obéir à des ordres prédéfinis
 - Détecter une personne
 - Suivre une personne
@@ -40,18 +40,23 @@ Le système fonctionne autour de trois modes (`TELEOP`, `FOLLOW`, `LISTEN`) afin
 
 Les commandes ci-dessous permettent de compiler puis lancer le projet dans Docker.
 
+- Cette commande construit l'image Docker à partir du `Dockerfile` du dépôt et la nomme `ros2` :
+
 ```bash
 sudo docker buildx build -t ros2 .
 ```
-Cette commande construit l'image Docker à partir du `Dockerfile` du dépôt et la nomme `ros2`.
 
+- Cette commande démarre un conteneur temporaire avec le dossier courant monté dans `/ros2_ws`, puis compile le workspace ROS2 avec `colcon build`.
 
 ```bash
-docker run --rm -v $(pwd):/ros2_ws -w /ros2_ws ros2 \
+sudo docker run --rm -v $(pwd):/ros2_ws -w /ros2_ws ros2 \
           /ros_entrypoint.sh /bin/bash -c "source /root/create3_ws/install/setup.bash && colcon build"
 ```
-Cette commande démarre un conteneur temporaire avec le dossier courant monté dans `/ros2_ws`, puis compile le workspace ROS2 avec `colcon build`.
 
+- Cette commande lance le pipeline complet du robot dans Docker (vidéo, détection, suivi, behavior tree, écoute et dock detector), avec :
+    - `--net=host` pour partager le réseau de la machine hôte,
+    - `--device ...` pour accéder au son, à la manette et au périphérique HID,
+    - les variables CycloneDDS pour la communication ROS2.
 
 ```bash
 sudo docker run -it --rm \
@@ -66,11 +71,9 @@ sudo docker run -it --rm \
     -w /ros2_ws \
     ros2 /bin/bash -c "source install/setup.bash && ros2 launch robot_vision robot_complet.launch.py"
 ```
-Cette commande lance le pipeline complet du robot dans Docker (vidéo, détection, suivi, behavior tree, écoute et dock detector), avec :
-- `--net=host` pour partager le réseau de la machine hôte,
-- `--device ...` pour accéder au son, à la manette et au périphérique HID,
-- les variables CycloneDDS pour la communication ROS2.
 
+- Cette commande lance uniquement le nœud `teleop_node` dans Docker pour piloter le robot manuellement (clavier/manette).
+  Le teleop a besoin d'être dans un terminal à part pour configurer son terminal.
 
 ```bash
 sudo docker run -it --rm \
@@ -85,8 +88,12 @@ sudo docker run -it --rm \
     -w /ros2_ws \
     ros2 /bin/bash -c "source install/setup.bash && ros2 run robot_vision teleop_node"
 ```
-Cette commande lance uniquement le nœud `teleop_node` dans Docker pour piloter le robot manuellement (clavier/manette).
-Le teleop a besoin d'être dans un terminal à part pour configurer son terminal.
+
+- Alternativement, pour éviter la compilation manuelle de l'image qui peut prendre du temps, il est possible de récuperer l'image docker généré par la CD github avec la commande :
+
+```bash
+docker pull ghcr.io/im2ag-introrob2026/robomaniak:latest
+```
 
 ## Documentation
 ![Github Pages](https://img.shields.io/badge/github%20pages-121013?style=for-the-badge&logo=github&logoColor=white)
@@ -97,6 +104,7 @@ Une documention a été mise en place grâce à l'outils doxygen.
 Vous trouverez la documentaion en ligne à cette adresse : [Robomaniak Doxygen](https://im2ag-introrob2026.github.io/Robomaniak/)
 
 ## Conception
+
 L’architecture du projet est organisée autour de **7 nœuds ROS2**, tous regroupés dans le package `robot_vision/`, qui contient l’intégralité de la logique du robot : **Flux Vidéo**, **Détection**, **Suivi**, **Téléop**, **Écoute**, **Behavior Tree** (chef d’orchestre) et **Détecteur de Dock**.
 
 Le robot fonctionne selon **3 modes** :
@@ -186,10 +194,14 @@ A partir du moment où docker est installé, vous pouvez lancer tous les noeuds 
 Le docker utilise `ros2 iron` pour compiler
 
 ## Feedback
-Nous voulons souligner la grande partition d'Antoine qui a été le pilier de ce projet.
+Nous voulons souligner la grande participation d'Antoine qui a été le pilier de ce projet.
 
 ## Auteurs
-Antoine Patron
-Lisa Zannettacci
-Adrien Coste
-Justine Reat
+- Antoine Patron
+- Lisa Zannettacci
+- Adrien Coste
+- Justine Reat
+
+-----------------
+
+[Back to top](#robomaniak)
