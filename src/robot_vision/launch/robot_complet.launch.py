@@ -44,7 +44,7 @@ def generate_launch_description():
         Node(
             package='robot_vision',
             executable='bt_manager_node',
-            parameters=[{'bt_tick_hz': 50.0, 'dock_action': '/Robot3/dock', 'undock_action': '/Robot3/undock'}],
+            parameters=[{'bt_tick_hz': 50.0, 'dock_action': '/Robot3/dock', 'undock_action': '/Robot3/undock', 'camera_pitch_deg': -27.0}],
             remappings=[
                 ('/cmd_vel', '/Robot3/cmd_vel'),
                 ('/cmd_lightring', '/Robot3/cmd_lightring'),
