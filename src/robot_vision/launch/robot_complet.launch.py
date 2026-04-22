@@ -7,6 +7,7 @@ from launch.substitutions import PathJoinSubstitution
 def generate_launch_description():
     pkg_share = FindPackageShare('robot_vision')
     models_path = PathJoinSubstitution([pkg_share, 'models'])
+    config_path = PathJoinSubstitution([pkg_share, 'config'])
 
     return LaunchDescription([
         # 1. Flux Vidéo
@@ -43,10 +44,11 @@ def generate_launch_description():
         Node(
             package='robot_vision',
             executable='bt_manager_node',
-            parameters=[{'bt_tick_hz': 50.0, 'dock_action': '/Robot3/dock', 'undock_action': '/Robot3/undock'}],
+            parameters=[{'bt_tick_hz': 50.0, 'dock_action': '/Robot3/dock', 'undock_action': '/Robot3/undock', 'camera_pitch_deg': -27.0}],
             remappings=[
                 ('/cmd_vel', '/Robot3/cmd_vel'),
-                ('/cmd_lightring', '/Robot3/cmd_lightring')
+                ('/cmd_lightring', '/Robot3/cmd_lightring'),
+                ('/odom', '/Robot3/odom')
             ]
         ),
 
@@ -64,9 +66,24 @@ def generate_launch_description():
         ),
 
         # 6. Teleop
+        # Node(
+        #     package='robot_vision',
+        #     executable='teleop_node',
+        #     condition=None
+        # ),
+
+        # 7. Dock Detector
         Node(
             package='robot_vision',
-            executable='teleop_node',
-            condition=None
+            executable='dock_detector_node',
+            name='dock_detector_node',
+            output='screen',
+            parameters=[{
+                'camera_info_path': PathJoinSubstitution([config_path, 'camera_intrinsics.yaml']),
+                'marker_id':      0,
+                'marker_size_m':  0.08,
+                'dictionary':     'DICT_4X4_50',
+                'publish_debug':  False,
+            }]
         )
     ])

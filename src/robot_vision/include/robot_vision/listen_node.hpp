@@ -34,15 +34,27 @@ private:
     float       keyword_score_   {2.5f};
     float       score_threshold_ {0.01f};
 
-    std::string wake_word_  {"computer"};
     std::string kw_forward_ {"forward"};
     std::string kw_left_    {"left"};
     std::string kw_right_   {"right"};
 
-    std::string wake_word_tokens_;
+    std::string kw_mode_teleop_  {"teleop"};
+    std::string kw_mode_follow_  {"follow"};
+    std::string kw_mode_listen_  {"listen"};
+
+    std::string kw_dock_   {"dock"};
+    std::string kw_undock_ {"undock"};
+
     std::string kw_forward_tokens_;
     std::string kw_left_tokens_;
     std::string kw_right_tokens_;
+
+    std::string kw_mode_teleop_tokens_;
+    std::string kw_mode_follow_tokens_;
+    std::string kw_mode_listen_tokens_;
+
+    std::string kw_dock_tokens_;
+    std::string kw_undock_tokens_;
 
     std::unordered_set<std::string> vocab_;
 
@@ -56,14 +68,16 @@ private:
     static constexpr std::size_t AUDIO_BUFFER_MAX_SAMPLES = 16000 * 5;
 
     struct PendingPublish {
-        enum class Kind { ModeSwitch, Command } kind;
+        enum class Kind { Command, ModeRequest, Dock, Undock, } kind;
         std::string data;
     };
     std::mutex                  publish_mutex_;
     std::vector<PendingPublish> publish_queue_;
 
-    rclcpp::Publisher<std_msgs::msg::Empty>::SharedPtr  switch_pub_;
     rclcpp::Publisher<std_msgs::msg::String>::SharedPtr command_pub_;
+    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr mode_request_pub_;
+    rclcpp::Publisher<std_msgs::msg::Empty>::SharedPtr  dock_pub_;
+    rclcpp::Publisher<std_msgs::msg::Empty>::SharedPtr  undock_pub_;
     rclcpp::TimerBase::SharedPtr                        publish_timer_;
 
     std::atomic<bool> running_{true};

@@ -26,6 +26,9 @@ RUN apt-get update && apt-get install -y \
     ros-iron-behaviortree-cpp-v3 \
     ros-iron-vision-msgs \
     ros-iron-rqt-image-view \
+    libyaml-cpp-dev \
+  ros-iron-camera-calibration \
+    ros-iron-tf2-geometry-msgs \
     && rm -rf /var/lib/apt/lists/*
 
 ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp

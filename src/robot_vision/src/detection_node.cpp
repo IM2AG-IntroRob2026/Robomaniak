@@ -13,14 +13,10 @@
 #include <cv_bridge/cv_bridge.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
-#include <irobot_create_msgs/msg/lightring_leds.hpp>
-#include <irobot_create_msgs/msg/led_color.hpp>
 
 #include "robot_vision/yolo_detector.hpp"
 
 namespace fs = std::filesystem;
-using LightringLeds = irobot_create_msgs::msg::LightringLeds;
-using LedColor = irobot_create_msgs::msg::LedColor;
 using Detection2DArray = vision_msgs::msg::Detection2DArray;
 using Detection2D = vision_msgs::msg::Detection2D;
 
@@ -71,13 +67,8 @@ DetectionNode::DetectionNode() : Node("detection_node")
 
     human_pub_ = this->create_publisher<std_msgs::msg::Bool>("/detection/human_present", 10);
     detections_pub_ = this->create_publisher<Detection2DArray>("/detection/detections", 10);
-    led_pub_ = this->create_publisher<LightringLeds>("/cmd_lightring", 10);
     image_sub_ = this->create_subscription<sensor_msgs::msg::Image>(
         "/camera/image_raw", 10, std::bind(&DetectionNode::onImage, this, std::placeholders::_1));
-
-    led_human_ = makeLightring(  0, 255,   0);  // green
-    led_idle_  = makeLightring(  0,   0, 255);  // blue
-    publishLed(led_idle_);
 
     RCLCPP_INFO(this->get_logger(), "DetectionNode ready, waiting for images...");
 }
@@ -107,19 +98,16 @@ void DetectionNode::onImage(const sensor_msgs::msg::Image::ConstSharedPtr& msg)
         RCLCPP_INFO(this->get_logger(), "Debug image saved with %zu detection(s).", detections.size());
     }
 
-    if (human_found != last_human_state_) {
-        publishLed(human_found ? led_human_ : led_idle_);
-        last_human_state_ = human_found;
-
+    static bool last_human_state = false;
+    if (human_found != last_human_state) {
+        last_human_state = human_found;
         if (human_found) {
             RCLCPP_INFO(this->get_logger(),
-                "Humain detected (%zu detection(s), max confidence: %.1f%%)",
+                "Human detected (%zu detection(s), max confidence: %.1f%%)",
                 detections.size(),
                 std::max_element(
                     detections.begin(), detections.end(),
-                    [](const auto& a, const auto& b) {
-                        return a.confidence < b.confidence;
-                    }
+                    [](const auto& a, const auto& b) { return a.confidence < b.confidence; }
                 )->confidence);
         } else {
             RCLCPP_INFO(this->get_logger(), "No human detected.");
@@ -199,24 +187,6 @@ void DetectionNode::saveDebugImage(const cv::Mat& frame, const std::vector<robot
     } else {
         RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), 5000, "Failed to save debug image to '%s'", filename.string().c_str());
     }
-}
-
-void DetectionNode::publishLed(const LightringLeds& msg)
-{
-    led_pub_->publish(msg);
-}
-
-[[nodiscard]] LightringLeds DetectionNode::makeLightring(uint8_t r, uint8_t g, uint8_t b)
-{
-    LedColor color;
-    color.red   = r;
-    color.green = g;
-    color.blue  = b;
-
-    LightringLeds msg;
-    msg.override_system = true;
-    msg.leds.fill(color);
-    return msg;
 }
 
 int main(int argc, char* argv[])

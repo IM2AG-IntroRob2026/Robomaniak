@@ -16,14 +16,17 @@ find_package(rclcpp              REQUIRED)
 find_package(sensor_msgs         REQUIRED)
 find_package(std_msgs            REQUIRED)
 find_package(geometry_msgs       REQUIRED)
+find_package(nav_msgs            REQUIRED)
 find_package(vision_msgs         REQUIRED)
 find_package(cv_bridge           REQUIRED)
+find_package(tf2                 REQUIRED)
+find_package(tf2_geometry_msgs   REQUIRED)
 find_package(irobot_create_msgs  REQUIRED)
 find_package(behaviortree_cpp_v3 REQUIRED)
 find_package(PkgConfig           REQUIRED)
 find_package(rclcpp_action       REQUIRED)
 
-find_package(OpenCV REQUIRED COMPONENTS core imgproc videoio)
+find_package(OpenCV REQUIRED COMPONENTS core imgproc videoio aruco calib3d)
 
 # ----- libevdev -----
 
@@ -36,6 +39,11 @@ message(STATUS "libevdev lib     : ${LIBEVDEV_LIBRARIES}")
 pkg_check_modules(PORTAUDIO REQUIRED portaudio-2.0)
 message(STATUS "PortAudio include : ${PORTAUDIO_INCLUDE_DIRS}")
 message(STATUS "PortAudio lib     : ${PORTAUDIO_LIBRARIES}")
+
+# ----- yaml-cpp -----
+find_package(yaml-cpp REQUIRED)
+message(STATUS "yaml-cpp include : ${YAML_CPP_INCLUDE_DIR}")
+message(STATUS "yaml-cpp lib     : ${YAML_CPP_LIBRARIES}")
 
 # ----- ONNX Runtime -----
 find_path(ONNXRUNTIME_INCLUDE_DIR
@@ -58,18 +66,8 @@ find_library(ONNXRUNTIME_LIBRARY
 )
 
 if(NOT ONNXRUNTIME_INCLUDE_DIR OR NOT ONNXRUNTIME_LIBRARY)
-    message(FATAL_ERROR
-            "ONNX Runtime introuvable.\n"
-            "Télécharger le package précompilé depuis :\n"
-            "  https://github.com/microsoft/onnxruntime/releases\n"
-            "Puis installer avec :\n"
-            "  sudo cp -r onnxruntime-*/include/* /usr/local/include/\n"
-            "  sudo cp -r onnxruntime-*/lib/*     /usr/local/lib/\n"
-            "  sudo ldconfig\n"
-    )
+    message(FATAL_ERROR "ONNX Runtime introuvable.")
 endif()
-message(STATUS "ONNX Runtime headers : ${ONNXRUNTIME_INCLUDE_DIR}")
-message(STATUS "ONNX Runtime lib     : ${ONNXRUNTIME_LIBRARY}")
 
 add_library(onnxruntime::onnxruntime UNKNOWN IMPORTED)
 set_target_properties(onnxruntime::onnxruntime PROPERTIES
@@ -96,15 +94,8 @@ find_library(SHERPA_ONNX_LIBRARY
 )
 
 if(NOT SHERPA_ONNX_INCLUDE_DIR OR NOT SHERPA_ONNX_LIBRARY)
-    message(FATAL_ERROR
-            "Sherpa-ONNX introuvable.\n"
-            "Télécharger depuis https://github.com/k2-fsa/sherpa-onnx/releases\n"
-            "  sudo cp -r sherpa-onnx-*/include/* /usr/local/include/\n"
-            "  sudo cp -r sherpa-onnx-*/lib/*     /usr/local/lib/\n"
-            "  sudo ldconfig\n")
+    message(FATAL_ERROR "Sherpa-ONNX introuvable.")
 endif()
-message(STATUS "Sherpa-ONNX include : ${SHERPA_ONNX_INCLUDE_DIR}")
-message(STATUS "Sherpa-ONNX lib     : ${SHERPA_ONNX_LIBRARY}")
 
 add_library(sherpa_onnx::c_api UNKNOWN IMPORTED)
 set_target_properties(sherpa_onnx::c_api PROPERTIES
@@ -119,8 +110,11 @@ set(ROS_DEPS
         sensor_msgs
         std_msgs
         geometry_msgs
+        nav_msgs
         vision_msgs
         cv_bridge
+        tf2
+        tf2_geometry_msgs
         irobot_create_msgs
         behaviortree_cpp_v3
 )
@@ -128,7 +122,7 @@ set(ROS_DEPS
 # ----- YOLO Detector Library -----
 add_library(yolo_detector_lib src/yolo_detector.cpp)
 target_include_directories(yolo_detector_lib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
-target_link_libraries(yolo_detector_lib ${OpenCV_LIBS} onnxruntime::onnxruntime )
+target_link_libraries(yolo_detector_lib ${OpenCV_LIBS} onnxruntime::onnxruntime)
 ament_target_dependencies(yolo_detector_lib ${ROS_DEPS})
 
 # ----- Video Node -----
@@ -164,10 +158,27 @@ target_include_directories(listen_node PRIVATE
 target_link_libraries(listen_node ${PORTAUDIO_LIBRARIES} sherpa_onnx::c_api)
 ament_target_dependencies(listen_node ${ROS_DEPS})
 
+# ----- LED Manager Library -----
+add_library(led_manager_lib src/led_manager.cpp)
+target_include_directories(led_manager_lib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+ament_target_dependencies(led_manager_lib ${ROS_DEPS})
+
 # ----- BT Manager Node -----
 add_executable(bt_manager_node src/bt_manager_node.cpp)
 target_include_directories(bt_manager_node PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+target_link_libraries(bt_manager_node led_manager_lib)
 ament_target_dependencies(bt_manager_node ${ROS_DEPS})
+
+# ----- Dock Detector Node -----
+add_executable(dock_detector_node src/dock_detector_node.cpp)
+target_include_directories(dock_detector_node PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+target_link_libraries(dock_detector_node ${OpenCV_LIBS} yaml-cpp )
+ament_target_dependencies(dock_detector_node ${ROS_DEPS})
+
+# ----- Dock Calibration Node -----
+add_executable(dock_calibration_node src/dock_calibration_node.cpp)
+target_include_directories(dock_calibration_node PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+ament_target_dependencies(dock_calibration_node ${ROS_DEPS})
 
 # ----- Installation -----
 install(TARGETS
@@ -177,11 +188,15 @@ install(TARGETS
         teleop_node
         listen_node
         bt_manager_node
+        dock_detector_node
+        dock_calibration_node
+        led_manager_lib
         DESTINATION lib/${PROJECT_NAME}
 )
 
 install(DIRECTORY include/ DESTINATION include)
 install(DIRECTORY models/  DESTINATION share/${PROJECT_NAME}/models)
+install(DIRECTORY config/  DESTINATION share/${PROJECT_NAME}/config OPTIONAL)
 
 install(
         DIRECTORY launch/
