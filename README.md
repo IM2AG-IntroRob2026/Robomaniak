@@ -3,7 +3,8 @@
 ![ROS](https://img.shields.io/badge/ros-%230A0FF9.svg?style=for-the-badge&logo=ros&logoColor=white)
 ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
 
-Ce README.md se base uniquement sur le contenu du repertoire `/src/robot_vision/`.
+Ce README.md se base uniquement sur le contenu du répertoire `/src/robot_vision/`.
+Si vous voulez voir nos développements pour turtlesim, vous pouvez regarder le README_turle.md qui se trouve à la racine du projet.
 
 ## Table des matières
 - [Robomaniak](#robomaniak)
@@ -23,7 +24,7 @@ L’objectif est de proposer un robot capable de passer facilement d’un contr�
 
 Le système fonctionne autour de trois modes (`TELEOP`, `FOLLOW`, `LISTEN`) afin d’adapter le comportement du robot au contexte d’utilisation.
 
-## Fonctionnalité principales
+## Fonctionnalités principales
 - Dirigeable à partir d'un clavier
 - Dirigeable à partir d'une mannette
 - Configurer des nouveaux mots 
