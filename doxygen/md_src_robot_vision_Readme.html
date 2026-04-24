@@ -128,10 +128,12 @@ Suivi de cible</h2>
 <div class="fragment"><div class="line">ros2 run robot_vision follow_node --ros-args -p strategy:=&quot;most_centered&quot; -p angular_dead_zone:=0.2 -p allow_reverse:=false -p target_bbox_height:=1000.0 -p lock_lost_frames:=10 -p linear_dead_zone:=50.0 -p allow_reverse:=true --remap /ir_intensity:=/Robot3/ir_intensity --remap /hazard_detection:=/Robot3/hazard_detection</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
 BT Manager</h2>
+<p>Les réglages de l’approche se trouvent dans <code>config/bt_manager_approach.yaml</code>.</p>
 <div class="fragment"><div class="line">ros2 run robot_vision bt_manager_node --ros-args \</div>
 <div class="line">  -p bt_tick_hz:=50.0 \</div>
 <div class="line">  -p dock_action:=/Robot3/dock \</div>
 <div class="line">  -p undock_action:=/Robot3/undock \</div>
+<div class="line">  -p approach_config_path:=&quot;$(ros2 pkg prefix robot_vision)/share/robot_vision/config/bt_manager_approach.yaml&quot; \</div>
 <div class="line">  --remap /cmd_vel:=/Robot3/cmd_vel \</div>
 <div class="line">  --remap /cmd_lightring:=/Robot3/cmd_lightring</div>
 </div><!-- fragment --><div class="fragment"><div class="line">ros2 run robot_vision teleop_node</div>

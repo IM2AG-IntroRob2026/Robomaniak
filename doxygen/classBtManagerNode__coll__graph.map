@@ -1,11 +1,12 @@
 <map id="BtManagerNode" name="BtManagerNode">
-<area shape="rect" id="node1" title=" " alt="" coords="467,271,593,298"/>
-<area shape="rect" id="node2" title=" " alt="" coords="77,16,180,43"/>
-<area shape="rect" id="node3" title=" " alt="" coords="14,67,243,94"/>
-<area shape="rect" id="node4" title=" " alt="" coords="16,118,241,144"/>
-<area shape="rect" id="node5" title=" " alt="" coords="83,235,175,262"/>
-<area shape="rect" id="node6" title=" " alt="" coords="22,286,235,328"/>
-<area shape="rect" id="node7" title=" " alt="" coords="21,352,236,379"/>
-<area shape="rect" id="node8" title=" " alt="" coords="5,403,252,430"/>
-<area shape="rect" id="node9" title=" " alt="" coords="30,454,227,496"/>
+<area shape="rect" id="node1" title=" " alt="" coords="467,294,593,321"/>
+<area shape="rect" id="node2" title=" " alt="" coords="77,17,180,44"/>
+<area shape="rect" id="node3" title=" " alt="" coords="14,68,243,94"/>
+<area shape="rect" id="node4" title=" " alt="" coords="16,118,241,145"/>
+<area shape="rect" id="node5" title=" " alt="" coords="83,229,175,256"/>
+<area shape="rect" id="node6" title=" " alt="" coords="22,280,235,322"/>
+<area shape="rect" id="node7" title=" " alt="" coords="21,346,236,373"/>
+<area shape="rect" id="node8" title=" " alt="" coords="5,397,252,424"/>
+<area shape="rect" id="node9" href="$structApproachConfig.html" title=" " alt="" coords="67,448,191,474"/>
+<area shape="rect" id="node10" title=" " alt="" coords="30,499,227,540"/>
 </map>

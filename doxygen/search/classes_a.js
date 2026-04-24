@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['videonode_644',['VideoNode',['../classVideoNode.html',1,'']]]
+  ['yolodetector_525',['YoloDetector',['../classrobot__vision_1_1YoloDetector.html',1,'robot_vision']]]
 ];

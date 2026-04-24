@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['btcontext_494',['BtContext',['../structBtContext.html',1,'']]],
-  ['btmanagernode_495',['BtManagerNode',['../classBtManagerNode.html',1,'']]]
+  ['approachconfig_500',['ApproachConfig',['../structApproachConfig.html',1,'']]]
 ];
