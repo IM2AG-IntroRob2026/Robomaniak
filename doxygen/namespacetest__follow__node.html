@@ -82,8 +82,8 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ae15e6563ff9b4a54b102619d4e3b61fe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetest__follow__node.html#ae15e6563ff9b4a54b102619d4e3b61fe">FOLLOW_NODE</a></td></tr>
-<tr class="separator:ae15e6563ff9b4a54b102619d4e3b61fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36df4417eb5c7a7d721fb136e6feaf61"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetest__follow__node.html#a36df4417eb5c7a7d721fb136e6feaf61">LAUNCH_FILE</a></td></tr>
+<tr class="separator:a36df4417eb5c7a7d721fb136e6feaf61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a93ab455093c2f1c444106ffcc5273a62"></a>
@@ -189,30 +189,39 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="ae15e6563ff9b4a54b102619d4e3b61fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae15e6563ff9b4a54b102619d4e3b61fe">&#9670;&nbsp;</a></span>FOLLOW_NODE</h2>
+<a id="a36df4417eb5c7a7d721fb136e6feaf61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36df4417eb5c7a7d721fb136e6feaf61">&#9670;&nbsp;</a></span>LAUNCH_FILE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">test_follow_node.FOLLOW_NODE</td>
+          <td class="memname">string test_follow_node.LAUNCH_FILE</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;=  LaunchNode(</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    package=<span class="stringliteral">&quot;robot_vision&quot;</span>,</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;    executable=<span class="stringliteral">&quot;follow_node&quot;</span>,</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;    name=<span class="stringliteral">&quot;follow_node&quot;</span>,</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    parameters=[{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        <span class="stringliteral">&quot;strategy&quot;</span>: <span class="stringliteral">&quot;most_centered&quot;</span>,</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        <span class="stringliteral">&quot;angular_dead_zone&quot;</span>: 0.2,</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        <span class="stringliteral">&quot;linear_dead_zone&quot;</span>: 50.0,</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        <span class="stringliteral">&quot;target_bbox_height&quot;</span>: 1000.0,</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        <span class="stringliteral">&quot;lock_lost_frames&quot;</span>: 10,</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        <span class="stringliteral">&quot;allow_reverse&quot;</span>: <span class="keyword">False</span>,</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    }],</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;)</div>
+<b>Initial value:</b><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;=  <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="stringliteral">from launch import LaunchDescription</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="stringliteral">from launch_ros.actions import Node</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="stringliteral">def generate_launch_description():</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="stringliteral">    return LaunchDescription([</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="stringliteral">        Node(</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="stringliteral">            package=&#39;robot_vision&#39;,</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="stringliteral">            executable=&#39;follow_node&#39;,</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="stringliteral">            name=&#39;follow_node&#39;,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="stringliteral">            parameters=[{</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="stringliteral">                &#39;strategy&#39;: &#39;most_centered&#39;,</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="stringliteral">                &#39;angular_dead_zone&#39;: 0.2,</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="stringliteral">                &#39;linear_dead_zone&#39;: 50.0,</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="stringliteral">                &#39;target_bbox_height&#39;: 1000.0,</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="stringliteral">                &#39;lock_lost_frames&#39;: 10,</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="stringliteral">                &#39;allow_reverse&#39;: False,</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="stringliteral">            }],</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="stringliteral">        ),</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="stringliteral">    ])</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="stringliteral">&quot;&quot;&quot;</span></div>
 </div><!-- fragment -->
 </div>
 </div>
