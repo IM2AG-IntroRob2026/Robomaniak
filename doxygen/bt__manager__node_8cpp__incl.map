@@ -1,5 +1,5 @@
 <map id="src/robot_vision/src/bt_manager_node.cpp" name="src/robot_vision/src/bt_manager_node.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="4577,5,4748,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="4787,5,4957,47"/>
 <area shape="rect" id="node2" href="$bt__manager__node_8hpp.html" title=" " alt="" coords="2400,95,2584,136"/>
 <area shape="rect" id="node4" title=" " alt="" coords="1340,385,1404,411"/>
 <area shape="rect" id="node6" title=" " alt="" coords="3601,385,3660,411"/>
@@ -17,7 +17,10 @@
 <area shape="rect" id="node37" title=" " alt="" coords="2996,295,3073,322"/>
 <area shape="rect" id="node43" title=" " alt="" coords="5112,102,5197,129"/>
 <area shape="rect" id="node44" title=" " alt="" coords="5222,102,5285,129"/>
-<area shape="rect" id="node45" title=" " alt="" coords="5309,102,5395,129"/>
+<area shape="rect" id="node45" title=" " alt="" coords="5309,102,5382,129"/>
+<area shape="rect" id="node46" title=" " alt="" coords="5406,102,5493,129"/>
+<area shape="rect" id="node47" title=" " alt="" coords="5517,102,5592,129"/>
+<area shape="rect" id="node48" title=" " alt="" coords="5617,95,5834,136"/>
 <area shape="rect" id="node3" title=" " alt="" coords="2875,385,2941,411"/>
 <area shape="rect" id="node5" title=" " alt="" coords="1888,385,1963,411"/>
 <area shape="rect" id="node16" title=" " alt="" coords="2530,191,2681,233"/>

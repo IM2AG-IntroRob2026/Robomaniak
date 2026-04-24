@@ -67,7 +67,6 @@ $(function() {
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-static-methods">Static Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classBtManagerNode-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">BtManagerNode Class Reference</div>  </div>
@@ -325,11 +324,6 @@ Private Attributes</h2></td></tr>
 <tr class="separator:aa122725ea909f1ffe4d286d58ac15eb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f2ccb1fa835b0c273f4aef8ebb75c11"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classSoundManager.html">SoundManager</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a8f2ccb1fa835b0c273f4aef8ebb75c11">sound_mgr_</a></td></tr>
 <tr class="separator:a8f2ccb1fa835b0c273f4aef8ebb75c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:a9b5dc8cd7ff996ef02cf7c9be8ac58e4"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a9b5dc8cd7ff996ef02cf7c9be8ac58e4">TREE_XML</a></td></tr>
-<tr class="separator:a9b5dc8cd7ff996ef02cf7c9be8ac58e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a0114acb9601d4adacc8ae8d15099f212"></a>
@@ -2750,45 +2744,6 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a9b5dc8cd7ff996ef02cf7c9be8ac58e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b5dc8cd7ff996ef02cf7c9be8ac58e4">&#9670;&nbsp;</a></span>TREE_XML</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const char* BtManagerNode::TREE_XML</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= R<span class="stringliteral">&quot;(</span></div>
-<div class="line"><span class="stringliteral">    &lt;root BTCPP_format=&quot;4&quot;&gt;</span></div>
-<div class="line"><span class="stringliteral">      &lt;BehaviorTree ID=&quot;MainTree&quot;&gt;</span></div>
-<div class="line"><span class="stringliteral">        &lt;ReactiveFallback name=&quot;root&quot;&gt;</span></div>
-<div class="line"><span class="stringliteral">          &lt;ReactiveSequence name=&quot;follow_branch&quot;&gt;</span></div>
-<div class="line"><span class="stringliteral">            &lt;IsMode name=&quot;check_follow&quot; expected=&quot;FOLLOW&quot;/&gt;</span></div>
-<div class="line"><span class="stringliteral">            &lt;FollowAction name=&quot;do_follow&quot;/&gt;</span></div>
-<div class="line"><span class="stringliteral">          &lt;/ReactiveSequence&gt;</span></div>
-<div class="line"><span class="stringliteral">          &lt;ReactiveSequence name=&quot;listen_branch&quot;&gt;</span></div>
-<div class="line"><span class="stringliteral">            &lt;IsMode name=&quot;check_listen&quot; expected=&quot;LISTEN&quot;/&gt;</span></div>
-<div class="line"><span class="stringliteral">            &lt;ListenAction name=&quot;do_listen&quot;/&gt;</span></div>
-<div class="line"><span class="stringliteral">          &lt;/ReactiveSequence&gt;</span></div>
-<div class="line"><span class="stringliteral">          &lt;TeleopAction name=&quot;do_teleop&quot;/&gt;</span></div>
-<div class="line"><span class="stringliteral">        &lt;/ReactiveFallback&gt;</span></div>
-<div class="line"><span class="stringliteral">      &lt;/BehaviorTree&gt;</span></div>
-<div class="line"><span class="stringliteral">    &lt;/root&gt;</span></div>
-<div class="line"><span class="stringliteral">    )&quot;</span></div>
-</div><!-- fragment -->
 </div>
 </div>
 <a id="abbbb004c0a5d98888a82efba9535e7ed"></a>
