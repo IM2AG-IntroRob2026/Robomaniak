@@ -1,0 +1,16 @@
+approach:
+  coarse_tolerance_m: 0.8
+  trigger_distance_m: 0.6
+  trigger_lateral_m: 0.15
+  max_linear_speed: 0.18
+  max_angular_speed: 0.6
+  kp_rot: 1.2
+  kp_fwd: 0.45
+  search_speed: 0.4
+  coarse_timeout_s: 60.0
+  fine_timeout_s: 30.0
+  search_timeout_s: 25.0
+  lost_timeout_s: 2.0
+  tick_hz: 20.0
+  heading_threshold: 0.15
+

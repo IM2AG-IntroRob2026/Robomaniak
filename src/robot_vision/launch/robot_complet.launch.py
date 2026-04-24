@@ -53,6 +53,7 @@ def generate_launch_description():
                          'dock_action': '/Robot3/dock',
                          'undock_action': '/Robot3/undock',
                          'camera_pitch_deg': -27.0,
+                         'approach_config_path': PathJoinSubstitution([config_path, 'bt_manager_approach.yaml']),
                          'sound_sequences_path': PathJoinSubstitution([config_path, 'sound_sequences.yaml']),
                          }],
             remappings=[

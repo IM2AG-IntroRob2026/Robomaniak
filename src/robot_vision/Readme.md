@@ -92,11 +92,14 @@ ros2 run robot_vision follow_node --ros-args -p strategy:="most_centered" -p ang
 
 ## BT Manager
 
+Les réglages de l’approche se trouvent dans `config/bt_manager_approach.yaml`.
+
 ```bash
 ros2 run robot_vision bt_manager_node --ros-args \
   -p bt_tick_hz:=50.0 \
   -p dock_action:=/Robot3/dock \
   -p undock_action:=/Robot3/undock \
+  -p approach_config_path:="$(ros2 pkg prefix robot_vision)/share/robot_vision/config/bt_manager_approach.yaml" \
   --remap /cmd_vel:=/Robot3/cmd_vel \
   --remap /cmd_lightring:=/Robot3/cmd_lightring
 ```
