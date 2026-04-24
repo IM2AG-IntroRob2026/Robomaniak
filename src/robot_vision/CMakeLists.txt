@@ -120,18 +120,18 @@ set(ROS_DEPS
 )
 
 # ----- YOLO Detector Library -----
-add_library(yolo_detector_lib src/yolo_detector.cpp)
+add_library(yolo_detector_lib src/librairies/yolo_detector.cpp)
 target_include_directories(yolo_detector_lib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 target_link_libraries(yolo_detector_lib ${OpenCV_LIBS} onnxruntime::onnxruntime)
 ament_target_dependencies(yolo_detector_lib ${ROS_DEPS})
 
 # ----- LED Manager Library -----
-add_library(led_manager_lib src/led_manager.cpp)
+add_library(led_manager_lib src/librairies/led_manager.cpp)
 target_include_directories(led_manager_lib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 ament_target_dependencies(led_manager_lib ${ROS_DEPS})
 
 # ----- Sound Manager Library -----
-add_library(sound_manager_lib src/sound_manager.cpp)
+add_library(sound_manager_lib src/librairies/sound_manager.cpp)
 target_include_directories(sound_manager_lib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 target_link_libraries(sound_manager_lib yaml-cpp)
 ament_target_dependencies(sound_manager_lib ${ROS_DEPS})

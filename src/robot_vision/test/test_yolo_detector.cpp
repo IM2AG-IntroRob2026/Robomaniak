@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <string>
-#include "robot_vision/yolo_detector.hpp"
+#include "robot_vision/librairies/yolo_detector.hpp"
 
 using namespace robot_vision;
 

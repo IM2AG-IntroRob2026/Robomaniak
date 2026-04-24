@@ -14,7 +14,7 @@
 #include <rclcpp/rclcpp.hpp>
 #include <vision_msgs/msg/detection2_d_array.hpp>
 
-#include "robot_vision/sound_manager.hpp"
+#include "robot_vision/librairies/sound_manager.hpp"
 
 using Detection2DArray = vision_msgs::msg::Detection2DArray;
 using Detection2D = vision_msgs::msg::Detection2D;

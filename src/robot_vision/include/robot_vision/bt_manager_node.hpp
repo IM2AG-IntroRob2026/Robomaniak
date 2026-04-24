@@ -28,8 +28,8 @@
 #include <irobot_create_msgs/msg/hazard_detection_vector.hpp>
 #include <irobot_create_msgs/msg/hazard_detection.hpp>
 
-#include "robot_vision/led_manager.hpp"
-#include "robot_vision/sound_manager.hpp"
+#include "robot_vision/librairies/led_manager.hpp"
+#include "robot_vision/librairies/sound_manager.hpp"
 
 using Twist = geometry_msgs::msg::Twist;
 
