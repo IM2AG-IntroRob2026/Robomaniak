@@ -3,14 +3,17 @@
 #include <algorithm>
 #include <cmath>
 #include <chrono>
+#include <fstream>
 #include <memory>
 #include <mutex>
 #include <stdexcept>
 #include <string>
+#include <sstream>
 
 #include <behaviortree_cpp_v3/action_node.h>
 #include <behaviortree_cpp_v3/bt_factory.h>
 #include <behaviortree_cpp_v3/condition_node.h>
+#include <ament_index_cpp/get_package_share_directory.hpp>
 #include <geometry_msgs/msg/pose_stamped.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 #include <nav_msgs/msg/odometry.hpp>
@@ -54,6 +57,7 @@ BtManagerNode::BtManagerNode() : Node("bt_manager_node")
 
     declare_parameter<double>("request_debounce_s",     0.5);
     declare_parameter<double>("dock_pending_timeout_s", 120.0);
+    declare_parameter<std::string>("bt_xml_path", ament_index_cpp::get_package_share_directory("robot_vision") + "/config/bt_manager_tree.xml");
 
     this->declare_parameter<std::string>("sound_sequences_path", "");
 
@@ -229,7 +233,15 @@ void BtManagerNode::buildTree()
             return std::make_unique<ListenAction>(name, config, ctx);
         });
 
-    tree_ = factory_.createTreeFromText(TREE_XML);
+    const auto bt_xml_path = get_parameter("bt_xml_path").as_string();
+    std::ifstream xml_file(bt_xml_path);
+    if (!xml_file.is_open()) {
+        throw std::runtime_error("Unable to open BehaviorTree XML file: " + bt_xml_path);
+    }
+
+    std::ostringstream xml_buffer;
+    xml_buffer << xml_file.rdbuf();
+    tree_ = factory_.createTreeFromText(xml_buffer.str());
 }
 
 void BtManagerNode::tickBt()

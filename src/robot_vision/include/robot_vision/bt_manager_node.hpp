@@ -133,24 +133,6 @@ private:
 
     std::unique_ptr<SoundManager> sound_mgr_;
 
-    static constexpr const char* TREE_XML = R"(
-    <root BTCPP_format="4">
-      <BehaviorTree ID="MainTree">
-        <ReactiveFallback name="root">
-          <ReactiveSequence name="follow_branch">
-            <IsMode name="check_follow" expected="FOLLOW"/>
-            <FollowAction name="do_follow"/>
-          </ReactiveSequence>
-          <ReactiveSequence name="listen_branch">
-            <IsMode name="check_listen" expected="LISTEN"/>
-            <ListenAction name="do_listen"/>
-          </ReactiveSequence>
-          <TeleopAction name="do_teleop"/>
-        </ReactiveFallback>
-      </BehaviorTree>
-    </root>
-    )";
-
 public:
     // Constructor & destructor
     BtManagerNode();

@@ -7,6 +7,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
+    add_compile_options($<$<CONFIG:Release>:-O3>)
 endif()
 
 add_compile_options(-Wall -Wextra -Wpedantic)
@@ -21,6 +22,7 @@ find_package(vision_msgs         REQUIRED)
 find_package(cv_bridge           REQUIRED)
 find_package(tf2                 REQUIRED)
 find_package(tf2_geometry_msgs   REQUIRED)
+find_package(ament_index_cpp     REQUIRED)
 find_package(irobot_create_msgs  REQUIRED)
 find_package(behaviortree_cpp_v3 REQUIRED)
 find_package(PkgConfig           REQUIRED)
@@ -115,6 +117,7 @@ set(ROS_DEPS
         cv_bridge
         tf2
         tf2_geometry_msgs
+        ament_index_cpp
         irobot_create_msgs
         behaviortree_cpp_v3
 )
