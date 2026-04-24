@@ -65,9 +65,7 @@ jobs:
           
               source /root/create3_ws/install/setup.bash &&
           
-              colcon build --symlink-install --cmake-args -DBUILD_TESTING=ON -DCMAKE_C_COMPILER_LAUNCHER=ccache
-                -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS='--coverage'
-                -DCMAKE_C_FLAGS='--coverage' &&
+              colcon build --symlink-install --cmake-args -DBUILD_TESTING=ON -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS='--coverage' -DCMAKE_C_FLAGS='--coverage' &&
               colcon test --event-handlers console_direct+ &&
               colcon test-result --verbose
           
