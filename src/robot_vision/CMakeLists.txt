@@ -223,6 +223,7 @@ install(
 if(BUILD_TESTING)
     find_package(ament_lint_auto REQUIRED)
     find_package(ament_cmake_gtest REQUIRED)
+    find_package(ament_cmake_pytest REQUIRED)
 
     ament_lint_auto_find_test_dependencies()
 
@@ -232,6 +233,9 @@ if(BUILD_TESTING)
             onnxruntime::onnxruntime
             yolo_detector_lib
     )
+
+    ament_add_pytest_test(test_follow_node       test/python/test_follow_node.py       TIMEOUT 60)
+    ament_add_pytest_test(test_bt_manager_node   test/python/test_bt_manager_node.py   TIMEOUT 90)
 endif()
 
 ament_package()
