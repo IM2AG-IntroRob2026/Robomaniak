@@ -1,5 +1,4 @@
 name: ROS2 Iron CI
-
 on:
   push:
     branches: [ main ]
@@ -16,6 +15,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
+  KEEP_LAST_RUNS: '10'
 
 jobs:
   ros_build_test:
@@ -29,6 +29,15 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v5
+
+      - name: Checkout current gh-pages (for history)
+        id: gh_pages_checkout
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          path: gh-pages-published
+          fetch-depth: 1
+        continue-on-error: true
 
       - name: Log in to the Container registry
         uses: docker/login-action@v4
@@ -54,60 +63,152 @@ jobs:
           restore-keys: |
             ccache-${{ runner.os }}-
 
-      - name: Build Project with Coverage
+      - name: Build, Test, Coverage, Doxygen
+        id: build_test
         run: |
           docker run --rm \
             -v ${{ github.workspace }}:/ros2_ws \
             -w /ros2_ws \
             ${{ env.IMAGE_NAME_LOWER }}:latest \
-            /ros_entrypoint.sh /bin/bash -c "T
-              apt-get update && apt-get install -y lcov doxygen graphviz &&
-          
-              source /root/create3_ws/install/setup.bash &&
-          
-              colcon build --symlink-install --cmake-args -DBUILD_TESTING=ON -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS='--coverage' -DCMAKE_C_FLAGS='--coverage' &&
-              colcon test --event-handlers console_direct+ &&
-              colcon test-result --verbose
-          
-              lcov --capture --directory build --output-file coverage.info &&
-              lcov --remove coverage.info '/usr/*' '*/install/*' '*/test/*' --output-file coverage.info &&
-              genhtml coverage.info --output-directory coverage &&
-          
-              doxygen Doxyfile
-            "
+            /ros_entrypoint.sh /bin/bash -c '
+              set -e
+              apt-get update && apt-get install -y lcov doxygen graphviz
 
-      - name: Upload coverage report as artifact
+              source /root/create3_ws/install/setup.bash
+
+              colcon build --symlink-install --cmake-args \
+                -DBUILD_TESTING=ON \
+                -DCMAKE_C_COMPILER_LAUNCHER=ccache \
+                -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+                -DCMAKE_BUILD_TYPE=Debug \
+                -DCMAKE_CXX_FLAGS=--coverage \
+                -DCMAKE_C_FLAGS=--coverage
+
+              # Tests: on laisse passer pour générer les rapports même en cas d échec
+              set +e
+              colcon test --event-handlers console_direct+
+              TEST_EXIT=$?
+              colcon test-result --verbose || true
+              set -e
+
+              lcov --capture --directory build --output-file coverage.info
+              lcov --remove coverage.info "/usr/*" "*/install/*" "*/test/*" --output-file coverage.info
+              genhtml coverage.info --output-directory coverage
+
+              doxygen Doxyfile
+
+              chown -R $(id -u):$(id -g) build coverage doc coverage.info || true
+
+              exit $TEST_EXIT
+            '
+
+      - name: Collect JUnit XML files
+        if: always()
+        run: |
+          mkdir -p test-results-xml
+          find build -path '*/test_results/*.xml' -exec cp {} test-results-xml/ \;
+          echo "Found $(ls test-results-xml | wc -l) XML files"
+          ls -la test-results-xml/ || true
+
+      - name: Setup Node.js
+        if: always()
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install xunit-viewer
+        if: always()
+        run: npm install -g xunit-viewer
+
+      - name: Generate current run report
+        if: always()
+        run: |
+          RUN_DIR="public/test-results/run-${{ github.run_number }}"
+          mkdir -p "$RUN_DIR"
+
+          xunit-viewer \
+            --results=test-results-xml \
+            --output="$RUN_DIR/index.html" \
+            --title="Robomaniak Tests - Run #${{ github.run_number }}"
+
+          # Metadata pour l index d historique
+          cat > "$RUN_DIR/meta.json" <<EOF
+          {
+            "run_number": ${{ github.run_number }},
+            "run_id": "${{ github.run_id }}",
+            "timestamp": $(date +%s),
+            "sha": "${{ github.sha }}",
+            "ref": "${{ github.ref_name }}",
+            "actor": "${{ github.actor }}",
+            "event": "${{ github.event_name }}"
+          }
+          EOF
+
+      - name: Merge past runs (keep last N)
+        if: always()
+        run: |
+          KEEP=${{ env.KEEP_LAST_RUNS }}
+          HISTORY_DIR="gh-pages-published/test-results"
+
+          if [ -d "$HISTORY_DIR" ]; then
+            ls -1d "$HISTORY_DIR"/run-*/ 2>/dev/null \
+              | sed 's|/$||' \
+              | awk -F'run-' '{print $2}' \
+              | sort -n \
+              | tail -n $((KEEP - 1)) \
+              | while read num; do
+                dest="public/test-results/run-$num"
+                if [ ! -d "$dest" ]; then
+                  cp -r "$HISTORY_DIR/run-$num" "$dest"
+                fi
+              done
+          fi
+
+          python3 .github/scripts/gen_test_history.py
+
+      - name: Prepare Pages content
+        if: always()
+        run: |
+          mkdir -p public
+          cp -r gh-pages/* public/ 2>/dev/null || true
+
+          [ -d coverage ] && cp -r coverage public/coverage/
+          [ -d doc/html ] && cp -r doc/html public/doxygen/
+
+          cat > public/metrics.json <<EOF
+          {
+            "timestamp": $(date +%s),
+            "last_run": ${{ github.run_number }}
+          }
+          EOF
+
+      - name: Upload coverage artifact
+        if: always()
         uses: actions/upload-artifact@v6
         with:
           name: coverage-report
           path: 'coverage'
 
-      - name: Comment coverage report on PR
-        if: github.event_name == 'pull_request'
-        uses: marocchino/sticky-pull-request-comment@v3
+      - name: Upload test report artifact
+        if: always()
+        uses: actions/upload-artifact@v6
         with:
-          header: '### Code Coverage Report'
-          message: |
-            [View the full coverage report](${{ github.server_url }}/${{ github.repository }}/actions/artifacts/${{ github.run_id }})
-
-      - name: Extract metrics
-        run: |
-          mkdir -p public
-          cat > public/metrics.json <<EOF
-          {
-            "timestamp": $(date +%s)
-          }
-          EOF
-
-      - name: Prepare content
-        run: |
-          cp -r gh-pages/* public/
-          cp -r coverage public/coverage/
-          cp -r doc/html public/doxygen/
+          name: test-report
+          path: 'public/test-results/run-${{ github.run_number }}'
 
       - name: Deploy to GitHub Pages
+        if: always() && github.event_name != 'pull_request'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          keep_files: true
+          keep_files: false
+
+      - name: Comment reports on PR
+        if: github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@v3
+        with:
+          header: '### CI Reports'
+          message: |
+            - [Coverage artifact](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            - [Test report artifact](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})

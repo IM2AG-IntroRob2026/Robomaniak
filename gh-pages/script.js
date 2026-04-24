@@ -1,6 +1,7 @@
 const SECTIONS = {
     'link-doxygen':  'doxygen/index.html',
     'link-coverage': 'coverage/index.html',
+    'link-tests':    'test-results/index.html',
 };
 
 async function loadMetrics() {
