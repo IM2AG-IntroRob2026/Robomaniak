@@ -15,6 +15,10 @@ RUN wget https://github.com/k2-fsa/sherpa-onnx/releases/download/v${SHERPA_ONNX_
 
 FROM osrf/ros:iron-desktop
 
+LABEL org.opencontainers.image.description="This is a Dockerfile for building a ROS 2 Iron image with all the dependencies for Robomaniak:robot-vision project, including ONNX Runtime and Sherpa ONNX. It also includes the iRobot Create 3 ROS 2 packages and sets up the environment for easy development and testing."
+LABEL org.opencontainers.image.source=https://github.com/IM2AG-IntroRob2026/Robomaniak
+LABEL org.opencontainers.image.licenses=MIT
+
 RUN apt-get update && apt-get install -y \
     ccache \
     python3-colcon-common-extensions \
