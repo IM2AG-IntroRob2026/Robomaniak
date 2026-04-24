@@ -2,7 +2,6 @@
 
 #include <atomic>
 #include <chrono>
-#include <memory>
 #include <mutex>
 #include <optional>
 #include <string>
@@ -28,95 +27,15 @@
 #include <irobot_create_msgs/msg/hazard_detection_vector.hpp>
 #include <irobot_create_msgs/msg/hazard_detection.hpp>
 
+#include "robot_vision/bt_utils/approach_phase.hpp"
+#include "robot_vision/bt_utils/bt_context.hpp"
+#include "robot_vision/bt_utils/pose_2d.hpp"
+#include "robot_vision/bt_utils/robot_mode.hpp"
+
 #include "robot_vision/librairies/led_manager.hpp"
 #include "robot_vision/librairies/sound_manager.hpp"
 
 using Twist = geometry_msgs::msg::Twist;
-
-enum class RobotMode { TELEOP, FOLLOW, LISTEN };
-
-inline const char* modeToString(const RobotMode m) noexcept
-{
-    switch (m) {
-        case RobotMode::TELEOP: return "TELEOP";
-        case RobotMode::FOLLOW: return "FOLLOW";
-        case RobotMode::LISTEN: return "LISTEN";
-    }
-    return "UNKNOWN";
-}
-
-inline RobotMode nextMode(const RobotMode m) noexcept
-{
-    switch (m) {
-        case RobotMode::TELEOP: return RobotMode::FOLLOW;
-        case RobotMode::FOLLOW: return RobotMode::LISTEN;
-        case RobotMode::LISTEN: return RobotMode::TELEOP;
-    }
-    return RobotMode::TELEOP;
-}
-
-/**
- * Phases de la machine d'état d'approche qui s'intercale avant l'appel
- * à l'action /dock du Create 3. Elle étend la portée utile du dock
- * bien au-delà des ~30-50cm des IR natifs.
- *
- *   - IDLE         : pas d'approche en cours.
- *   - COARSE       : on se dirige vers la pose odométrique sauvegardée au dernier
- *                  undock/dock, en open-loop sur l'odométrie.
- *   - FINE         : marqueur ArUco visible, asservissement visuel en cap + distance.
- *   - SEARCH       : rotation sur place à la recherche du marqueur.
- *   - DOCK_PENDING : l'action /dock native est en cours, les IR prennent la main.
- */
-enum class ApproachPhase : uint8_t
-{
-    IDLE,
-    COARSE,
-    FINE,
-    SEARCH,
-    DOCK_PENDING,
-};
-
-inline const char* approachPhaseToString(const ApproachPhase p) noexcept
-{
-    switch (p) {
-        case ApproachPhase::IDLE:         return "IDLE";
-        case ApproachPhase::COARSE:       return "COARSE";
-        case ApproachPhase::FINE:         return "FINE";
-        case ApproachPhase::SEARCH:       return "SEARCH";
-        case ApproachPhase::DOCK_PENDING: return "DOCK_PENDING";
-    }
-    return "UNKNOWN";
-}
-
-struct Pose2D
-{
-    double x   {0.0};
-    double y   {0.0};
-    double yaw {0.0};
-};
-
-/**
- * @brief Shared context for the behavior tree nodes, containing shared state and resources.
- */
-struct BtContext
-{
-    std::atomic<RobotMode> mode{RobotMode::TELEOP};
-
-    std::mutex cmd_mutex;
-    Twist follow_cmd;
-    bool  has_follow_cmd{false};
-    Twist teleop_cmd;
-
-    std::optional<std::string> pending_listen_cmd;
-    std::atomic<bool> docking_active{false};
-    RobotMode mode_before_dock{RobotMode::TELEOP};
-
-    double impulse_duration_s    {1.5};
-    double impulse_linear_speed  {0.3};
-    double impulse_angular_speed {0.8};
-
-    rclcpp::Publisher<Twist>::SharedPtr cmd_vel_pub;
-};
 
 class IsMode : public BT::ConditionNode
 {
