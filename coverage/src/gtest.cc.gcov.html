@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2026-04-24 21:00:41</td>
+            <td class="headerValue">2026-04-24 21:29:01</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">206</td>
@@ -2059,11 +2059,11 @@
 <a name="1997"><span class="lineNum">    1997 </span>            : </a>
 <a name="1998"><span class="lineNum">    1998 </span><span class="lineCov">         86 :   std::string result;</span></a>
 <a name="1999"><span class="lineNum">    1999 </span><span class="lineCov">         86 :   result.reserve(static_cast&lt;size_t&gt;(2 * (end - start)));</span></a>
-<a name="2000"><span class="lineNum">    2000 </span><span class="lineCov">       2392 :   for (const char* ch = start; ch != end; ++ch) {</span></a>
-<a name="2001"><span class="lineNum">    2001 </span><span class="lineCov">       2306 :     if (*ch == '\0') {</span></a>
+<a name="2000"><span class="lineNum">    2000 </span><span class="lineCov">       2386 :   for (const char* ch = start; ch != end; ++ch) {</span></a>
+<a name="2001"><span class="lineNum">    2001 </span><span class="lineCov">       2300 :     if (*ch == '\0') {</span></a>
 <a name="2002"><span class="lineNum">    2002 </span><span class="lineNoCov">          0 :       result += &quot;\\0&quot;;  // Replaces NUL with &quot;\\0&quot;;</span></a>
 <a name="2003"><span class="lineNum">    2003 </span>            :     } else {</a>
-<a name="2004"><span class="lineNum">    2004 </span><span class="lineCov">       2306 :       result += *ch;</span></a>
+<a name="2004"><span class="lineNum">    2004 </span><span class="lineCov">       2300 :       result += *ch;</span></a>
 <a name="2005"><span class="lineNum">    2005 </span>            :     }</a>
 <a name="2006"><span class="lineNum">    2006 </span>            :   }</a>
 <a name="2007"><span class="lineNum">    2007 </span>            : </a>
@@ -3588,13 +3588,13 @@
 <a name="3526"><span class="lineNum">    3526 </span>            :  private:</a>
 <a name="3527"><span class="lineNum">    3527 </span>            :   // Is c a whitespace character that is normalized to a space character</a>
 <a name="3528"><span class="lineNum">    3528 </span>            :   // when it appears in an XML attribute value?</a>
-<a name="3529"><span class="lineNum">    3529 </span><span class="lineCov">        610 :   static bool IsNormalizableWhitespace(char c) {</span></a>
-<a name="3530"><span class="lineNum">    3530 </span><span class="lineCov">        610 :     return c == 0x9 || c == 0xA || c == 0xD;</span></a>
+<a name="3529"><span class="lineNum">    3529 </span><span class="lineCov">        604 :   static bool IsNormalizableWhitespace(char c) {</span></a>
+<a name="3530"><span class="lineNum">    3530 </span><span class="lineCov">        604 :     return c == 0x9 || c == 0xA || c == 0xD;</span></a>
 <a name="3531"><span class="lineNum">    3531 </span>            :   }</a>
 <a name="3532"><span class="lineNum">    3532 </span>            : </a>
 <a name="3533"><span class="lineNum">    3533 </span>            :   // May c appear in a well-formed XML document?</a>
-<a name="3534"><span class="lineNum">    3534 </span><span class="lineCov">        358 :   static bool IsValidXmlCharacter(char c) {</span></a>
-<a name="3535"><span class="lineNum">    3535 </span><span class="lineCov">        358 :     return IsNormalizableWhitespace(c) || c &gt;= 0x20;</span></a>
+<a name="3534"><span class="lineNum">    3534 </span><span class="lineCov">        355 :   static bool IsValidXmlCharacter(char c) {</span></a>
+<a name="3535"><span class="lineNum">    3535 </span><span class="lineCov">        355 :     return IsNormalizableWhitespace(c) || c &gt;= 0x20;</span></a>
 <a name="3536"><span class="lineNum">    3536 </span>            :   }</a>
 <a name="3537"><span class="lineNum">    3537 </span>            : </a>
 <a name="3538"><span class="lineNum">    3538 </span>            :   // Returns an XML-escaped copy of the input string str.  If</a>
@@ -3697,9 +3697,9 @@
 <a name="3635"><span class="lineNum">    3635 </span>            :     const std::string&amp; str, bool is_attribute) {</a>
 <a name="3636"><span class="lineNum">    3636 </span><span class="lineCov">         21 :   Message m;</span></a>
 <a name="3637"><span class="lineNum">    3637 </span>            : </a>
-<a name="3638"><span class="lineNum">    3638 </span><span class="lineCov">        275 :   for (size_t i = 0; i &lt; str.size(); ++i) {</span></a>
-<a name="3639"><span class="lineNum">    3639 </span><span class="lineCov">        254 :     const char ch = str[i];</span></a>
-<a name="3640"><span class="lineNum">    3640 </span><span class="lineCov">        254 :     switch (ch) {</span></a>
+<a name="3638"><span class="lineNum">    3638 </span><span class="lineCov">        272 :   for (size_t i = 0; i &lt; str.size(); ++i) {</span></a>
+<a name="3639"><span class="lineNum">    3639 </span><span class="lineCov">        251 :     const char ch = str[i];</span></a>
+<a name="3640"><span class="lineNum">    3640 </span><span class="lineCov">        251 :     switch (ch) {</span></a>
 <a name="3641"><span class="lineNum">    3641 </span><span class="lineNoCov">          0 :       case '&lt;':</span></a>
 <a name="3642"><span class="lineNum">    3642 </span><span class="lineNoCov">          0 :         m &lt;&lt; &quot;&amp;lt;&quot;;</span></a>
 <a name="3643"><span class="lineNum">    3643 </span><span class="lineNoCov">          0 :         break;</span></a>
@@ -3721,15 +3721,15 @@
 <a name="3659"><span class="lineNum">    3659 </span>            :         else</a>
 <a name="3660"><span class="lineNum">    3660 </span><span class="lineNoCov">          0 :           m &lt;&lt; '&quot;';</span></a>
 <a name="3661"><span class="lineNum">    3661 </span><span class="lineCov">          2 :         break;</span></a>
-<a name="3662"><span class="lineNum">    3662 </span><span class="lineCov">        252 :       default:</span></a>
-<a name="3663"><span class="lineNum">    3663 </span><span class="lineCov">        252 :         if (IsValidXmlCharacter(ch)) {</span></a>
-<a name="3664"><span class="lineNum">    3664 </span><span class="lineCov">        252 :           if (is_attribute &amp;&amp; IsNormalizableWhitespace(ch))</span></a>
+<a name="3662"><span class="lineNum">    3662 </span><span class="lineCov">        249 :       default:</span></a>
+<a name="3663"><span class="lineNum">    3663 </span><span class="lineCov">        249 :         if (IsValidXmlCharacter(ch)) {</span></a>
+<a name="3664"><span class="lineNum">    3664 </span><span class="lineCov">        249 :           if (is_attribute &amp;&amp; IsNormalizableWhitespace(ch))</span></a>
 <a name="3665"><span class="lineNum">    3665 </span><span class="lineCov">          2 :             m &lt;&lt; &quot;&amp;#x&quot; &lt;&lt; String::FormatByte(static_cast&lt;unsigned char&gt;(ch))</span></a>
 <a name="3666"><span class="lineNum">    3666 </span><span class="lineCov">          1 :               &lt;&lt; &quot;;&quot;;</span></a>
 <a name="3667"><span class="lineNum">    3667 </span>            :           else</a>
-<a name="3668"><span class="lineNum">    3668 </span><span class="lineCov">        251 :             m &lt;&lt; ch;</span></a>
+<a name="3668"><span class="lineNum">    3668 </span><span class="lineCov">        248 :             m &lt;&lt; ch;</span></a>
 <a name="3669"><span class="lineNum">    3669 </span>            :         }</a>
-<a name="3670"><span class="lineNum">    3670 </span><span class="lineCov">        252 :         break;</span></a>
+<a name="3670"><span class="lineNum">    3670 </span><span class="lineCov">        249 :         break;</span></a>
 <a name="3671"><span class="lineNum">    3671 </span>            :     }</a>
 <a name="3672"><span class="lineNum">    3672 </span>            :   }</a>
 <a name="3673"><span class="lineNum">    3673 </span>            : </a>

@@ -1,4 +1,0 @@
-<map id="TurtleFsmNode" name="TurtleFsmNode">
-<area shape="rect" id="node1" title="Noeud ROS2 qui pilote turtle1 avec une machine a etats finis (FSM)." alt="" coords="5,80,125,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="14,5,117,32"/>
-</map>
