@@ -2,7 +2,7 @@ name: Build and Publish Docker Image
 
 on:
   push:
-    branches: [ main ]
+    branches: [ '**' ]
     paths:
       - 'Dockerfile'
       - '**/package.xml'
@@ -39,11 +39,24 @@ jobs:
         with:
           driver: docker-container
 
+      - name: Extract metadata (tags, labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LOWER }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{version}},value={{tag}}
+            type=ref,event=branch
+            type=sha
+            type=raw,value=latest,enable={{is_default_branch}}
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v7
         with:
           context: .
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LOWER }}:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
