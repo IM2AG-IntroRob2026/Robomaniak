@@ -170,6 +170,8 @@ BtManagerNode::BtManagerNode() : Node("bt_manager_node")
     declare_parameter<double>("request_debounce_s",     0.5);
     declare_parameter<double>("dock_pending_timeout_s", 120.0);
 
+    this->declare_parameter<std::string>("sound_sequences_path", "");
+
     const double tick_hz = get_parameter("bt_tick_hz").as_double();
 
     approach_coarse_tolerance_m_ = get_parameter("approach_coarse_tolerance_m").as_double();
@@ -286,6 +288,13 @@ BtManagerNode::BtManagerNode() : Node("bt_manager_node")
 
     const auto approach_period = std::chrono::duration<double>(1.0 / approach_tick_hz_);
     approach_timer_ = this->create_wall_timer(approach_period, std::bind(&BtManagerNode::approachTick, this));
+
+    sound_mgr_ = std::make_unique<SoundManager>(this);
+    if (const auto sound_path = this->get_parameter("sound_sequences_path").as_string(); !sound_path.empty()) {
+        sound_mgr_->loadFromFile(sound_path);
+    } else {
+        RCLCPP_INFO(this->get_logger(), "sound_sequences_path not set, audio feedback disabled.");
+    }
 
     RCLCPP_INFO(get_logger(), "BtManagerNode ready (BT @%.0fHz, approach @%.0fHz).", tick_hz, approach_tick_hz_);
 }
@@ -723,7 +732,10 @@ void BtManagerNode::resetAllState()
     led_mgr_->setStateTransient(LedState::EMERGENCY_RESET, 2.0);
     led_mgr_->setState(LedState::TELEOP);
 
-    // 7. Republie un Twist zéro pour vider d'éventuels caches DDS
+    // 7. Feedback sonore
+    if (sound_mgr_) { sound_mgr_->play("emergency_reset"); }
+
+    // 8. Republie un Twist zéro pour vider d'éventuels caches DDS
     publishZeroCmd();
 
     RCLCPP_WARN(get_logger(), "RESET COMPLETE: docking_active=false mode=TELEOP approach=IDLE");

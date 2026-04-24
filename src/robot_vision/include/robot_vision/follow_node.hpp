@@ -14,6 +14,8 @@
 #include <rclcpp/rclcpp.hpp>
 #include <vision_msgs/msg/detection2_d_array.hpp>
 
+#include "robot_vision/sound_manager.hpp"
+
 using Detection2DArray = vision_msgs::msg::Detection2DArray;
 using Detection2D = vision_msgs::msg::Detection2D;
 using Twist = geometry_msgs::msg::Twist;
@@ -57,7 +59,7 @@ enum class SafetyStatus
  */
 class FollowNode : public rclcpp::Node
 {
-private: 
+private:
     // Attributs
     TrackingStrategy strategy_{TrackingStrategy::MOST_CENTERED};
     int    image_width_                {1280};
@@ -102,6 +104,8 @@ private:
     rclcpp::Subscription<IrIntensityVec>::SharedPtr ir_sub_;
     rclcpp::Subscription<HazardDetectionVec>::SharedPtr hazard_sub_;
     rclcpp::Publisher<Twist>::SharedPtr cmd_vel_pub_;
+
+    std::unique_ptr<SoundManager> sound_mgr_;
 
 public:
     // Constructor

@@ -125,6 +125,17 @@ target_include_directories(yolo_detector_lib PUBLIC $<BUILD_INTERFACE:${CMAKE_CU
 target_link_libraries(yolo_detector_lib ${OpenCV_LIBS} onnxruntime::onnxruntime)
 ament_target_dependencies(yolo_detector_lib ${ROS_DEPS})
 
+# ----- LED Manager Library -----
+add_library(led_manager_lib src/led_manager.cpp)
+target_include_directories(led_manager_lib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+ament_target_dependencies(led_manager_lib ${ROS_DEPS})
+
+# ----- Sound Manager Library -----
+add_library(sound_manager_lib src/sound_manager.cpp)
+target_include_directories(sound_manager_lib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+target_link_libraries(sound_manager_lib yaml-cpp)
+ament_target_dependencies(sound_manager_lib ${ROS_DEPS})
+
 # ----- Video Node -----
 add_executable(video_node src/video_node.cpp)
 target_include_directories(video_node PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
@@ -140,6 +151,7 @@ ament_target_dependencies(detection_node ${ROS_DEPS})
 # ----- Follow Node -----
 add_executable(follow_node src/follow_node.cpp)
 target_include_directories(follow_node PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+target_link_libraries(follow_node sound_manager_lib)
 ament_target_dependencies(follow_node ${ROS_DEPS})
 
 # ---- Teleop Node -----
@@ -158,15 +170,10 @@ target_include_directories(listen_node PRIVATE
 target_link_libraries(listen_node ${PORTAUDIO_LIBRARIES} sherpa_onnx::c_api)
 ament_target_dependencies(listen_node ${ROS_DEPS})
 
-# ----- LED Manager Library -----
-add_library(led_manager_lib src/led_manager.cpp)
-target_include_directories(led_manager_lib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
-ament_target_dependencies(led_manager_lib ${ROS_DEPS})
-
 # ----- BT Manager Node -----
 add_executable(bt_manager_node src/bt_manager_node.cpp)
 target_include_directories(bt_manager_node PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
-target_link_libraries(bt_manager_node led_manager_lib)
+target_link_libraries(bt_manager_node led_manager_lib sound_manager_lib)
 ament_target_dependencies(bt_manager_node ${ROS_DEPS})
 
 # ----- Dock Detector Node -----
@@ -191,6 +198,7 @@ install(TARGETS
         dock_detector_node
         dock_calibration_node
         led_manager_lib
+        sound_manager_lib
         DESTINATION lib/${PROJECT_NAME}
 )
 

@@ -27,7 +27,9 @@
 #include <tf2/LinearMath/Quaternion.h>
 #include <irobot_create_msgs/msg/hazard_detection_vector.hpp>
 #include <irobot_create_msgs/msg/hazard_detection.hpp>
+
 #include "robot_vision/led_manager.hpp"
+#include "robot_vision/sound_manager.hpp"
 
 using Twist = geometry_msgs::msg::Twist;
 
@@ -275,6 +277,8 @@ private:
     std::unique_ptr<LedManager> led_mgr_;
 
     rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr human_present_sub_;
+
+    std::unique_ptr<SoundManager> sound_mgr_;
 
     static constexpr const char* TREE_XML = R"(
     <root BTCPP_format="4">
