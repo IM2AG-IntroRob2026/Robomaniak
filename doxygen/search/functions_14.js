@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['yawfromquaternion_699',['yawFromQuaternion',['../classBtManagerNode.html#a2d8e20734b7c7a22add68ef422e509fe',1,'BtManagerNode']]],
-  ['yolodetector_700',['YoloDetector',['../classrobot__vision_1_1YoloDetector.html#abf3e5cf45658ca4fd9e08df890e37d71',1,'robot_vision::YoloDetector']]]
+  ['wordtotokens_711',['wordToTokens',['../classListenNode.html#a5897dbc3dd9fc6a55962c6c0672d8a0b',1,'ListenNode']]]
 ];

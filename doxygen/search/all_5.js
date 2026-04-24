@@ -1,19 +1,11 @@
 var searchData=
 [
-  ['factory_5f_134',['factory_',['../classBtManagerNode.html#a24ce7787d7dfbb881de765d00053591e',1,'BtManagerNode']]],
-  ['findclosesttolock_135',['findClosestToLock',['../classFollowNode.html#a61d8b8dc2f432b2450b3eecce46bb287',1,'FollowNode']]],
-  ['fine_136',['FINE',['../approach__phase_8hpp.html#a34803508739521c7e0bd5a6d943d7097ace29ed5a3cd9c6271713d6a95878f369',1,'approach_phase.hpp']]],
-  ['fine_5ftimeout_5fs_137',['fine_timeout_s',['../structApproachConfig.html#ac803b30f307549361009ace65f5bc587',1,'ApproachConfig']]],
-  ['finishapproach_138',['finishApproach',['../classBtManagerNode.html#a549ff457914d71764645b4d19dfea902',1,'BtManagerNode']]],
-  ['first_139',['FIRST',['../follow__node_8hpp.html#ae9bd1d922541cf0f43b8dbdd8cae1128a2c2624a5059934a947d6e25fe8332ade',1,'follow_node.hpp']]],
-  ['follow_140',['FOLLOW',['../led__manager_8hpp.html#a76af66c60c7d301ef6462bf4de574655a578d83c6d15737d0c46bd80f0a19263f',1,'FOLLOW():&#160;led_manager.hpp'],['../robot__mode_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3a578d83c6d15737d0c46bd80f0a19263f',1,'FOLLOW():&#160;robot_mode.hpp']]],
-  ['follow_5faction_2ecpp_141',['follow_action.cpp',['../follow__action_8cpp.html',1,'']]],
-  ['follow_5faction_2ehpp_142',['follow_action.hpp',['../follow__action_8hpp.html',1,'']]],
-  ['follow_5fcmd_143',['follow_cmd',['../structBtContext.html#a04ca53ebb97f7311b79e2d0bf50e88b9',1,'BtContext']]],
-  ['follow_5fnode_2ecpp_144',['follow_node.cpp',['../follow__node_8cpp.html',1,'']]],
-  ['follow_5fnode_2ehpp_145',['follow_node.hpp',['../follow__node_8hpp.html',1,'']]],
-  ['follow_5fsub_5f_146',['follow_sub_',['../classBtManagerNode.html#abe36f71c536e2e3813e9550452bb626f',1,'BtManagerNode']]],
-  ['followaction_147',['FollowAction',['../classFollowAction.html#a82d8cfaca071248a8cc043198d898f2a',1,'FollowAction::FollowAction()'],['../classFollowAction.html',1,'FollowAction']]],
-  ['follownode_148',['FollowNode',['../classFollowNode.html#a335c64cf07302b74bfc87a3ea0da0f97',1,'FollowNode::FollowNode()'],['../classFollowNode.html',1,'FollowNode']]],
-  ['frames_5flost_5f_149',['frames_lost_',['../classFollowNode.html#aa16f4105682e69a0981b5cdf04de1e0b',1,'FollowNode']]]
+  ['emergency_5fpending_5f_127',['emergency_pending_',['../classTeleopNode.html#a5e07a86d2da6ce81f5bee6154e9f83b4',1,'TeleopNode']]],
+  ['emergency_5fpub_5f_128',['emergency_pub_',['../classTeleopNode.html#a5fe5bb696b0c2663460d8813ea27b143',1,'TeleopNode']]],
+  ['emergency_5freset_129',['EMERGENCY_RESET',['../led__manager_8hpp.html#a76af66c60c7d301ef6462bf4de574655a1f0f86c106ce1a3826e9cb59de0af185',1,'led_manager.hpp']]],
+  ['emergency_5freset_5fsub_5f_130',['emergency_reset_sub_',['../classBtManagerNode.html#a9a6b1ee278bf771227a7e77a975b225a',1,'BtManagerNode']]],
+  ['encoder_5fpath_5f_131',['encoder_path_',['../classListenNode.html#adf803f59d255329f3ab96d582ce4e114',1,'ListenNode']]],
+  ['end_5ftime_132',['end_time',['../structListenAction_1_1Impulse.html#a573ef5ac70ef2fdf61a37e703b33df83',1,'ListenAction::Impulse']]],
+  ['error_133',['ERROR',['../led__manager_8hpp.html#a76af66c60c7d301ef6462bf4de574655abb1ca97ec761fc37101737ba0aa2e7c5',1,'led_manager.hpp']]],
+  ['estimatepitchrad_134',['estimatePitchRad',['../classDockCalibrationNode.html#a71fdc837daa58a6ae547e89d4212aa4e',1,'DockCalibrationNode']]]
 ];

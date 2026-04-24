@@ -1,18 +1,11 @@
 var searchData=
 [
-  ['safetystatusfromstring_669',['safetyStatusFromString',['../follow__node_8cpp.html#aa31821da00bc170d27c8c675204e069e',1,'safetyStatusFromString(const std::string &amp;s):&#160;follow_node.cpp'],['../follow__node_8hpp.html#aa31821da00bc170d27c8c675204e069e',1,'safetyStatusFromString(const std::string &amp;s):&#160;follow_node.cpp']]],
-  ['saveddockposecopy_670',['savedDockPoseCopy',['../classBtManagerNode.html#a2a83c94972be7f4a02b1b94e804949f3',1,'BtManagerNode']]],
-  ['savedebugimage_671',['saveDebugImage',['../classDetectionNode.html#a46816d7f0980f7d4dc745c023263fec8',1,'DetectionNode']]],
-  ['selectbystrategy_672',['selectByStrategy',['../classFollowNode.html#a57b25d607ef13c90208fb81d0e23f3c9',1,'FollowNode']]],
-  ['setstate_673',['setState',['../classLedManager.html#aa0c0d6243d5354bc609fb44bc5f64695',1,'LedManager']]],
-  ['setstatetransient_674',['setStateTransient',['../classLedManager.html#aee030e458e223e7dafe5cea7f8381724',1,'LedManager']]],
-  ['setuprawterminal_675',['setupRawTerminal',['../classTeleopNode.html#a0061645a69747910a38cb6ff54799acf',1,'TeleopNode']]],
-  ['shutdownportaudio_676',['shutdownPortAudio',['../classListenNode.html#a78c9e69eabf1a616d3d21fecc9f33ea4',1,'ListenNode']]],
-  ['shutdownsherpa_677',['shutdownSherpa',['../classListenNode.html#a7d89bc0192c295bb97804b04e49e3219',1,'ListenNode']]],
-  ['soundmanager_678',['SoundManager',['../classSoundManager.html#a0f10b3fd4e4865122833a3c2e811feb3',1,'SoundManager']]],
-  ['startapproach_679',['startApproach',['../classBtManagerNode.html#a920201df770521335fd2f551210dde16',1,'BtManagerNode']]],
-  ['stop_680',['stop',['../classSoundManager.html#a3820a512212edaaf294a1d67ea9c9c55',1,'SoundManager']]],
-  ['stoprobot_681',['stopRobot',['../classFollowNode.html#a63290918a810734a21c4f1a4a47a35d1',1,'FollowNode']]],
-  ['strategyfromstring_682',['strategyFromString',['../follow__node_8hpp.html#a42db9ce7e1116dc67d51d126b8180715',1,'strategyFromString(const std::string &amp;s):&#160;follow_node.cpp'],['../follow__node_8cpp.html#a42db9ce7e1116dc67d51d126b8180715',1,'strategyFromString(const std::string &amp;s):&#160;follow_node.cpp']]],
-  ['switchtoteleopandcanceleverything_683',['switchToTeleopAndCancelEverything',['../classBtManagerNode.html#a494672b003c234748b992494cf7f1813',1,'BtManagerNode']]]
+  ['refreshmodeled_671',['refreshModeLed',['../classBtManagerNode.html#a22bcf719dbec6a06cd00812ceafc3894',1,'BtManagerNode']]],
+  ['requestswitch_672',['requestSwitch',['../classTeleopNode.html#add590ce28d371cf80add6786301895f2',1,'TeleopNode']]],
+  ['resetallstate_673',['resetAllState',['../classBtManagerNode.html#acd92754d5d1b075ca5b3f6640508427b',1,'BtManagerNode']]],
+  ['resetpd_674',['resetPD',['../classFollowNode.html#acc4f2b8563c5ea02986fb1becafae98f',1,'FollowNode']]],
+  ['resolveactivestate_675',['resolveActiveState',['../classLedManager.html#a0c61f8889e7f7ac771423734a840dd9d',1,'LedManager']]],
+  ['resolvetarget_676',['resolveTarget',['../classFollowNode.html#a6ca95589a7844dc348e3687e9cfd1e6f',1,'FollowNode']]],
+  ['restoreterminal_677',['restoreTerminal',['../classTeleopNode.html#ad2246462e130d113583cd74755859fe4',1,'TeleopNode']]],
+  ['runinference_678',['runInference',['../classrobot__vision_1_1YoloDetector.html#a9d1542e67aa23e03ae5531d5d4b78b76',1,'robot_vision::YoloDetector']]]
 ];

@@ -1,16 +1,18 @@
 var searchData=
 [
-  ['teleopaction_684',['TeleopAction',['../classTeleopAction.html#ab8abc7da91a4ff0e8f93a008b19ac4f4',1,'TeleopAction']]],
-  ['teleopnode_685',['TeleopNode',['../classTeleopNode.html#a1eee91d4f3a8d2aeed73855011f69380',1,'TeleopNode']]],
-  ['test_686',['TEST',['../test__yolo__detector_8cpp.html#a4b5a97503a60910bb67ea0ba43239c5f',1,'test_yolo_detector.cpp']]],
-  ['tick_687',['tick',['../classIsMode.html#a5c9f2791e75c146c44dfa8bc06d17c36',1,'IsMode']]],
-  ['tickbt_688',['tickBt',['../classBtManagerNode.html#a27c9c03905652c71fcabc169d887962e',1,'BtManagerNode']]],
-  ['tickcoarse_689',['tickCoarse',['../classBtManagerNode.html#a23f93cc3b23437143dc1a5c7ad908932',1,'BtManagerNode']]],
-  ['tickfine_690',['tickFine',['../classBtManagerNode.html#a0bd0b35dc0f483f63aaba29c5aedf149',1,'BtManagerNode']]],
-  ['ticksearch_691',['tickSearch',['../classBtManagerNode.html#acace016490c17347e85957c0fc11a801',1,'BtManagerNode']]],
-  ['todetection2darray_692',['toDetection2DArray',['../classDetectionNode.html#a3806ce9fbff3f843446fe2196fd53196',1,'DetectionNode']]],
-  ['transitionphase_693',['transitionPhase',['../classBtManagerNode.html#a6fff8a65f5a5d75102b92016348aff15',1,'BtManagerNode']]],
-  ['triggerdockaction_694',['triggerDockAction',['../classBtManagerNode.html#a1c466a451006de2db6cb38ba4ce7c9ec',1,'BtManagerNode']]],
-  ['tryopengamepad_695',['tryOpenGamepad',['../classTeleopNode.html#a74ea1f3a3637ce10a9420e4f351eced1',1,'TeleopNode']]],
-  ['turntowardstarget_696',['turnTowardsTarget',['../classFollowNode.html#afdcb071bf95959e7e8791d1ff79f6ace',1,'FollowNode']]]
+  ['safetystatusfromstring_679',['safetyStatusFromString',['../follow__node_8cpp.html#aa31821da00bc170d27c8c675204e069e',1,'safetyStatusFromString(const std::string &amp;s):&#160;follow_node.cpp'],['../follow__node_8hpp.html#aa31821da00bc170d27c8c675204e069e',1,'safetyStatusFromString(const std::string &amp;s):&#160;follow_node.cpp']]],
+  ['saveddockposecopy_680',['savedDockPoseCopy',['../classBtManagerNode.html#a2a83c94972be7f4a02b1b94e804949f3',1,'BtManagerNode']]],
+  ['savedebugimage_681',['saveDebugImage',['../classDetectionNode.html#a46816d7f0980f7d4dc745c023263fec8',1,'DetectionNode']]],
+  ['selectbystrategy_682',['selectByStrategy',['../classFollowNode.html#a57b25d607ef13c90208fb81d0e23f3c9',1,'FollowNode']]],
+  ['setstate_683',['setState',['../classLedManager.html#aa0c0d6243d5354bc609fb44bc5f64695',1,'LedManager']]],
+  ['setstatetransient_684',['setStateTransient',['../classLedManager.html#aee030e458e223e7dafe5cea7f8381724',1,'LedManager']]],
+  ['setuprawterminal_685',['setupRawTerminal',['../classTeleopNode.html#a0061645a69747910a38cb6ff54799acf',1,'TeleopNode']]],
+  ['shutdownportaudio_686',['shutdownPortAudio',['../classListenNode.html#a78c9e69eabf1a616d3d21fecc9f33ea4',1,'ListenNode']]],
+  ['shutdownsherpa_687',['shutdownSherpa',['../classListenNode.html#a7d89bc0192c295bb97804b04e49e3219',1,'ListenNode']]],
+  ['soundmanager_688',['SoundManager',['../classSoundManager.html#a0f10b3fd4e4865122833a3c2e811feb3',1,'SoundManager']]],
+  ['startapproach_689',['startApproach',['../classBtManagerNode.html#a920201df770521335fd2f551210dde16',1,'BtManagerNode']]],
+  ['stop_690',['stop',['../classSoundManager.html#a3820a512212edaaf294a1d67ea9c9c55',1,'SoundManager']]],
+  ['stoprobot_691',['stopRobot',['../classFollowNode.html#a63290918a810734a21c4f1a4a47a35d1',1,'FollowNode']]],
+  ['strategyfromstring_692',['strategyFromString',['../follow__node_8hpp.html#a42db9ce7e1116dc67d51d126b8180715',1,'strategyFromString(const std::string &amp;s):&#160;follow_node.cpp'],['../follow__node_8cpp.html#a42db9ce7e1116dc67d51d126b8180715',1,'strategyFromString(const std::string &amp;s):&#160;follow_node.cpp']]],
+  ['switchtoteleopandcanceleverything_693',['switchToTeleopAndCancelEverything',['../classBtManagerNode.html#a494672b003c234748b992494cf7f1813',1,'BtManagerNode']]]
 ];

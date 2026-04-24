@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['x_483',['x',['../structPose2D.html#a4ea2a4d5ced468e718373ffe07732f60',1,'Pose2D::x()'],['../structDockCalibrationNode_1_1Sample.html#a48b28917e480633dc2f3bd7c5aa445d9',1,'DockCalibrationNode::Sample::x()']]]
+  ['w_488',['w',['../structrobot__vision_1_1Detection.html#af54edb46764704da1896dac0c24d2b14',1,'robot_vision::Detection']]],
+  ['wordtotokens_489',['wordToTokens',['../classListenNode.html#a5897dbc3dd9fc6a55962c6c0672d8a0b',1,'ListenNode']]]
 ];

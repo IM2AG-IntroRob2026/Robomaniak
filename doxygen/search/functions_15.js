@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['_7ebtmanagernode_701',['~BtManagerNode',['../classBtManagerNode.html#a47674531dd2ce9d46cac0ecd0cdb30d7',1,'BtManagerNode']]],
-  ['_7elistennode_702',['~ListenNode',['../classListenNode.html#a733f6b3411e0eb4fed9fbda7fc7849ec',1,'ListenNode']]],
-  ['_7eteleopnode_703',['~TeleopNode',['../classTeleopNode.html#ac15acd95bba27193a6c0b18b2b2a2278',1,'TeleopNode']]]
+  ['yawfromquaternion_712',['yawFromQuaternion',['../classBtManagerNode.html#a2d8e20734b7c7a22add68ef422e509fe',1,'BtManagerNode']]],
+  ['yolodetector_713',['YoloDetector',['../classrobot__vision_1_1YoloDetector.html#abf3e5cf45658ca4fd9e08df890e37d71',1,'robot_vision::YoloDetector']]]
 ];

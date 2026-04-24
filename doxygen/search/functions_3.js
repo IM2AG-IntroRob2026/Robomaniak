@@ -1,10 +1,13 @@
 var searchData=
 [
-  ['debugenabled_588',['debugEnabled',['../classDetectionNode.html#a4e921caa8a2b0ea5c6b5100ef16e7020',1,'DetectionNode']]],
-  ['detect_589',['detect',['../classrobot__vision_1_1YoloDetector.html#af827af70134f39c707747ef88e042829',1,'robot_vision::YoloDetector']]],
-  ['detectionnode_590',['DetectionNode',['../classDetectionNode.html#ae8f22e4f5684fe98146e1e583ec834e1',1,'DetectionNode']]],
-  ['dictionaryfromstring_591',['dictionaryFromString',['../classDockDetectorNode.html#ab3075d78b2484bf1d5e8144f6e949f59',1,'DockDetectorNode']]],
-  ['dockcalibrationnode_592',['DockCalibrationNode',['../classDockCalibrationNode.html#a4810a760a8edfd8b556b3732fb7d0224',1,'DockCalibrationNode']]],
-  ['dockdetectedrecently_593',['dockDetectedRecently',['../classBtManagerNode.html#afe482a3dcde941378ee7995da20a26f6',1,'BtManagerNode']]],
-  ['dockdetectornode_594',['DockDetectorNode',['../classDockDetectorNode.html#a16a4885cbbc4b054672c8a33227cbf49',1,'DockDetectorNode']]]
+  ['cameratobase_588',['cameraToBase',['../classBtManagerNode.html#a651f12fb448d5fbc253cc019adc55c89',1,'BtManagerNode']]],
+  ['cancelactivedockgoal_589',['cancelActiveDockGoal',['../classBtManagerNode.html#a5993d3411a728ccd457e9ade0eba62f6',1,'BtManagerNode']]],
+  ['cancelactiveundockgoal_590',['cancelActiveUndockGoal',['../classBtManagerNode.html#a7ef1be630e8d70344180a51fcd2723e7',1,'BtManagerNode']]],
+  ['clearall_591',['clearAll',['../classLedManager.html#aa984acd0318e77368d22edf874db7dbb',1,'LedManager']]],
+  ['clearstate_592',['clearState',['../classLedManager.html#a1bc7fc3c2dfe287e4f9b6ad1f421a1a5',1,'LedManager']]],
+  ['closegamepad_593',['closeGamepad',['../classTeleopNode.html#a22b00aae6d78008be90cc1f422ef380b',1,'TeleopNode']]],
+  ['commandtotwist_594',['commandToTwist',['../classListenAction.html#aee47a8c8e18ec64b6b48589b08edbca6',1,'ListenAction']]],
+  ['createsubscriptions_595',['createSubscriptions',['../classBtManagerNode.html#a5c41fa8c2702d3393195eac1bdf3b1f3',1,'BtManagerNode']]],
+  ['currentodomcopy_596',['currentOdomCopy',['../classBtManagerNode.html#a2ffad0d99bec8e2e65b9f6d3daad226f',1,'BtManagerNode']]],
+  ['cyclemode_597',['cycleMode',['../classBtManagerNode.html#a86e00d2f0db8fd5816a4bc6ca54edf0d',1,'BtManagerNode']]]
 ];
