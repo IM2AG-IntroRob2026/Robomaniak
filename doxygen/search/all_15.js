@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['w_449',['w',['../structrobot__vision_1_1Detection.html#af54edb46764704da1896dac0c24d2b14',1,'robot_vision::Detection']]],
-  ['wordtotokens_450',['wordToTokens',['../classListenNode.html#a5897dbc3dd9fc6a55962c6c0672d8a0b',1,'ListenNode']]]
+  ['w_464',['w',['../structrobot__vision_1_1Detection.html#af54edb46764704da1896dac0c24d2b14',1,'robot_vision::Detection']]],
+  ['wordtotokens_465',['wordToTokens',['../classListenNode.html#a5897dbc3dd9fc6a55962c6c0672d8a0b',1,'ListenNode']]]
 ];

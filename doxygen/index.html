@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Robomaniak ROS2 Project: Main Page</title>
+<title>Robomaniak ROS2 Project: Robomaniak</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,11 +60,191 @@ $(function() {
 </iframe>
 </div>
 
-<div class="header">
+<div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">Robomaniak ROS2 Project Documentation</div>  </div>
+<div class="title">Robomaniak </div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md_README"></a> <img src="https://img.shields.io/badge/ros-%230A0FF9.svg?style=for-the-badge&amp;logo=ros&amp;logoColor=white" alt="ROS" style="pointer-events: none;" class="inline"/> <img src="https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&amp;logo=c%2B%2B&amp;logoColor=white" alt="C++" style="pointer-events: none;" class="inline"/></p>
+<p>Ce <a class="el" href="README_8md.html">README.md</a> se base uniquement sur le contenu du répertoire <code>/src/robot_vision/</code>. Si vous voulez voir nos développements pour turtlesim, vous pouvez regarder le README_turle.md qui se trouve à la racine du projet.</p>
+<h1><a class="anchor" id="autotoc_md45"></a>
+Table des matières</h1>
+<ul>
+<li><a href="#robomaniak">Robomaniak</a></li>
+<li><a href="#fonctionnalité-principales">Fonctionnalités principales</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#documentation">Documentation</a></li>
+<li><a href="#conception">Conception</a></li>
+<li><a href="#docker">Docker</a></li>
+<li><a href="#feedback">Feedback</a></li>
+<li><a href="#auteurs">Auteurs</a></li>
+</ul>
+<h1><a class="anchor" id="autotoc_md46"></a>
+Robomaniak</h1>
+<p><b>Robomaniak</b> est un projet ROS 2 pour le robot <b>iRobot Create 3</b> qui combine vision, suivi de personne, téléopération, commandes vocales et docking automatique.</p>
+<p>L’objectif est de proposer un robot capable de passer facilement d’un contrôle manuel à des comportements plus autonomes, via une architecture modulaire basée sur plusieurs nœuds spécialisés (vidéo, détection, suivi, écoute, orchestrateur Behavior Tree, détection du dock).</p>
+<p>Le système fonctionne autour de trois modes (<code>TELEOP</code>, <code>FOLLOW</code>, <code>LISTEN</code>) afin d’adapter le comportement du robot au contexte d’utilisation.</p>
+<h1><a class="anchor" id="autotoc_md47"></a>
+Fonctionnalités principales</h1>
+<ul>
+<li>Dirigeable à partir d'un clavier</li>
+<li>Dirigeable à partir d'une mannette</li>
+<li>Configurer des nouveaux mots</li>
+<li>Obéir à des ordres prédéfinis</li>
+<li>Détecter une personne</li>
+<li>Suivre une personne</li>
+<li>Jouer de la musique</li>
+<li>Changer de couleurs de leds en fonction de la situation</li>
+<li>Réinitialisation en temps réels</li>
+<li>Se docker de n'importe où</li>
+<li>S'undocker</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md48"></a>
+Installation</h1>
+<p>Les commandes ci-dessous permettent de compiler puis lancer le projet dans Docker.</p>
+<ul>
+<li>Cette commande construit l'image Docker à partir du <code>Dockerfile</code> du dépôt et la nomme <code>ros2</code> :</li>
+</ul>
+<div class="fragment"><div class="line">sudo docker buildx build -t ros2 .</div>
+</div><!-- fragment --><ul>
+<li>Cette commande démarre un conteneur temporaire avec le dossier courant monté dans <code>/ros2_ws</code>, puis compile le workspace ROS2 avec <code>colcon build</code>.</li>
+</ul>
+<div class="fragment"><div class="line">sudo docker run --rm -v $(pwd):/ros2_ws -w /ros2_ws ros2 \</div>
+<div class="line">          /ros_entrypoint.sh /bin/bash -c &quot;source /root/create3_ws/install/setup.bash &amp;&amp; colcon build&quot;</div>
+</div><!-- fragment --><ul>
+<li>Cette commande lance le pipeline complet du robot dans Docker (vidéo, détection, suivi, behavior tree, écoute et dock detector), avec :<ul>
+<li><code>--net=host</code> pour partager le réseau de la machine hôte,</li>
+<li><code>--device ...</code> pour accéder au son, à la manette et au périphérique HID,</li>
+<li>les variables CycloneDDS pour la communication ROS2.</li>
+</ul>
+</li>
+</ul>
+<div class="fragment"><div class="line">sudo docker run -it --rm \</div>
+<div class="line">    --net=host \</div>
+<div class="line">    --privileged \</div>
+<div class="line">    --device /dev/snd \</div>
+<div class="line">    --device /dev/input \</div>
+<div class="line">    --device /dev/hidraw0 \</div>
+<div class="line">    -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp \</div>
+<div class="line">    -e CYCLONEDDS_URI=file:///ros2_ws/cyclonedds.xml \</div>
+<div class="line">    -v $(pwd):/ros2_ws \</div>
+<div class="line">    -w /ros2_ws \</div>
+<div class="line">    ros2 /bin/bash -c &quot;source install/setup.bash &amp;&amp; ros2 launch robot_vision robot_complet.launch.py&quot;</div>
+</div><!-- fragment --><ul>
+<li>Cette commande lance uniquement le nœud <code>teleop_node</code> dans Docker pour piloter le robot manuellement (clavier/manette). Le teleop a besoin d'être dans un terminal à part pour configurer son terminal.</li>
+</ul>
+<div class="fragment"><div class="line">sudo docker run -it --rm \</div>
+<div class="line">    --net=host \</div>
+<div class="line">    --privileged \</div>
+<div class="line">    --device /dev/snd \</div>
+<div class="line">    --device /dev/input \</div>
+<div class="line">    --device /dev/hidraw0 \</div>
+<div class="line">    -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp \</div>
+<div class="line">    -e CYCLONEDDS_URI=file:///ros2_ws/cyclonedds.xml \</div>
+<div class="line">    -v $(pwd):/ros2_ws \</div>
+<div class="line">    -w /ros2_ws \</div>
+<div class="line">    ros2 /bin/bash -c &quot;source install/setup.bash &amp;&amp; ros2 run robot_vision teleop_node&quot;</div>
+</div><!-- fragment --><ul>
+<li>Alternativement, pour éviter la compilation manuelle de l'image qui peut prendre du temps, il est possible de récuperer l'image docker généré par la CD github avec la commande :</li>
+</ul>
+<div class="fragment"><div class="line">docker pull ghcr.io/im2ag-introrob2026/robomaniak:latest</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md49"></a>
+Documentation</h1>
+<p><img src="https://img.shields.io/badge/github%20pages-121013?style=for-the-badge&amp;logo=github&amp;logoColor=white" alt="Github Pages" class="inline"/> <img src="https://img.shields.io/badge/doxygen-2C4AA8?style=for-the-badge&amp;logo=doxygen&amp;logoColor=white" alt="Doxygen" class="inline"/></p>
+<p>Une documention a été mise en place grâce à l'outils doxygen.</p>
+<p>Vous trouverez la documentaion en ligne à cette adresse : <a href="https://im2ag-introrob2026.github.io/Robomaniak/">Robomaniak Doxygen</a></p>
+<h1><a class="anchor" id="autotoc_md50"></a>
+Conception</h1>
+<p>L’architecture du projet est organisée autour de <b>7 nœuds ROS2</b>, tous regroupés dans le package <code>robot_vision/</code>, qui contient l’intégralité de la logique du robot : <b>Flux Vidéo</b>, <b>Détection</b>, <b>Suivi</b>, <b>Téléop</b>, <b>Écoute</b>, <b>Behavior Tree</b> (chef d’orchestre) et <b>Détecteur de Dock</b>.</p>
+<p>Le robot fonctionne selon <b>3 modes</b> :</p><ul>
+<li><code>TELEOP</code></li>
+<li><code>FOLLOW</code></li>
+<li><code>LISTEN</code></li>
+</ul>
+<p>Le changement de mode peut être déclenché via :</p><ul>
+<li>le bouton <code>X</code> de la manette,</li>
+<li>la touche <code>Espace</code> au clavier,</li>
+<li>des commandes vocales.</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md51"></a>
+&lt;tt&gt;video_node&lt;/tt&gt; (&lt;tt&gt;video_node.hpp&lt;/tt&gt; / &lt;tt&gt;video_node.cpp&lt;/tt&gt;)</h2>
+<p>Ce nœud lit un flux MJPEG distant et le publie en <code>sensor_msgs::msg::Image</code> sur le topic <code>/camera/image_raw</code>, afin d’alimenter le reste du pipeline.</p>
+<p>Pour limiter la latence, un mécanisme de <em>frame dropping</em> est utilisé avec un buffer de taille 1, ce qui permet de supprimer les images trop anciennes.</p>
+<h2><a class="anchor" id="autotoc_md52"></a>
+&lt;tt&gt;detection_node&lt;/tt&gt;</h2>
+<p>Ce nœud détecte un ou plusieurs humains dans l’image. Il :</p><ul>
+<li>écoute le topic <code>/camera/image_raw</code>,</li>
+<li>pré-traite les images,</li>
+<li>réalise l’inférence avec <b>YOLOv8s</b> via une session <b>ONNX Runtime</b>,</li>
+<li>applique un post-traitement.</li>
+</ul>
+<p>Un algorithme <b>NMS</b> (<em>Non-Maximum Suppression</em>) a également été implémenté pour réduire les superpositions de boîtes de détection.</p>
+<h2><a class="anchor" id="autotoc_md53"></a>
+&lt;tt&gt;follow_node&lt;/tt&gt;</h2>
+<p>Ce nœud gère le suivi d’un humain avec :</p><ul>
+<li>le choix et le verrouillage d’une cible,</li>
+<li>le déplacement du robot pour conserver cette cible dans la scène.</li>
+</ul>
+<p>La commande repose sur :</p><ul>
+<li><code>cx</code> : centre horizontal de la boîte englobante (à recentrer),</li>
+<li><code>h</code> : hauteur de la boîte (doit représenter un pourcentage cible de la hauteur de l’image).</li>
+</ul>
+<p>Pour conserver le verrouillage d’une image à l’autre, le nœud compare la distance entre le centre de la boîte verrouillée à l’instant précédent et les centres détectés sur l’image courante.</p>
+<h2><a class="anchor" id="autotoc_md54"></a>
+&lt;tt&gt;teleop_node&lt;/tt&gt;</h2>
+<p>Ce nœud assure la conduite manuelle, disponible au clavier et à la manette. Son rôle est de transformer les actions utilisateur en commandes de vitesse ROS2.</p>
+<p>Il :</p><ul>
+<li>lit les entrées utilisateur (clavier via terminal, manette via <code>libevdev</code>),</li>
+<li>publie les demandes de déplacement sur <code>/teleop/cmd_vel</code>,</li>
+<li>publie les demandes de changement de mode sur <code>/teleop/mode_switch</code>,</li>
+<li>permet de déclencher les actions <code>/dock</code> et <code>/undock</code>,</li>
+<li>donne la priorité à la manette lorsqu’elle est active.</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md55"></a>
+&lt;tt&gt;listen_node&lt;/tt&gt;</h2>
+<p>Ce nœud récupère les commandes vocales avec <b>Sherpa-ONNX</b> et <b>PortAudio</b>.</p>
+<p>Il :</p><ul>
+<li>capture le flux micro,</li>
+<li>analyse les entrées et les associe à des actions lorsqu’un mot-clé est reconnu,</li>
+<li>publie les ordres de mouvement sur <code>/listen/command</code>.</li>
+</ul>
+<p>Pour éviter de limiter le choix des mots-clés, ceux-ci sont découpés en tokens, puis fournis à Sherpa pour le <em>Keyword Spotting</em>.</p>
+<h2><a class="anchor" id="autotoc_md56"></a>
+&lt;tt&gt;bt_manager_node&lt;/tt&gt; (Behavior Tree)</h2>
+<p>Ce nœud joue le rôle de chef d’orchestre. Il centralise les différentes sources de commandes et n’en laisse passer qu’une seule vers <code>/cmd_vel</code>.</p>
+<p>La logique est implémentée avec un <b>Behavior Tree</b>, exécuté périodiquement (50 Hz par défaut). En pratique, il écoute les autres nœuds et choisit la commande à publier selon le mode actif.</p>
+<p>Modes pris en charge :</p><ul>
+<li><code>TELEOP</code></li>
+<li><code>FOLLOW</code></li>
+<li><code>LISTEN</code></li>
+</ul>
+<p>Le mode Teleop a deux sous mode pour le dock et le undock.</p>
+<p>Au démarrage, le mode actif est <code>TELEOP</code>. Lorsqu’une demande est reçue sur <code>/teleop/mode_switch</code>, le nœud effectue un cycle dans l’ordre : <code>TELEOP -&gt; FOLLOW -&gt; LISTEN -&gt; TELEOP</code>.</p>
+<p>Il gère également la machine à états de docking pour permettre au robot de se dock depuis une distance importante.</p>
+<h2><a class="anchor" id="autotoc_md57"></a>
+&lt;tt&gt;dock_detector_node&lt;/tt&gt;</h2>
+<p>Ce nœud détecte un marqueur <b>ArUco</b> et calcule sa position relative au robot.</p>
+<p>Cette position est utilisée pour approcher suffisamment le dock, afin de laisser ensuite les capteurs infrarouges du robot finaliser l’opération (action <code>/dock</code>).</p>
+<p>Pour obtenir une estimation de position fiable, une calibration caméra est nécessaire à l’aide d’un motif damier dont la taille des carrés est connue.</p>
+<h1><a class="anchor" id="autotoc_md58"></a>
+Docker</h1>
+<p><img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&amp;logo=docker&amp;logoColor=white" alt="Docker" style="pointer-events: none;" class="inline"/></p>
+<p>A partir du moment où docker est installé, vous pouvez lancer tous les noeuds dans n'importe quel environnement.</p>
+<p>Le docker utilise <code>ros2 iron</code> pour compiler</p>
+<h1><a class="anchor" id="autotoc_md59"></a>
+Feedback</h1>
+<p>Nous voulons souligner la grande participation d'Antoine qui a été le pilier de ce projet.</p>
+<h1><a class="anchor" id="autotoc_md60"></a>
+Auteurs</h1>
+<ul>
+<li>Antoine Patron</li>
+<li>Lisa Zannettacci</li>
+<li>Adrien Coste</li>
+<li>Justine Reat</li>
+</ul>
+<hr  />
+<p><a href="#robomaniak">Back to top</a> </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['twist_909',['Twist',['../bt__manager__node_8hpp.html#a2f304fa38449e26b09c0640b96772341',1,'Twist():&#160;bt_manager_node.hpp'],['../follow__node_8hpp.html#a2f304fa38449e26b09c0640b96772341',1,'Twist():&#160;follow_node.hpp'],['../bt__manager__node_8cpp.html#a2f304fa38449e26b09c0640b96772341',1,'Twist():&#160;bt_manager_node.cpp'],['../follow__node_8cpp.html#a2f304fa38449e26b09c0640b96772341',1,'Twist():&#160;follow_node.cpp']]]
+  ['ledcolor_937',['LedColor',['../classBtManagerNode.html#a830b77fda67870db3d0a206558d96b63',1,'BtManagerNode::LedColor()'],['../classLedManager.html#a4ff302d2efd33120a7c965f64e1996dc',1,'LedManager::LedColor()']]],
+  ['lightringleds_938',['LightringLeds',['../classBtManagerNode.html#aa0a1a8a6838651fad5afe62b9d3cfc62',1,'BtManagerNode::LightringLeds()'],['../classLedManager.html#aaca4f1c1cc6c357808e620f266d43b73',1,'LedManager::LightringLeds()']]]
 ];

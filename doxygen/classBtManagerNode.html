@@ -89,14 +89,15 @@ Collaboration diagram for BtManagerNode:</div>
 <div class="dyncontent">
 <div class="center"><img src="classBtManagerNode__coll__graph.png" border="0" usemap="#aBtManagerNode_coll__map" alt="Collaboration graph"/></div>
 <map name="aBtManagerNode_coll__map" id="aBtManagerNode_coll__map">
-<area shape="rect" title=" " alt="" coords="449,246,576,272"/>
-<area shape="rect" title=" " alt="" coords="69,14,171,40"/>
-<area shape="rect" title=" " alt="" coords="5,64,235,91"/>
-<area shape="rect" title=" " alt="" coords="7,115,233,142"/>
-<area shape="rect" title=" " alt="" coords="74,232,166,259"/>
-<area shape="rect" title=" " alt="" coords="13,284,227,325"/>
-<area shape="rect" title=" " alt="" coords="13,350,227,376"/>
-<area shape="rect" title=" " alt="" coords="21,401,219,442"/>
+<area shape="rect" title=" " alt="" coords="467,271,593,298"/>
+<area shape="rect" title=" " alt="" coords="77,16,180,43"/>
+<area shape="rect" title=" " alt="" coords="14,67,243,94"/>
+<area shape="rect" title=" " alt="" coords="16,118,241,144"/>
+<area shape="rect" title=" " alt="" coords="83,235,175,262"/>
+<area shape="rect" title=" " alt="" coords="22,286,235,328"/>
+<area shape="rect" title=" " alt="" coords="21,352,236,379"/>
+<area shape="rect" title=" " alt="" coords="5,403,252,430"/>
+<area shape="rect" title=" " alt="" coords="30,454,227,496"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -322,6 +323,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ab64152ada6106a6a15104db98d0e175c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa122725ea909f1ffe4d286d58ac15eb1"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; std_msgs::msg::Bool &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#aa122725ea909f1ffe4d286d58ac15eb1">human_present_sub_</a></td></tr>
 <tr class="separator:aa122725ea909f1ffe4d286d58ac15eb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f2ccb1fa835b0c273f4aef8ebb75c11"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classSoundManager.html">SoundManager</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a8f2ccb1fa835b0c273f4aef8ebb75c11">sound_mgr_</a></td></tr>
+<tr class="separator:a8f2ccb1fa835b0c273f4aef8ebb75c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
@@ -2650,6 +2653,28 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::optional&lt;<a class="el" href="structPose2D.html">Pose2D</a>&gt; BtManagerNode::saved_dock_odom_pose_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8f2ccb1fa835b0c273f4aef8ebb75c11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f2ccb1fa835b0c273f4aef8ebb75c11">&#9670;&nbsp;</a></span>sound_mgr_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="classSoundManager.html">SoundManager</a>&gt; BtManagerNode::sound_mgr_</td>
         </tr>
       </table>
   </td>

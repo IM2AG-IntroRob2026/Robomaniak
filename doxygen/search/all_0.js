@@ -37,5 +37,7 @@ var searchData=
   ['approachtick_34',['approachTick',['../classBtManagerNode.html#a84327f8a53bcd9319d3646b58beda7b1',1,'BtManagerNode']]],
   ['audio_5fbuffer_5f_35',['audio_buffer_',['../classListenNode.html#ad1805cc0a8d6d5ad78d1858bfc2fe901',1,'ListenNode']]],
   ['audio_5fbuffer_5fmax_5fsamples_36',['AUDIO_BUFFER_MAX_SAMPLES',['../classListenNode.html#ac1e9affad642d267114b8e907dc512d0',1,'ListenNode']]],
-  ['audio_5fmutex_5f_37',['audio_mutex_',['../classListenNode.html#ae69ca6a983cda30c76faa9b55671bb1f',1,'ListenNode']]]
+  ['audio_5fmutex_5f_37',['audio_mutex_',['../classListenNode.html#ae69ca6a983cda30c76faa9b55671bb1f',1,'ListenNode']]],
+  ['audionote_38',['AudioNote',['../sound__manager_8cpp.html#a5f94d2c34f98f31810c9392616bbb9b4',1,'sound_manager.cpp']]],
+  ['audionotevector_39',['AudioNoteVector',['../classSoundManager.html#a55383b608fddbac38ffb1c2a4f8aba74',1,'SoundManager']]]
 ];
