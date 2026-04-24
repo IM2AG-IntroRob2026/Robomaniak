@@ -171,7 +171,12 @@ target_link_libraries(listen_node ${PORTAUDIO_LIBRARIES} sherpa_onnx::c_api)
 ament_target_dependencies(listen_node ${ROS_DEPS})
 
 # ----- BT Manager Node -----
-add_executable(bt_manager_node src/bt_manager_node.cpp)
+add_executable(bt_manager_node src/bt_manager_node.cpp
+                               src/bt_utils/nodes/is_mode.cpp
+                               src/bt_utils/nodes/follow_action.cpp
+                               src/bt_utils/nodes/listen_action.cpp
+                               src/bt_utils/nodes/teleop_action.cpp
+)
 target_include_directories(bt_manager_node PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 target_link_libraries(bt_manager_node led_manager_lib sound_manager_lib)
 ament_target_dependencies(bt_manager_node ${ROS_DEPS})
