@@ -1,10 +1,10 @@
-<map id="src/robot_vision/include/robot_vision/sound_manager.hpp" name="src/robot_vision/include/robot_vision/sound_manager.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="233,5,474,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,102,96,129"/>
-<area shape="rect" id="node3" title=" " alt="" coords="120,102,197,129"/>
-<area shape="rect" id="node4" title=" " alt="" coords="221,102,280,129"/>
-<area shape="rect" id="node5" title=" " alt="" coords="305,102,402,129"/>
-<area shape="rect" id="node6" title=" " alt="" coords="426,102,550,129"/>
-<area shape="rect" id="node7" title=" " alt="" coords="574,102,706,129"/>
-<area shape="rect" id="node8" title=" " alt="" coords="731,95,936,136"/>
+<map id="src/robot_vision/include/robot_vision/librairies/sound_manager.hpp" name="src/robot_vision/include/robot_vision/librairies/sound_manager.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="265,5,441,61"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,117,96,143"/>
+<area shape="rect" id="node3" title=" " alt="" coords="120,117,197,143"/>
+<area shape="rect" id="node4" title=" " alt="" coords="221,117,280,143"/>
+<area shape="rect" id="node5" title=" " alt="" coords="305,117,402,143"/>
+<area shape="rect" id="node6" title=" " alt="" coords="426,117,550,143"/>
+<area shape="rect" id="node7" title=" " alt="" coords="574,117,706,143"/>
+<area shape="rect" id="node8" title=" " alt="" coords="731,109,936,151"/>
 </map>

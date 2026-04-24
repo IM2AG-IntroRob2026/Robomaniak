@@ -153,7 +153,7 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:a549ff457914d71764645b4d19dfea902"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43d9f77a9dc5e72782b0abcad9c9170d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a43d9f77a9dc5e72782b0abcad9c9170d">abortApproach</a> (const char *reason)</td></tr>
 <tr class="separator:a43d9f77a9dc5e72782b0abcad9c9170d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fff8a65f5a5d75102b92016348aff15"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a6fff8a65f5a5d75102b92016348aff15">transitionPhase</a> (<a class="el" href="bt__manager__node_8hpp.html#a34803508739521c7e0bd5a6d943d7097">ApproachPhase</a> new_phase)</td></tr>
+<tr class="memitem:a6fff8a65f5a5d75102b92016348aff15"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a6fff8a65f5a5d75102b92016348aff15">transitionPhase</a> (<a class="el" href="approach__phase_8hpp.html#a34803508739521c7e0bd5a6d943d7097">ApproachPhase</a> new_phase)</td></tr>
 <tr class="separator:a6fff8a65f5a5d75102b92016348aff15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23f93cc3b23437143dc1a5c7ad908932"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a23f93cc3b23437143dc1a5c7ad908932">tickCoarse</a> ()</td></tr>
 <tr class="separator:a23f93cc3b23437143dc1a5c7ad908932"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -243,7 +243,7 @@ Private Attributes</h2></td></tr>
 <tr class="separator:abb09ca39a8450607501cc3658bf35023"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad33508e84bafa9b496be457c3d0aaac9"><td class="memItemLeft" align="right" valign="top">rclcpp::TimerBase::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#ad33508e84bafa9b496be457c3d0aaac9">approach_timer_</a></td></tr>
 <tr class="separator:ad33508e84bafa9b496be457c3d0aaac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ef6e2b5f170df7c62c19231c94c1809"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; <a class="el" href="bt__manager__node_8hpp.html#a34803508739521c7e0bd5a6d943d7097">ApproachPhase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a7ef6e2b5f170df7c62c19231c94c1809">approach_phase_</a> {<a class="el" href="bt__manager__node_8hpp.html#a34803508739521c7e0bd5a6d943d7097aa5daf7f2ebbba4975d61dab1c40188c7">ApproachPhase::IDLE</a>}</td></tr>
+<tr class="memitem:a7ef6e2b5f170df7c62c19231c94c1809"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; <a class="el" href="approach__phase_8hpp.html#a34803508739521c7e0bd5a6d943d7097">ApproachPhase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#a7ef6e2b5f170df7c62c19231c94c1809">approach_phase_</a> {<a class="el" href="approach__phase_8hpp.html#a34803508739521c7e0bd5a6d943d7097aa5daf7f2ebbba4975d61dab1c40188c7">ApproachPhase::IDLE</a>}</td></tr>
 <tr class="separator:a7ef6e2b5f170df7c62c19231c94c1809"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab44be68a0da618c21d8f27c36dc13de9"><td class="memItemLeft" align="right" valign="top">rclcpp::Time&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBtManagerNode.html#ab44be68a0da618c21d8f27c36dc13de9">approach_phase_start_</a> {0, 0, RCL_ROS_TIME}</td></tr>
 <tr class="separator:ab44be68a0da618c21d8f27c36dc13de9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1388,7 +1388,7 @@ Static Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void BtManagerNode::transitionPhase </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="bt__manager__node_8hpp.html#a34803508739521c7e0bd5a6d943d7097">ApproachPhase</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="approach__phase_8hpp.html#a34803508739521c7e0bd5a6d943d7097">ApproachPhase</a>&#160;</td>
           <td class="paramname"><em>new_phase</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1794,7 +1794,7 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::atomic&lt;<a class="el" href="bt__manager__node_8hpp.html#a34803508739521c7e0bd5a6d943d7097">ApproachPhase</a>&gt; BtManagerNode::approach_phase_ {<a class="el" href="bt__manager__node_8hpp.html#a34803508739521c7e0bd5a6d943d7097aa5daf7f2ebbba4975d61dab1c40188c7">ApproachPhase::IDLE</a>}</td>
+          <td class="memname">std::atomic&lt;<a class="el" href="approach__phase_8hpp.html#a34803508739521c7e0bd5a6d943d7097">ApproachPhase</a>&gt; BtManagerNode::approach_phase_ {<a class="el" href="approach__phase_8hpp.html#a34803508739521c7e0bd5a6d943d7097aa5daf7f2ebbba4975d61dab1c40188c7">ApproachPhase::IDLE</a>}</td>
         </tr>
       </table>
   </td>

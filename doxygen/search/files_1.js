@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['detection_5fnode_2ecpp_512',['detection_node.cpp',['../detection__node_8cpp.html',1,'']]],
-  ['detection_5fnode_2ehpp_513',['detection_node.hpp',['../detection__node_8hpp.html',1,'']]],
-  ['dock_5fcalibration_5fnode_2ecpp_514',['dock_calibration_node.cpp',['../dock__calibration__node_8cpp.html',1,'']]],
-  ['dock_5fcalibration_5fnode_2ehpp_515',['dock_calibration_node.hpp',['../dock__calibration__node_8hpp.html',1,'']]],
-  ['dock_5fdetector_5fnode_2ecpp_516',['dock_detector_node.cpp',['../dock__detector__node_8cpp.html',1,'']]],
-  ['dock_5fdetector_5fnode_2ehpp_517',['dock_detector_node.hpp',['../dock__detector__node_8hpp.html',1,'']]]
+  ['bt_5fcontext_2ehpp_515',['bt_context.hpp',['../bt__context_8hpp.html',1,'']]],
+  ['bt_5fmanager_5fnode_2ecpp_516',['bt_manager_node.cpp',['../bt__manager__node_8cpp.html',1,'']]],
+  ['bt_5fmanager_5fnode_2ehpp_517',['bt_manager_node.hpp',['../bt__manager__node_8hpp.html',1,'']]]
 ];

@@ -72,7 +72,7 @@ $(function() {
 <p>Shared context for the behavior tree nodes, containing shared state and resources.  
  <a href="structBtContext.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="bt__manager__node_8hpp_source.html">bt_manager_node.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="bt__context_8hpp_source.html">bt_context.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for BtContext:</div>
 <div class="dyncontent">
@@ -87,21 +87,21 @@ Collaboration diagram for BtContext:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aa1ba0f65ff538d4d59c298604466e757"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; <a class="el" href="bt__manager__node_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3">RobotMode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#aa1ba0f65ff538d4d59c298604466e757">mode</a> {<a class="el" href="bt__manager__node_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3aa10b9d6dc5049f36df3ee7e88697d95a">RobotMode::TELEOP</a>}</td></tr>
+<tr class="memitem:aa1ba0f65ff538d4d59c298604466e757"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; <a class="el" href="robot__mode_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3">RobotMode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#aa1ba0f65ff538d4d59c298604466e757">mode</a> {<a class="el" href="robot__mode_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3aa10b9d6dc5049f36df3ee7e88697d95a">RobotMode::TELEOP</a>}</td></tr>
 <tr class="separator:aa1ba0f65ff538d4d59c298604466e757"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c7c9cb00483424d31b469f946429666"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#a3c7c9cb00483424d31b469f946429666">cmd_mutex</a></td></tr>
 <tr class="separator:a3c7c9cb00483424d31b469f946429666"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0e1307b46ac45dbe8666129f7a9e964"><td class="memItemLeft" align="right" valign="top"><a class="el" href="bt__manager__node_8hpp.html#a2f304fa38449e26b09c0640b96772341">Twist</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#aa0e1307b46ac45dbe8666129f7a9e964">follow_cmd</a></td></tr>
-<tr class="separator:aa0e1307b46ac45dbe8666129f7a9e964"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04ca53ebb97f7311b79e2d0bf50e88b9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="follow__node_8cpp.html#a2f304fa38449e26b09c0640b96772341">geometry_msgs::msg::Twist</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#a04ca53ebb97f7311b79e2d0bf50e88b9">follow_cmd</a></td></tr>
+<tr class="separator:a04ca53ebb97f7311b79e2d0bf50e88b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15d513766c15398ed4e6a71703c0a368"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#a15d513766c15398ed4e6a71703c0a368">has_follow_cmd</a> {false}</td></tr>
 <tr class="separator:a15d513766c15398ed4e6a71703c0a368"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa07f7c2deeca050cea2a5bdbcaa398ec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="bt__manager__node_8hpp.html#a2f304fa38449e26b09c0640b96772341">Twist</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#aa07f7c2deeca050cea2a5bdbcaa398ec">teleop_cmd</a></td></tr>
-<tr class="separator:aa07f7c2deeca050cea2a5bdbcaa398ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf466b70fb3e3a5fad8a766887ea2562"><td class="memItemLeft" align="right" valign="top"><a class="el" href="follow__node_8cpp.html#a2f304fa38449e26b09c0640b96772341">geometry_msgs::msg::Twist</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#adf466b70fb3e3a5fad8a766887ea2562">teleop_cmd</a></td></tr>
+<tr class="separator:adf466b70fb3e3a5fad8a766887ea2562"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a846a66f55695e3e8ee41d474fd74fd5b"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#a846a66f55695e3e8ee41d474fd74fd5b">pending_listen_cmd</a></td></tr>
 <tr class="separator:a846a66f55695e3e8ee41d474fd74fd5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6135c265461c6d6247684b3f03fb75dd"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#a6135c265461c6d6247684b3f03fb75dd">docking_active</a> {false}</td></tr>
 <tr class="separator:a6135c265461c6d6247684b3f03fb75dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd9ccece2a1988cee89b7db5bb0b6c28"><td class="memItemLeft" align="right" valign="top"><a class="el" href="bt__manager__node_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3">RobotMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#acd9ccece2a1988cee89b7db5bb0b6c28">mode_before_dock</a> {<a class="el" href="bt__manager__node_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3aa10b9d6dc5049f36df3ee7e88697d95a">RobotMode::TELEOP</a>}</td></tr>
+<tr class="memitem:acd9ccece2a1988cee89b7db5bb0b6c28"><td class="memItemLeft" align="right" valign="top"><a class="el" href="robot__mode_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3">RobotMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#acd9ccece2a1988cee89b7db5bb0b6c28">mode_before_dock</a> {<a class="el" href="robot__mode_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3aa10b9d6dc5049f36df3ee7e88697d95a">RobotMode::TELEOP</a>}</td></tr>
 <tr class="separator:acd9ccece2a1988cee89b7db5bb0b6c28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac10ccba81c55d8c71baabbea1e6819ce"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#ac10ccba81c55d8c71baabbea1e6819ce">impulse_duration_s</a> {1.5}</td></tr>
 <tr class="separator:ac10ccba81c55d8c71baabbea1e6819ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -109,8 +109,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a4a1486a9bc9569deb77efe8d5ff52abc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d1707f0c783ff4aeebb660854f245f6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#a8d1707f0c783ff4aeebb660854f245f6">impulse_angular_speed</a> {0.8}</td></tr>
 <tr class="separator:a8d1707f0c783ff4aeebb660854f245f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90bf4eb602a3aca5bdb9c66bc52b02ea"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; <a class="el" href="bt__manager__node_8hpp.html#a2f304fa38449e26b09c0640b96772341">Twist</a> &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#a90bf4eb602a3aca5bdb9c66bc52b02ea">cmd_vel_pub</a></td></tr>
-<tr class="separator:a90bf4eb602a3aca5bdb9c66bc52b02ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98041bd499f389d9c2dce06e02fa75c9"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; <a class="el" href="follow__node_8cpp.html#a2f304fa38449e26b09c0640b96772341">geometry_msgs::msg::Twist</a> &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBtContext.html#a98041bd499f389d9c2dce06e02fa75c9">cmd_vel_pub</a></td></tr>
+<tr class="separator:a98041bd499f389d9c2dce06e02fa75c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Shared context for the behavior tree nodes, containing shared state and resources. </p>
@@ -129,14 +129,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a90bf4eb602a3aca5bdb9c66bc52b02ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90bf4eb602a3aca5bdb9c66bc52b02ea">&#9670;&nbsp;</a></span>cmd_vel_pub</h2>
+<a id="a98041bd499f389d9c2dce06e02fa75c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98041bd499f389d9c2dce06e02fa75c9">&#9670;&nbsp;</a></span>cmd_vel_pub</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">rclcpp::Publisher&lt;<a class="el" href="bt__manager__node_8hpp.html#a2f304fa38449e26b09c0640b96772341">Twist</a>&gt;::SharedPtr BtContext::cmd_vel_pub</td>
+          <td class="memname">rclcpp::Publisher&lt;<a class="el" href="follow__node_8cpp.html#a2f304fa38449e26b09c0640b96772341">geometry_msgs::msg::Twist</a>&gt;::SharedPtr BtContext::cmd_vel_pub</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -157,14 +157,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa0e1307b46ac45dbe8666129f7a9e964"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0e1307b46ac45dbe8666129f7a9e964">&#9670;&nbsp;</a></span>follow_cmd</h2>
+<a id="a04ca53ebb97f7311b79e2d0bf50e88b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04ca53ebb97f7311b79e2d0bf50e88b9">&#9670;&nbsp;</a></span>follow_cmd</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="bt__manager__node_8hpp.html#a2f304fa38449e26b09c0640b96772341">Twist</a> BtContext::follow_cmd</td>
+          <td class="memname"><a class="el" href="follow__node_8cpp.html#a2f304fa38449e26b09c0640b96772341">geometry_msgs::msg::Twist</a> BtContext::follow_cmd</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -234,7 +234,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::atomic&lt;<a class="el" href="bt__manager__node_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3">RobotMode</a>&gt; BtContext::mode {<a class="el" href="bt__manager__node_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3aa10b9d6dc5049f36df3ee7e88697d95a">RobotMode::TELEOP</a>}</td>
+          <td class="memname">std::atomic&lt;<a class="el" href="robot__mode_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3">RobotMode</a>&gt; BtContext::mode {<a class="el" href="robot__mode_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3aa10b9d6dc5049f36df3ee7e88697d95a">RobotMode::TELEOP</a>}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -248,7 +248,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="bt__manager__node_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3">RobotMode</a> BtContext::mode_before_dock {<a class="el" href="bt__manager__node_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3aa10b9d6dc5049f36df3ee7e88697d95a">RobotMode::TELEOP</a>}</td>
+          <td class="memname"><a class="el" href="robot__mode_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3">RobotMode</a> BtContext::mode_before_dock {<a class="el" href="robot__mode_8hpp.html#a09e63731d65d1c8a400391e3aa2c4ac3aa10b9d6dc5049f36df3ee7e88697d95a">RobotMode::TELEOP</a>}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -269,14 +269,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa07f7c2deeca050cea2a5bdbcaa398ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa07f7c2deeca050cea2a5bdbcaa398ec">&#9670;&nbsp;</a></span>teleop_cmd</h2>
+<a id="adf466b70fb3e3a5fad8a766887ea2562"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf466b70fb3e3a5fad8a766887ea2562">&#9670;&nbsp;</a></span>teleop_cmd</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="bt__manager__node_8hpp.html#a2f304fa38449e26b09c0640b96772341">Twist</a> BtContext::teleop_cmd</td>
+          <td class="memname"><a class="el" href="follow__node_8cpp.html#a2f304fa38449e26b09c0640b96772341">geometry_msgs::msg::Twist</a> BtContext::teleop_cmd</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -284,7 +284,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>src/robot_vision/include/robot_vision/<a class="el" href="bt__manager__node_8hpp_source.html">bt_manager_node.hpp</a></li>
+<li>src/robot_vision/include/robot_vision/bt_utils/<a class="el" href="bt__context_8hpp_source.html">bt_context.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

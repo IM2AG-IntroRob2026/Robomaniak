@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['abortapproach_537',['abortApproach',['../classBtManagerNode.html#a43d9f77a9dc5e72782b0abcad9c9170d',1,'BtManagerNode']]],
-  ['anglediff_538',['angleDiff',['../classBtManagerNode.html#a32fa2d762e6c6e9c778260c2fadd9241',1,'BtManagerNode']]],
-  ['applyaxis_539',['applyAxis',['../classTeleopNode.html#ada9a03375ab980507ab71b8849db2be8',1,'TeleopNode']]],
-  ['applynms_540',['applyNMS',['../classrobot__vision_1_1YoloDetector.html#a8efead68310ebffe33cefe18daebe4d8',1,'robot_vision::YoloDetector']]],
-  ['approachphasetostring_541',['approachPhaseToString',['../bt__manager__node_8hpp.html#ac31d4b73fc5373facfb2f1ec493e64e5',1,'bt_manager_node.hpp']]],
-  ['approachtick_542',['approachTick',['../classBtManagerNode.html#a84327f8a53bcd9319d3646b58beda7b1',1,'BtManagerNode']]]
+  ['abortapproach_545',['abortApproach',['../classBtManagerNode.html#a43d9f77a9dc5e72782b0abcad9c9170d',1,'BtManagerNode']]],
+  ['anglediff_546',['angleDiff',['../classBtManagerNode.html#a32fa2d762e6c6e9c778260c2fadd9241',1,'BtManagerNode']]],
+  ['applyaxis_547',['applyAxis',['../classTeleopNode.html#ada9a03375ab980507ab71b8849db2be8',1,'TeleopNode']]],
+  ['applynms_548',['applyNMS',['../classrobot__vision_1_1YoloDetector.html#a8efead68310ebffe33cefe18daebe4d8',1,'robot_vision::YoloDetector']]],
+  ['approachphasetostring_549',['approachPhaseToString',['../approach__phase_8hpp.html#ac31d4b73fc5373facfb2f1ec493e64e5',1,'approach_phase.hpp']]],
+  ['approachtick_550',['approachTick',['../classBtManagerNode.html#a84327f8a53bcd9319d3646b58beda7b1',1,'BtManagerNode']]]
 ];
