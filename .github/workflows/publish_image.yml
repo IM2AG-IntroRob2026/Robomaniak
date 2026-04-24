@@ -7,6 +7,8 @@ on:
       - 'Dockerfile'
       - '**/package.xml'
       - '**/publish_image.yml'
+    tags:
+      - 'v*.*.*-docker*'
   workflow_dispatch:
 
 env:
