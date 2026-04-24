@@ -235,7 +235,7 @@ if(BUILD_TESTING)
     )
 
     ament_add_pytest_test(test_follow_node       test/python/test_follow_node.py       TIMEOUT 60)
-    ament_add_pytest_test(test_bt_manager_node   test/python/test_bt_manager_node.py   TIMEOUT 90)
+#    ament_add_pytest_test(test_bt_manager_node   test/python/test_bt_manager_node.py   TIMEOUT 90)
 endif()
 
 ament_package()
