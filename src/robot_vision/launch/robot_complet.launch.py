@@ -33,10 +33,15 @@ def generate_launch_description():
         Node(
             package='robot_vision',
             executable='follow_node',
-            parameters=[{'strategy': 'most_centered', 'allow_reverse': False, "target_bbox_height": 1000.0}],
+            parameters=[{'strategy': 'most_centered',
+                         'allow_reverse': False,
+                         "target_bbox_height": 1000.0,
+                         'sound_sequences_path': PathJoinSubstitution([config_path, 'sound_sequences.yaml'
+                     }],
             remappings=[
                 ('/ir_intensity', '/Robot6/ir_intensity'),
-                ('/hazard_detection', '/Robot6/hazard_detection')
+                ('/hazard_detection', '/Robot6/hazard_detection'),
+                ('/cmd_audio', '/Robot3/cmd_audio'),
             ]
         ),
 
@@ -44,7 +49,13 @@ def generate_launch_description():
         Node(
             package='robot_vision',
             executable='bt_manager_node',
-            parameters=[{'bt_tick_hz': 50.0, 'dock_action': '/Robot6/dock', 'undock_action': '/Robot6/undock', 'camera_pitch_deg': -27.0}],
+            parameters=[{'bt_tick_hz': 50.0,
+                         'dock_action': '/Robot6/dock',
+                         'undock_action': '/Robot6/undock',
+                         'camera_pitch_deg': -27.0,
+                         'approach_config_path': PathJoinSubstitution([config_path, 'bt_manager_approach.yaml']),
+                         'sound_sequences_path': PathJoinSubstitution([config_path, 'sound_sequences.yaml']),
+                     }],
             remappings=[
                 ('/cmd_vel', '/Robot6/cmd_vel'),
                 ('/cmd_lightring', '/Robot6/cmd_lightring'),

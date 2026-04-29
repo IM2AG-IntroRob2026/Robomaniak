@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <string>
-#include "robot_vision/yolo_detector.hpp"
+#include <ament_index_cpp/get_package_share_directory.hpp>
+#include "robot_vision/librairies/yolo_detector.hpp"
 
 using namespace robot_vision;
 
@@ -8,7 +9,7 @@ TEST(YoloDetectorTest, TestProviderName)
 {
     std::string_view providerName("CPU");
 
-    YoloDetector detector("yolov8s.onnx", false);
+    YoloDetector detector(ament_index_cpp::get_package_share_directory("robot_vision") + "/models/yolov8n.onnx", false);
     EXPECT_EQ(detector.providerName(), providerName);
 }
 

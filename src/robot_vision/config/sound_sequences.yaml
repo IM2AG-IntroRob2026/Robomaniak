@@ -1,0 +1,26 @@
+# Sound sequences played by the SoundManager (see sound_manager.hpp).
+#
+# Format:
+#   sequences:
+#     <name>:
+#       - { frequency: <Hz>, duration: <seconds> }
+#       - ...
+#
+# - frequency : in Hz (float). Strictly positive. A frequency of 0.0 corresponds to a silence.
+# - duration  : in secondes (float). Strictly positive. Duration of the note (or silence) to be played.
+# - A sequence can contain an arbitrary number of notes (or silences).
+
+sequences:
+  target_lock:
+    - { frequency: 523.25, duration: 0.08 }
+    - { frequency: 659.25, duration: 0.08 }
+    - { frequency: 783.99, duration: 0.15 }
+
+  target_lost:
+     - { frequency: 440.0, duration: 0.12 }
+     - { frequency: 329.63, duration: 0.20 }
+
+  emergency_reset:
+     - { frequency: 880.0, duration: 0.10 }
+     - { frequency: 0.0,   duration: 0.05 }
+     - { frequency: 880.0, duration: 0.10 }

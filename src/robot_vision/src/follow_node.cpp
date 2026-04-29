@@ -65,6 +65,8 @@ FollowNode::FollowNode() : Node("follow_node")
     this->declare_parameter<double>("lock_max_dist_px", 150.0);
     this->declare_parameter<int>   ("lock_lost_frames", 10);
 
+    this->declare_parameter<std::string>("sound_sequences_path", "");
+
     try {
         strategy_ = strategyFromString(this->get_parameter("strategy").as_string());
     } catch (const std::invalid_argument& e) {
@@ -103,6 +105,13 @@ FollowNode::FollowNode() : Node("follow_node")
     ir_sub_     = this->create_subscription<IrIntensityVec>    ("/ir_intensity",     sensor_qos, std::bind(&FollowNode::onIr,     this, std::placeholders::_1));
     hazard_sub_ = this->create_subscription<HazardDetectionVec>("/hazard_detection", sensor_qos, std::bind(&FollowNode::onHazard, this, std::placeholders::_1));
     cmd_vel_pub_ = this->create_publisher<Twist>("/follow/cmd_vel", 10);
+
+    sound_mgr_ = std::make_unique<SoundManager>(this);
+    if (const auto sound_path = this->get_parameter("sound_sequences_path").as_string(); !sound_path.empty()) {
+        sound_mgr_->loadFromFile(sound_path);
+    } else {
+        RCLCPP_INFO(this->get_logger(), "sound_sequences_path not set, audio feedback disabled.");
+    }
 
     RCLCPP_INFO(this->get_logger(),
         "FollowNode ready - strategy=%s  target_h=%.0fpx  "
@@ -268,6 +277,7 @@ double FollowNode::moveTowardsTarget(const Detection2D& target, const double dt,
         locked_cx_ = dets[*idx].bbox.center.position.x;
         locked_cy_ = dets[*idx].bbox.center.position.y;
         RCLCPP_INFO(this->get_logger(), "Target locked - cx=%.1f cy=%.1f", locked_cx_, locked_cy_);
+        if (sound_mgr_) { sound_mgr_->play("target_lock"); }
     }
     return idx;
 }
@@ -299,6 +309,7 @@ void FollowNode::handleLockLoss()
         locked_ = false;
         frames_lost_ = 0;
         RCLCPP_INFO(this->get_logger(), "Lock lost after %d frames without target", lock_lost_frames_);
+        if (sound_mgr_) { sound_mgr_->play("target_lost"); }
     }
 }
 

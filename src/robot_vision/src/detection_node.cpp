@@ -14,7 +14,7 @@
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
 
-#include "robot_vision/yolo_detector.hpp"
+#include "robot_vision/librairies/yolo_detector.hpp"
 
 namespace fs = std::filesystem;
 using Detection2DArray = vision_msgs::msg::Detection2DArray;

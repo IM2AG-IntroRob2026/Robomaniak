@@ -3,6 +3,9 @@
 ![ROS](https://img.shields.io/badge/ros-%230A0FF9.svg?style=for-the-badge&logo=ros&logoColor=white)
 ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
 
+[![Build and Publish Docker Image](https://github.com/IM2AG-IntroRob2026/Robomaniak/actions/workflows/publish_image.yml/badge.svg?branch=main)](https://github.com/IM2AG-IntroRob2026/Robomaniak/actions/workflows/publish_image.yml)
+[![ROS2 Iron CI](https://github.com/IM2AG-IntroRob2026/Robomaniak/actions/workflows/ros_ci.yml/badge.svg?branch=main)](https://github.com/IM2AG-IntroRob2026/Robomaniak/actions/workflows/ros_ci.yml)
+
 Ce README.md se base uniquement sur le contenu du répertoire `/src/robot_vision/`.
 Si vous voulez voir nos développements pour turtlesim, vous pouvez regarder le README_turle.md qui se trouve à la racine du projet.
 

@@ -15,20 +15,28 @@ RUN wget https://github.com/k2-fsa/sherpa-onnx/releases/download/v${SHERPA_ONNX_
 
 FROM osrf/ros:iron-desktop
 
+LABEL org.opencontainers.image.description="This is a Dockerfile for building a ROS 2 Iron image with all the dependencies for Robomaniak:robot-vision project, including ONNX Runtime and Sherpa ONNX. It also includes the iRobot Create 3 ROS 2 packages and sets up the environment for easy development and testing."
+LABEL org.opencontainers.image.source=https://github.com/IM2AG-IntroRob2026/Robomaniak
+LABEL org.opencontainers.image.licenses=MIT
+
 RUN apt-get update && apt-get install -y \
     ccache \
+    python3-pip \
+    python3-pytest \
+    python3-pytest-cov \
     python3-colcon-common-extensions \
     ros-iron-rmw-cyclonedds-cpp \
+    ros-iron-camera-calibration \
+    ros-iron-tf2-geometry-msgs \
+    ros-iron-behaviortree-cpp-v3 \
+    ros-iron-vision-msgs \
+    ros-iron-rqt-image-view \
     libevdev-dev \
     portaudio19-dev \
     libportaudio2 \
     git \
-    ros-iron-behaviortree-cpp-v3 \
-    ros-iron-vision-msgs \
-    ros-iron-rqt-image-view \
     libyaml-cpp-dev \
-  ros-iron-camera-calibration \
-    ros-iron-tf2-geometry-msgs \
+    && pip3 install ros2-easy-test \
     && rm -rf /var/lib/apt/lists/*
 
 ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
@@ -51,8 +59,12 @@ COPY --from=extract /tmp/src /ros2_ws/src
 RUN . /opt/ros/iron/setup.sh && \
     apt-get update && \
     rosdep update && \
-    rosdep install --from-paths src --ignore-src -y --rosdistro iron --skip-keys "behaviortree_cpp" --skip-keys "irobot_create_msgs" --skip-keys "vision_msgs" && \
-    rm -rf /var/lib/apt/lists/*
+    rosdep install --from-paths src --ignore-src -y --rosdistro iron  \
+    --skip-keys "behaviortree_cpp"  \
+    --skip-keys "irobot_create_msgs"  \
+    --skip-keys "vision_msgs"  \
+    --skip-keys "ros2_easy_test"  \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN echo "source /opt/ros/iron/setup.bash" >> ~/.bashrc \
     && echo "source /root/create3_ws/install/setup.bash" >> ~/.bashrc \

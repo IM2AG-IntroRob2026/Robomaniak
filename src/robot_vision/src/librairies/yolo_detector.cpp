@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include <algorithm>
 
-#include "robot_vision/yolo_detector.hpp"
+#include "robot_vision/librairies/yolo_detector.hpp"
 #include <opencv2/imgproc.hpp>
 #include <onnxruntime_cxx_api.h>
 

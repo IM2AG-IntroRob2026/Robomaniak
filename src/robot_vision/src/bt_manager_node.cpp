@@ -3,14 +3,18 @@
 #include <algorithm>
 #include <cmath>
 #include <chrono>
+#include <fstream>
+#include <filesystem>
 #include <memory>
 #include <mutex>
 #include <stdexcept>
 #include <string>
+#include <sstream>
 
 #include <behaviortree_cpp/action_node.h>
 #include <behaviortree_cpp/bt_factory.h>
 #include <behaviortree_cpp/condition_node.h>
+#include <ament_index_cpp/get_package_share_directory.hpp>
 #include <geometry_msgs/msg/pose_stamped.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 #include <nav_msgs/msg/odometry.hpp>
@@ -21,121 +25,6 @@
 
 using Twist = geometry_msgs::msg::Twist;
 
-IsMode::IsMode(const std::string& name, const BT::NodeConfig& config, std::shared_ptr<BtContext> ctx)
-    : BT::ConditionNode(name, config), ctx_(std::move(ctx)) {}
-
-BT::PortsList IsMode::providedPorts()
-{
-    return { BT::InputPort<std::string>("expected") };
-}
-
-BT::NodeStatus IsMode::tick()
-{
-    const auto expected_str = getInput<std::string>("expected").value();
-
-    RobotMode expected = RobotMode::TELEOP;
-    if (expected_str == "FOLLOW") { expected = RobotMode::FOLLOW; }
-    else if (expected_str == "LISTEN") { expected = RobotMode::LISTEN; }
-
-    return ctx_->mode.load() == expected ? BT::NodeStatus::SUCCESS : BT::NodeStatus::FAILURE;
-}
-
-FollowAction::FollowAction(const std::string& name, const BT::NodeConfig& config, std::shared_ptr<BtContext> ctx)
-    : BT::StatefulActionNode(name, config), ctx_(std::move(ctx)) {}
-
-BT::PortsList FollowAction::providedPorts() { return {}; }
-
-BT::NodeStatus FollowAction::onStart()   { return BT::NodeStatus::RUNNING; }
-
-BT::NodeStatus FollowAction::onRunning()
-{
-    std::lock_guard<std::mutex> lock(ctx_->cmd_mutex);
-    if (ctx_->has_follow_cmd) { ctx_->cmd_vel_pub->publish(ctx_->follow_cmd); }
-    return BT::NodeStatus::RUNNING;
-}
-
-void FollowAction::onHalted() { ctx_->cmd_vel_pub->publish(Twist{}); }
-
-TeleopAction::TeleopAction(const std::string& name, const BT::NodeConfig& config, std::shared_ptr<BtContext> ctx)
-    : BT::StatefulActionNode(name, config), ctx_(std::move(ctx)) {}
-
-BT::PortsList TeleopAction::providedPorts() { return {}; }
-
-BT::NodeStatus TeleopAction::onStart()
-{
-    ctx_->cmd_vel_pub->publish(Twist{});
-    return BT::NodeStatus::RUNNING;
-}
-
-BT::NodeStatus TeleopAction::onRunning()
-{
-    std::lock_guard lock(ctx_->cmd_mutex);
-    ctx_->cmd_vel_pub->publish(ctx_->teleop_cmd);
-    return BT::NodeStatus::RUNNING;
-}
-
-void TeleopAction::onHalted() { ctx_->cmd_vel_pub->publish(Twist{}); }
-
-ListenAction::ListenAction(const std::string& name, const BT::NodeConfig& config, std::shared_ptr<BtContext> ctx)
-    : BT::StatefulActionNode(name, config), ctx_(std::move(ctx)) {}
-
-BT::PortsList ListenAction::providedPorts() { return {}; }
-
-BT::NodeStatus ListenAction::onStart()
-{
-    ctx_->cmd_vel_pub->publish(Twist{});
-    active_impulse_.reset();
-
-    std::lock_guard lock(ctx_->cmd_mutex);
-    ctx_->pending_listen_cmd.reset();
-
-    return BT::NodeStatus::RUNNING;
-}
-
-BT::NodeStatus ListenAction::onRunning()
-{
-    const auto now = std::chrono::steady_clock::now();
-
-    {
-        std::lock_guard lock(ctx_->cmd_mutex);
-        if (ctx_->pending_listen_cmd.has_value()) {
-            const std::string cmd = std::move(*ctx_->pending_listen_cmd);
-            ctx_->pending_listen_cmd.reset();
-
-            Impulse impulse;
-            impulse.cmd = commandToTwist(cmd);
-            impulse.end_time = now + std::chrono::duration_cast<std::chrono::steady_clock::duration>(std::chrono::duration<double>(ctx_->impulse_duration_s));
-            active_impulse_ = impulse;
-        }
-    }
-
-    if (active_impulse_.has_value()) {
-        if (now < active_impulse_->end_time) {
-            ctx_->cmd_vel_pub->publish(active_impulse_->cmd);
-        } else {
-            ctx_->cmd_vel_pub->publish(Twist{});
-            active_impulse_.reset();
-        }
-    }
-
-    return BT::NodeStatus::RUNNING;
-}
-
-void ListenAction::onHalted()
-{
-    active_impulse_.reset();
-    ctx_->cmd_vel_pub->publish(Twist{});
-}
-
-Twist ListenAction::commandToTwist(const std::string& cmd) const
-{
-    Twist twist;
-    if (cmd == "forward") { twist.linear.x = ctx_->impulse_linear_speed;  }
-    else if (cmd == "left") { twist.angular.z = ctx_->impulse_angular_speed; }
-    else if (cmd == "right") { twist.angular.z = -ctx_->impulse_angular_speed; }
-    return twist;
-}
-
 BtManagerNode::BtManagerNode() : Node("bt_manager_node")
 {
     declare_parameter<double>("bt_tick_hz", 50.0);
@@ -144,21 +33,6 @@ BtManagerNode::BtManagerNode() : Node("bt_manager_node")
     declare_parameter<double>("impulse_angular_speed", 0.8);
     declare_parameter<std::string>("dock_action",   "/dock");
     declare_parameter<std::string>("undock_action", "/undock");
-
-    declare_parameter<double>("approach_coarse_tolerance_m", 0.8);
-    declare_parameter<double>("approach_trigger_distance_m", 0.6);
-    declare_parameter<double>("approach_trigger_lateral_m",  0.15);
-    declare_parameter<double>("approach_max_linear_speed",   0.18);
-    declare_parameter<double>("approach_max_angular_speed",  0.6);
-    declare_parameter<double>("approach_kp_rot",             1.2);
-    declare_parameter<double>("approach_kp_fwd",             0.45);
-    declare_parameter<double>("approach_search_speed",       0.4);
-    declare_parameter<double>("approach_coarse_timeout_s",   60.0);
-    declare_parameter<double>("approach_fine_timeout_s",     30.0);
-    declare_parameter<double>("approach_search_timeout_s",   25.0);
-    declare_parameter<double>("approach_lost_timeout_s",     2.0);
-    declare_parameter<double>("approach_tick_hz",            20.0);
-    declare_parameter<double>("approach_heading_threshold",  0.15);
 
     declare_parameter<double>("camera_x_m",        0.0);
     declare_parameter<double>("camera_y_m",        0.0);
@@ -170,22 +44,21 @@ BtManagerNode::BtManagerNode() : Node("bt_manager_node")
     declare_parameter<double>("request_debounce_s",     0.5);
     declare_parameter<double>("dock_pending_timeout_s", 120.0);
 
-    const double tick_hz = get_parameter("bt_tick_hz").as_double();
+    declare_parameter<std::string>("bt_xml_path", ament_index_cpp::get_package_share_directory("robot_vision") + "/config/bt_manager_tree.xml");
+    declare_parameter<std::string>("approach_config_path", ament_index_cpp::get_package_share_directory("robot_vision") + "/config/bt_manager_approach.yaml");
+    declare_parameter<std::string>("sound_sequences_path", ament_index_cpp::get_package_share_directory("robot_vision") + "/config/sound_sequences.yaml");
 
-    approach_coarse_tolerance_m_ = get_parameter("approach_coarse_tolerance_m").as_double();
-    approach_trigger_distance_m_ = get_parameter("approach_trigger_distance_m").as_double();
-    approach_trigger_lateral_m_  = get_parameter("approach_trigger_lateral_m").as_double();
-    approach_max_linear_speed_   = get_parameter("approach_max_linear_speed").as_double();
-    approach_max_angular_speed_  = get_parameter("approach_max_angular_speed").as_double();
-    approach_kp_rot_             = get_parameter("approach_kp_rot").as_double();
-    approach_kp_fwd_             = get_parameter("approach_kp_fwd").as_double();
-    approach_search_speed_       = get_parameter("approach_search_speed").as_double();
-    approach_coarse_timeout_s_   = get_parameter("approach_coarse_timeout_s").as_double();
-    approach_fine_timeout_s_     = get_parameter("approach_fine_timeout_s").as_double();
-    approach_search_timeout_s_   = get_parameter("approach_search_timeout_s").as_double();
-    approach_lost_timeout_s_     = get_parameter("approach_lost_timeout_s").as_double();
-    approach_tick_hz_            = get_parameter("approach_tick_hz").as_double();
-    approach_heading_threshold_  = get_parameter("approach_heading_threshold").as_double();
+    ctx_ = std::make_shared<BtContext>();
+    ctx_->cmd_vel_pub = create_publisher<Twist>("/cmd_vel", 10);
+    createSubscriptions();
+
+    const double tick_hz        = get_parameter("bt_tick_hz").as_double();
+    ctx_->impulse_duration_s    = get_parameter("impulse_duration_s").as_double();
+    ctx_->impulse_linear_speed  = get_parameter("impulse_linear_speed").as_double();
+    ctx_->impulse_angular_speed = get_parameter("impulse_angular_speed").as_double();
+
+    dock_client_   = rclcpp_action::create_client<DockAction>  (this, get_parameter("dock_action").as_string());
+    undock_client_ = rclcpp_action::create_client<UndockAction>(this, get_parameter("undock_action").as_string());
 
     cam_x_m_       = get_parameter("camera_x_m").as_double();
     cam_y_m_       = get_parameter("camera_y_m").as_double();
@@ -197,32 +70,50 @@ BtManagerNode::BtManagerNode() : Node("bt_manager_node")
     request_debounce_s_     = get_parameter("request_debounce_s").as_double();
     dock_pending_timeout_s_ = get_parameter("dock_pending_timeout_s").as_double();
 
+    approach_.loadApproachConfig(std::filesystem::path(get_parameter("approach_config_path").as_string()));
+
     buildCameraTransform();
-
-    RCLCPP_INFO(get_logger(),
-        "Camera→base_link transform: pos=(%.2f, %.2f, %.2f) rpy=(%.1f, %.1f, %.1f) deg",
-        cam_x_m_, cam_y_m_, cam_z_m_,
-        cam_roll_deg_, cam_pitch_deg_, cam_yaw_deg_);
-
-    ctx_ = std::make_shared<BtContext>();
-    ctx_->cmd_vel_pub = create_publisher<Twist>("/cmd_vel", 10);
 
     led_mgr_ = std::make_unique<LedManager>(this);
     refreshModeLed();
 
-    dock_client_   = rclcpp_action::create_client<DockAction>  (this, get_parameter("dock_action").as_string());
-    undock_client_ = rclcpp_action::create_client<UndockAction>(this, get_parameter("undock_action").as_string());
+    sound_mgr_ = std::make_unique<SoundManager>(this);
+    if (const auto sound_path = this->get_parameter("sound_sequences_path").as_string(); !sound_path.empty()) {
+        sound_mgr_->loadFromFile(sound_path);
+    } else {
+        RCLCPP_INFO(this->get_logger(), "sound_sequences_path not set, audio feedback disabled.");
+    }
 
-    dock_sub_ = create_subscription<std_msgs::msg::Empty>("/teleop/dock", 10,
-        [this](const std_msgs::msg::Empty::ConstSharedPtr&) { onDockRequest(); });
+    buildTree();
 
-    undock_sub_ = create_subscription<std_msgs::msg::Empty>("/teleop/undock", 10,
-        [this](const std_msgs::msg::Empty::ConstSharedPtr&) { onUndockRequest(); });
+    bt_timer_ = this->create_wall_timer(std::chrono::duration<double>(1.0 / tick_hz), std::bind(&BtManagerNode::tickBt, this));
+    approach_timer_ = this->create_wall_timer(std::chrono::duration<double>(1.0 / approach_.tick_hz), std::bind(&BtManagerNode::approachTick, this));
 
-    ctx_->impulse_duration_s   = get_parameter("impulse_duration_s").as_double();
-    ctx_->impulse_linear_speed = get_parameter("impulse_linear_speed").as_double();
-    ctx_->impulse_angular_speed= get_parameter("impulse_angular_speed").as_double();
+    RCLCPP_INFO(get_logger(), "BtManagerNode ready (BT @%.0fHz, approach @%.0fHz).", tick_hz, approach_.tick_hz);
+}
 
+BtManagerNode::~BtManagerNode()
+{
+    if (led_mgr_) { led_mgr_->clearAll(); }
+    cancelActiveDockGoal();
+    ctx_->cmd_vel_pub->publish(Twist{});
+}
+
+void BtManagerNode::cycleMode()
+{
+    if (ctx_->docking_active.load()) {
+        switchToTeleopAndCancelEverything("user mode_switch");
+        return;
+    }
+
+    RobotMode current = ctx_->mode.load();
+    RobotMode next = nextMode(current);
+    while (!ctx_->mode.compare_exchange_weak(current, next)) { next = nextMode(current); }
+    RCLCPP_INFO(get_logger(), "--- Mode : %s -> %s ---", modeToString(current), modeToString(next));
+    refreshModeLed();
+}
+
+void BtManagerNode::createSubscriptions() {
     follow_sub_ = create_subscription<Twist>(
         "/follow/cmd_vel", 10,
         [this](const Twist::ConstSharedPtr& msg) {
@@ -246,69 +137,21 @@ BtManagerNode::BtManagerNode() : Node("bt_manager_node")
             ctx_->pending_listen_cmd = msg->data;
         });
 
-    cycle_switch_sub_ = create_subscription<std_msgs::msg::Empty>(
-        "/teleop/mode_switch", 10,
-        [this](const std_msgs::msg::Empty::ConstSharedPtr&) { cycleMode(); });
+    cycle_switch_sub_ = create_subscription<std_msgs::msg::Empty>("/teleop/mode_switch", 10, [this](const std_msgs::msg::Empty::ConstSharedPtr&) { cycleMode(); });
+    mode_request_sub_ = create_subscription<std_msgs::msg::String>("/listen/mode_request", 10, std::bind(&BtManagerNode::onModeRequest, this, std::placeholders::_1));
 
-    mode_request_sub_ = create_subscription<std_msgs::msg::String>(
-        "/listen/mode_request", 10,
-        std::bind(&BtManagerNode::onModeRequest, this, std::placeholders::_1));
+    dock_pose_sub_ = create_subscription<geometry_msgs::msg::PoseStamped>("/dock/pose", 10, std::bind(&BtManagerNode::onDockPose, this, std::placeholders::_1));
+    dock_detected_sub_ = create_subscription<std_msgs::msg::Bool>("/dock/detected", 10, std::bind(&BtManagerNode::onDockDetected, this, std::placeholders::_1));
+
+    emergency_reset_sub_ = create_subscription<std_msgs::msg::Empty>("/teleop/emergency_reset", 10, [this](const std_msgs::msg::Empty::ConstSharedPtr&) { onEmergencyReset(); });
+    human_present_sub_ = create_subscription<std_msgs::msg::Bool>("/detection/human_present", 10, std::bind(&BtManagerNode::onHumanPresent, this, std::placeholders::_1));
+
+    dock_sub_ = create_subscription<std_msgs::msg::Empty>("/teleop/dock", 10, [this](const std_msgs::msg::Empty::ConstSharedPtr&) { onDockRequest(); });
+    undock_sub_ = create_subscription<std_msgs::msg::Empty>("/teleop/undock", 10, [this](const std_msgs::msg::Empty::ConstSharedPtr&) { onUndockRequest(); });
 
     const rclcpp::QoS sensor_qos = rclcpp::QoS(rclcpp::KeepLast(1)).best_effort().durability_volatile();
-    odom_sub_ = create_subscription<nav_msgs::msg::Odometry>(
-        "/odom", sensor_qos,
-        std::bind(&BtManagerNode::onOdom, this, std::placeholders::_1));
-
-    dock_pose_sub_ = create_subscription<geometry_msgs::msg::PoseStamped>(
-        "/dock/pose", 10,
-        std::bind(&BtManagerNode::onDockPose, this, std::placeholders::_1));
-
-    dock_detected_sub_ = create_subscription<std_msgs::msg::Bool>(
-        "/dock/detected", 10,
-        std::bind(&BtManagerNode::onDockDetected, this, std::placeholders::_1));
-
-    hazard_sub_ = create_subscription<HazardVec>(
-        "/hazard_detection", sensor_qos,
-        std::bind(&BtManagerNode::onHazard, this, std::placeholders::_1));
-
-    emergency_reset_sub_ = create_subscription<std_msgs::msg::Empty>(
-        "/teleop/emergency_reset", 10,
-        [this](const std_msgs::msg::Empty::ConstSharedPtr&) { onEmergencyReset(); });
-
-    human_present_sub_ = create_subscription<std_msgs::msg::Bool>(
-        "/detection/human_present", 10,
-        std::bind(&BtManagerNode::onHumanPresent, this, std::placeholders::_1));
-
-    buildTree();
-
-    const auto period = std::chrono::duration<double>(1.0 / tick_hz);
-    bt_timer_ = this->create_wall_timer(period, std::bind(&BtManagerNode::tickBt, this));
-
-    const auto approach_period = std::chrono::duration<double>(1.0 / approach_tick_hz_);
-    approach_timer_ = this->create_wall_timer(approach_period, std::bind(&BtManagerNode::approachTick, this));
-
-    RCLCPP_INFO(get_logger(), "BtManagerNode ready (BT @%.0fHz, approach @%.0fHz).", tick_hz, approach_tick_hz_);
-}
-
-BtManagerNode::~BtManagerNode()
-{
-    if (led_mgr_) { led_mgr_->clearAll(); }
-    cancelActiveDockGoal();
-    ctx_->cmd_vel_pub->publish(Twist{});
-}
-
-void BtManagerNode::cycleMode()
-{
-    if (ctx_->docking_active.load()) {
-        switchToTeleopAndCancelEverything("user mode_switch");
-        return;
-    }
-
-    RobotMode current = ctx_->mode.load();
-    RobotMode next = nextMode(current);
-    while (!ctx_->mode.compare_exchange_weak(current, next)) { next = nextMode(current); }
-    RCLCPP_INFO(get_logger(), "--- Mode : %s -> %s ---", modeToString(current), modeToString(next));
-    refreshModeLed();
+    odom_sub_ = create_subscription<nav_msgs::msg::Odometry>("/odom", sensor_qos, std::bind(&BtManagerNode::onOdom, this, std::placeholders::_1));
+    hazard_sub_ = create_subscription<HazardVec>("/hazard_detection", sensor_qos, std::bind(&BtManagerNode::onHazard, this, std::placeholders::_1));
 }
 
 void BtManagerNode::buildTree()
@@ -335,7 +178,15 @@ void BtManagerNode::buildTree()
             return std::make_unique<ListenAction>(name, config, ctx);
         });
 
-    tree_ = factory_.createTreeFromText(TREE_XML);
+    const auto bt_xml_path = get_parameter("bt_xml_path").as_string();
+    std::ifstream xml_file(bt_xml_path);
+    if (!xml_file.is_open()) {
+        throw std::runtime_error("Unable to open BehaviorTree XML file: " + bt_xml_path);
+    }
+
+    std::ostringstream xml_buffer;
+    xml_buffer << xml_file.rdbuf();
+    tree_ = factory_.createTreeFromText(xml_buffer.str());
 }
 
 void BtManagerNode::tickBt()
@@ -534,8 +385,8 @@ void BtManagerNode::tickCoarse()
 {
     if (dockDetectedRecently()) { transitionPhase(ApproachPhase::FINE); return; }
 
-    if (phaseElapsedSec() > approach_coarse_timeout_s_) {
-        RCLCPP_WARN(get_logger(), "COARSE timeout (%.1fs) → fail", approach_coarse_timeout_s_);
+    if (phaseElapsedSec() > approach_.coarse_timeout_s) {
+        RCLCPP_WARN(get_logger(), "COARSE timeout (%.1fs) → fail", approach_.coarse_timeout_s);
         finishApproach(false);
         return;
     }
@@ -553,7 +404,7 @@ void BtManagerNode::tickCoarse()
     const double dy = dock->y - cur->y;
     const double dist = std::hypot(dx, dy);
 
-    if (dist < approach_coarse_tolerance_m_) {
+    if (dist < approach_.coarse_tolerance_m) {
         RCLCPP_INFO(get_logger(), "COARSE reached vicinity (dist=%.2fm) → SEARCH", dist);
         transitionPhase(ApproachPhase::SEARCH);
         return;
@@ -563,13 +414,13 @@ void BtManagerNode::tickCoarse()
     const double heading_err    = angleDiff(target_heading, cur->yaw);
 
     Twist cmd;
-    if (std::abs(heading_err) > approach_heading_threshold_) {
+    if (std::abs(heading_err) > approach_.heading_threshold) {
         cmd.angular.z = std::clamp(1.0 * heading_err,
-            -approach_max_angular_speed_, approach_max_angular_speed_);
+            -approach_.max_angular_speed, approach_.max_angular_speed);
     } else {
-        cmd.linear.x  = std::min(approach_max_linear_speed_, 0.3 * dist);
+        cmd.linear.x  = std::min(approach_.max_linear_speed, 0.3 * dist);
         cmd.angular.z = std::clamp(0.8 * heading_err,
-            -approach_max_angular_speed_, approach_max_angular_speed_);
+            -approach_.max_angular_speed, approach_.max_angular_speed);
     }
     ctx_->cmd_vel_pub->publish(cmd);
 }
@@ -577,14 +428,14 @@ void BtManagerNode::tickCoarse()
 void BtManagerNode::tickFine()
 {
     const double since_detect = (this->now() - last_dock_detection_time_).seconds();
-    if (since_detect > approach_lost_timeout_s_) {
+    if (since_detect > approach_.lost_timeout_s) {
         RCLCPP_WARN(get_logger(), "FINE: dock lost for %.1fs → SEARCH", since_detect);
         transitionPhase(ApproachPhase::SEARCH);
         return;
     }
 
-    if (phaseElapsedSec() > approach_fine_timeout_s_) {
-        RCLCPP_WARN(get_logger(), "FINE timeout (%.1fs) → fail", approach_fine_timeout_s_);
+    if (phaseElapsedSec() > approach_.fine_timeout_s) {
+        RCLCPP_WARN(get_logger(), "FINE timeout (%.1fs) → fail", approach_.fine_timeout_s);
         finishApproach(false);
         return;
     }
@@ -600,8 +451,8 @@ void BtManagerNode::tickFine()
         "FINE: marker in base_link = (%.2f, %.2f, %.2f) | fwd=%.2f lat=%.2f",
         p_base.x(), p_base.y(), p_base.z(), forward, lateral);
 
-    if (forward < approach_trigger_distance_m_ &&
-        std::abs(lateral) < approach_trigger_lateral_m_) {
+    if (forward < approach_.trigger_distance_m &&
+        std::abs(lateral) < approach_.trigger_lateral_m) {
         RCLCPP_INFO(get_logger(),
             "FINE: in IR zone (fwd=%.2fm lat=%.2fm) → trigger native /dock",
             forward, lateral);
@@ -611,13 +462,13 @@ void BtManagerNode::tickFine()
     }
 
     Twist cmd;
-    cmd.angular.z = std::clamp(approach_kp_rot_ * lateral,
-        -approach_max_angular_speed_, approach_max_angular_speed_);
+    cmd.angular.z = std::clamp(approach_.kp_rot * lateral,
+        -approach_.max_angular_speed, approach_.max_angular_speed);
 
     if (std::abs(lateral) < 0.3) {
-        const double fwd_error = forward - approach_trigger_distance_m_ * 0.8;
-        cmd.linear.x = std::clamp(approach_kp_fwd_ * fwd_error,
-            0.0, approach_max_linear_speed_);
+        const double fwd_error = forward - approach_.trigger_distance_m * 0.8;
+        cmd.linear.x = std::clamp(approach_.kp_fwd * fwd_error,
+            0.0, approach_.max_linear_speed);
     }
     ctx_->cmd_vel_pub->publish(cmd);
 }
@@ -626,14 +477,14 @@ void BtManagerNode::tickSearch()
 {
     if (dockDetectedRecently()) { transitionPhase(ApproachPhase::FINE); return; }
 
-    if (phaseElapsedSec() > approach_search_timeout_s_) {
-        RCLCPP_WARN(get_logger(), "SEARCH timeout (%.1fs) → fail", approach_search_timeout_s_);
+    if (phaseElapsedSec() > approach_.search_timeout_s) {
+        RCLCPP_WARN(get_logger(), "SEARCH timeout (%.1fs) → fail", approach_.search_timeout_s);
         finishApproach(false);
         return;
     }
 
     Twist cmd;
-    cmd.angular.z = approach_search_speed_;
+    cmd.angular.z = approach_.search_speed;
     ctx_->cmd_vel_pub->publish(cmd);
 }
 
@@ -723,7 +574,10 @@ void BtManagerNode::resetAllState()
     led_mgr_->setStateTransient(LedState::EMERGENCY_RESET, 2.0);
     led_mgr_->setState(LedState::TELEOP);
 
-    // 7. Republie un Twist zéro pour vider d'éventuels caches DDS
+    // 7. Feedback sonore
+    if (sound_mgr_) { sound_mgr_->play("emergency_reset"); }
+
+    // 8. Republie un Twist zéro pour vider d'éventuels caches DDS
     publishZeroCmd();
 
     RCLCPP_WARN(get_logger(), "RESET COMPLETE: docking_active=false mode=TELEOP approach=IDLE");
@@ -906,7 +760,7 @@ bool BtManagerNode::dockDetectedRecently() const
 {
     std::lock_guard lock(const_cast<std::mutex&>(dock_pose_mutex_));
     if (last_dock_detection_time_.nanoseconds() == 0) { return false; }
-    return (this->now() - last_dock_detection_time_).seconds() < approach_lost_timeout_s_;
+    return (this->now() - last_dock_detection_time_).seconds() < approach_.lost_timeout_s;
 }
 
 double BtManagerNode::phaseElapsedSec() const
@@ -960,6 +814,10 @@ void BtManagerNode::buildCameraTransform()
 
     tf_cam_to_base_.setOrigin(tf2::Vector3(cam_x_m_, cam_y_m_, cam_z_m_));
     tf_cam_to_base_.setRotation(q_total);
+
+    RCLCPP_INFO(get_logger(),
+        "Camera->base_link transform: pos=(%.2f, %.2f, %.2f) rpy=(%.1f, %.1f, %.1f) deg",
+        cam_x_m_, cam_y_m_, cam_z_m_, cam_roll_deg_, cam_pitch_deg_, cam_yaw_deg_);
 }
 
 tf2::Vector3 BtManagerNode::cameraToBase(const geometry_msgs::msg::Pose& pose_cam) const

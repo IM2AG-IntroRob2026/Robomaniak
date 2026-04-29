@@ -7,6 +7,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
+    add_compile_options($<$<CONFIG:Release>:-O3>)
 endif()
 
 add_compile_options(-Wall -Wextra -Wpedantic)
@@ -21,6 +22,7 @@ find_package(vision_msgs         REQUIRED)
 find_package(cv_bridge           REQUIRED)
 find_package(tf2                 REQUIRED)
 find_package(tf2_geometry_msgs   REQUIRED)
+find_package(ament_index_cpp     REQUIRED)
 find_package(irobot_create_msgs  REQUIRED)
 find_package(behaviortree_cpp    REQUIRED)
 find_package(PkgConfig           REQUIRED)
@@ -115,15 +117,27 @@ set(ROS_DEPS
         cv_bridge
         tf2
         tf2_geometry_msgs
+        ament_index_cpp
         irobot_create_msgs
         behaviortree_cpp
 )
 
 # ----- YOLO Detector Library -----
-add_library(yolo_detector_lib src/yolo_detector.cpp)
+add_library(yolo_detector_lib src/librairies/yolo_detector.cpp)
 target_include_directories(yolo_detector_lib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 target_link_libraries(yolo_detector_lib ${OpenCV_LIBS} onnxruntime::onnxruntime)
 ament_target_dependencies(yolo_detector_lib ${ROS_DEPS})
+
+# ----- LED Manager Library -----
+add_library(led_manager_lib src/librairies/led_manager.cpp)
+target_include_directories(led_manager_lib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+ament_target_dependencies(led_manager_lib ${ROS_DEPS})
+
+# ----- Sound Manager Library -----
+add_library(sound_manager_lib src/librairies/sound_manager.cpp)
+target_include_directories(sound_manager_lib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+target_link_libraries(sound_manager_lib yaml-cpp)
+ament_target_dependencies(sound_manager_lib ${ROS_DEPS})
 
 # ----- Video Node -----
 add_executable(video_node src/video_node.cpp)
@@ -140,6 +154,7 @@ ament_target_dependencies(detection_node ${ROS_DEPS})
 # ----- Follow Node -----
 add_executable(follow_node src/follow_node.cpp)
 target_include_directories(follow_node PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+target_link_libraries(follow_node sound_manager_lib)
 ament_target_dependencies(follow_node ${ROS_DEPS})
 
 # ---- Teleop Node -----
@@ -158,15 +173,15 @@ target_include_directories(listen_node PRIVATE
 target_link_libraries(listen_node ${PORTAUDIO_LIBRARIES} sherpa_onnx::c_api)
 ament_target_dependencies(listen_node ${ROS_DEPS})
 
-# ----- LED Manager Library -----
-add_library(led_manager_lib src/led_manager.cpp)
-target_include_directories(led_manager_lib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
-ament_target_dependencies(led_manager_lib ${ROS_DEPS})
-
 # ----- BT Manager Node -----
-add_executable(bt_manager_node src/bt_manager_node.cpp)
+add_executable(bt_manager_node src/bt_manager_node.cpp
+                               src/bt_utils/nodes/is_mode.cpp
+                               src/bt_utils/nodes/follow_action.cpp
+                               src/bt_utils/nodes/listen_action.cpp
+                               src/bt_utils/nodes/teleop_action.cpp
+)
 target_include_directories(bt_manager_node PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
-target_link_libraries(bt_manager_node led_manager_lib)
+target_link_libraries(bt_manager_node led_manager_lib sound_manager_lib yaml-cpp)
 ament_target_dependencies(bt_manager_node ${ROS_DEPS})
 
 # ----- Dock Detector Node -----
@@ -191,6 +206,7 @@ install(TARGETS
         dock_detector_node
         dock_calibration_node
         led_manager_lib
+        sound_manager_lib
         DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -207,6 +223,7 @@ install(
 if(BUILD_TESTING)
     find_package(ament_lint_auto REQUIRED)
     find_package(ament_cmake_gtest REQUIRED)
+    find_package(ament_cmake_pytest REQUIRED)
 
     ament_lint_auto_find_test_dependencies()
 
@@ -216,6 +233,9 @@ if(BUILD_TESTING)
             onnxruntime::onnxruntime
             yolo_detector_lib
     )
+
+    ament_add_pytest_test(test_follow_node       test/python/test_follow_node.py       TIMEOUT 60)
+#    ament_add_pytest_test(test_bt_manager_node   test/python/test_bt_manager_node.py   TIMEOUT 90)
 endif()
 
 ament_package()
