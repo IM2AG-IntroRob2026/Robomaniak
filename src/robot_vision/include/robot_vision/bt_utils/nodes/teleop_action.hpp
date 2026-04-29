@@ -2,7 +2,7 @@
 
 #include <mutex>
 
-#include <behaviortree_cpp_v3/action_node.h>
+#include <behaviortree_cpp/action_node.h>
 
 #include "robot_vision/bt_utils/bt_context.hpp"
 
@@ -12,7 +12,7 @@ private:
     std::shared_ptr<BtContext> ctx_;
 
 public:
-    TeleopAction(const std::string& name, const BT::NodeConfiguration& config, std::shared_ptr<BtContext> ctx);
+    TeleopAction(const std::string& name, const BT::NodeConfig& config, std::shared_ptr<BtContext> ctx);
 
     static BT::PortsList providedPorts();
 

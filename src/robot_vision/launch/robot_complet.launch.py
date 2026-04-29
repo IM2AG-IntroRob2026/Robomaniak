@@ -36,7 +36,7 @@ def generate_launch_description():
             parameters=[{'strategy': 'most_centered',
                          'allow_reverse': False,
                          "target_bbox_height": 1000.0,
-                         'sound_sequences_path': PathJoinSubstitution([config_path, 'sound_sequences.yaml'
+                         'sound_sequences_path': PathJoinSubstitution([config_path, 'sound_sequences.yaml']),
                      }],
             remappings=[
                 ('/ir_intensity', '/Robot6/ir_intensity'),
