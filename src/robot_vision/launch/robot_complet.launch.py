@@ -15,7 +15,7 @@ def generate_launch_description():
             package='robot_vision',
             executable='video_node',
             name='video_node',
-            parameters=[{'stream_url': "http://10.202.48.94:8080/video", 'publish_rate_hz': 30}]
+            parameters=[{'stream_url': "http://10.39.183.62:8080/video", 'publish_rate_hz': 30}]
         ),
 
         # 2. Détection (YOLO)
@@ -23,7 +23,7 @@ def generate_launch_description():
             package='robot_vision',
             executable='detection_node',
             parameters=[{
-                'model_path': PathJoinSubstitution([models_path, 'yolov8s.onnx']),
+                'model_path': PathJoinSubstitution([models_path, 'yolov8n.onnx']),
                 'confidence_threshold': 0.5,
                 'use_gpu': False
             }]
@@ -33,10 +33,10 @@ def generate_launch_description():
         Node(
             package='robot_vision',
             executable='follow_node',
-            parameters=[{'strategy': 'most_centered', 'allow_reverse': True}],
+            parameters=[{'strategy': 'most_centered', 'allow_reverse': False, "target_bbox_height": 1000.0}],
             remappings=[
-                ('/ir_intensity', '/Robot3/ir_intensity'),
-                ('/hazard_detection', '/Robot3/hazard_detection')
+                ('/ir_intensity', '/Robot6/ir_intensity'),
+                ('/hazard_detection', '/Robot6/hazard_detection')
             ]
         ),
 
@@ -44,11 +44,11 @@ def generate_launch_description():
         Node(
             package='robot_vision',
             executable='bt_manager_node',
-            parameters=[{'bt_tick_hz': 50.0, 'dock_action': '/Robot3/dock', 'undock_action': '/Robot3/undock', 'camera_pitch_deg': -27.0}],
+            parameters=[{'bt_tick_hz': 50.0, 'dock_action': '/Robot6/dock', 'undock_action': '/Robot6/undock', 'camera_pitch_deg': -27.0}],
             remappings=[
-                ('/cmd_vel', '/Robot3/cmd_vel'),
-                ('/cmd_lightring', '/Robot3/cmd_lightring'),
-                ('/odom', '/Robot3/odom')
+                ('/cmd_vel', '/Robot6/cmd_vel'),
+                ('/cmd_lightring', '/Robot6/cmd_lightring'),
+                ('/odom', '/Robot6/odom')
             ]
         ),
 

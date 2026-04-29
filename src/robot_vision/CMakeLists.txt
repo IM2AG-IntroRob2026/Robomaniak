@@ -22,7 +22,7 @@ find_package(cv_bridge           REQUIRED)
 find_package(tf2                 REQUIRED)
 find_package(tf2_geometry_msgs   REQUIRED)
 find_package(irobot_create_msgs  REQUIRED)
-find_package(behaviortree_cpp_v3 REQUIRED)
+find_package(behaviortree_cpp    REQUIRED)
 find_package(PkgConfig           REQUIRED)
 find_package(rclcpp_action       REQUIRED)
 
@@ -116,7 +116,7 @@ set(ROS_DEPS
         tf2
         tf2_geometry_msgs
         irobot_create_msgs
-        behaviortree_cpp_v3
+        behaviortree_cpp
 )
 
 # ----- YOLO Detector Library -----
